@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ahorradas</title>
-</head>
-<body>
-
-     <!-- <link href="/dist/output.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- <link href="/dist/output.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script> -->
     <header>
       <nav>
@@ -26,87 +25,95 @@
       </nav>
     </header>
     <main>
-       <aside>
-            <title>Balance</title>
-            <h2>Ganancias</h2>
-            <h2>Gastos</h2>
-            <h2>Total</h2>
-       </aside>
-       <section>
-            <h1>Filtros</h1>
-            <label for="type-filters">Tipo</label>
-            <select name="filters-type" id="filters-type">
-            <option value="todos">Todos</option>
-            <option value="gasto">Gastos</option>
-            <option value="ganancia">Ganancias</option>
-            </select>
+      <aside>
+        <title>Balance</title>
+        <h2>Ganancias</h2>
+        <h2>Gastos</h2>
+        <h2>Total</h2>
+      </aside>
+      <section>
+        <h1>Filtros</h1>
+        <label for="type-filters">Tipo</label>
+        <select name="filters-type" id="filters-type">
+          <option value="todos">Todos</option>
+          <option value="gasto">Gastos</option>
+          <option value="ganancia">Ganancias</option>
+        </select>
 
-            <label for="categories">Categorías</label>
-            <select name="filters-categories" id="filters-categories">
-            <option value="todas">Todas</option>
-            <option value="comida">Comida</option>
-            <option value="salidas">Salidas</option>
-            <option value="servicios">Servicios</option>
-            <option value="educación">Educación</option>
-            <option value="transporte">Transporte</option>
-            <option value="trabajo">Trabajo</option>
-            </select>
+        <label for="categories">Categorías</label>
+        <select name="filters-categories" id="filters-categories">
+          <option value="todas">Todas</option>
+          <option value="comida">Comida</option>
+          <option value="salidas">Salidas</option>
+          <option value="servicios">Servicios</option>
+          <option value="educación">Educación</option>
+          <option value="transporte">Transporte</option>
+          <option value="trabajo">Trabajo</option>
+        </select>
 
-            <label for="filters-calendars">Desde</label>
-            <input
-            type="date"
-            id="calendario"
-            name="calendario"
-            value="2022-10-01"
-            min="2022-01-01"
-            max="2022-12-31"
-            />
+        <label for="filters-calendars">Desde</label>
+        <input
+          type="date"
+          id="calendario"
+          name="calendario"
+          value="2022-10-01"
+          min="2022-01-01"
+          max="2022-12-31"
+        />
 
-            <h1>Ordenar por</h1>
-            <select name="filters-categoriesThree" id="filters-categoriesThree">
-            <option value="">Más reciente</option>
-            <option value="">Menos reciente</option>
-            <option value="">Menor Monto</option>
-            <option value="">Mayor monto</option>
-            <option value="">A/Z</option>
-            <option value="">Z/A</option>
-            </select>
+        <h1>Ordenar por</h1>
+        <select name="filters-categoriesThree" id="filters-categoriesThree">
+          <option value="">Más reciente</option>
+          <option value="">Menos reciente</option>
+          <option value="">Menor Monto</option>
+          <option value="">Mayor monto</option>
+          <option value="">A/Z</option>
+          <option value="">Z/A</option>
+        </select>
       </section>
 
-       <section>
-            <h1>Operaciones</h1>
-            <table>
-            <tr>
-                <td><strong>Descripción</strong></td>
-                <td><strong>Categoría</strong></td>
-                <td><strong>Fecha</strong></td>
-                <td><strong>Monto</strong></td>
-                <td><strong>Acciones</strong></td>
-            </tr>
-            <tr>
-                <td>Trabajo</td>
-                <td>Transporte</td>
-                <td>26/10</td>
-                <td></td>
-                <th><button>Editar</button></th>
-                <th><button>Eliminar</button></th>
-            </tr>
-            </table>
-       </section>
+      <section>
+        <h1>Operaciones</h1>
+        <table>
+          <tr>
+            <td><strong>Descripción</strong></td>
+            <td><strong>Categoría</strong></td>
+            <td><strong>Fecha</strong></td>
+            <td><strong>Monto</strong></td>
+            <td><strong>Acciones</strong></td>
+          </tr>
+          <tr>
+            <td>Trabajo</td>
+            <td>Transporte</td>
+            <td>26/10</td>
+            <td></td>
+            <th><button>Editar</button></th>
+            <th><button>Eliminar</button></th>
+          </tr>
+        </table>
+      </section>
       <section class="categories">
-            <h2>Categorias</h2>
-            <h3>Nombre</h3>
-            <p>ingresar categoria</p>
-            <button>Agregar</button>
-            <p>Comida</p>       <button>Editar</button>    <button>Eliminar</button>
-            <p>Servicios</p>    <button>Editar</button>    <button>Eliminar</button>
-            <p>Salidas</p>      <button>Editar</button>    <button>Eliminar</button>
-            <p>Educacion</p>    <button>Editar</button>    <button>Eliminar</button>
-            <p>Transporte</p>   <button>Editar</button>    <button>Eliminar</button>
-            <p>Trabajo</p>      <button>Editar</button>    <button>Eliminar</button>
-            <p>Supermercado</p> <button>Editar</button>    <button>Eliminar</button> 
-     </section>
-</main>
-<footer></footer>
-</body>
+        <h2>Categorias</h2>
+        <h3>Nombre</h3>
+        <p>ingresar categoria</p>
+        <button>Agregar</button>
+        <p>Comida</p>
+        <button>Editar</button> <button>Eliminar</button>
+        <p>Servicios</p>
+        <button>Editar</button> <button>Eliminar</button>
+        <p>Salidas</p>
+        <button>Editar</button> <button>Eliminar</button>
+        <p>Educacion</p>
+        <button>Editar</button> <button>Eliminar</button>
+        <p>Transporte</p>
+        <button>Editar</button> <button>Eliminar</button>
+        <p>Trabajo</p>
+        <button>Editar</button> <button>Eliminar</button>
+        <p>Supermercado</p>
+        <button>Editar</button> <button>Eliminar</button>
+      </section>
+      <section class="reports"></section>
+    </main>
+    <footer></footer>
+  </body>
 </html>
