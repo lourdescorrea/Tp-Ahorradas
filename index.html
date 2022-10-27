@@ -4,37 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' integrity='sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==' crossorigin='anonymous' referrerpolicy='no-referrer' />
-    <script src="https://cdn.tailwindcss.com"></script>
     <title>Ahorradas</title>
   </head>
   <body>
+    <!-- <link href="/dist/output.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script> -->
     <header>
       <nav>
         <ul>
           <li>
-            <a href="#">Balance</a><i class="fa-solid fa-scale-unbalanced-flip"></i>
-
+            <a href="#">Balance</a><i class="fa-solid fa-chart-line-up"></i>
           </li>
           <li>
-            <a href="#">Categorias</a><i class="fa-solid fa-tags"></i>
+            <a href="#">Categorias</a><i class="fa-solid fa-chart-pyramid"></i>
           </li>
           <li>
-            <a href="#">Reportes</a><i class="fa-solid fa-chart-pie"></i>
-
+            <a href="#">Reportes</a><i class="fa-solid fa-chart-pie-simple"></i>
           </li>
         </ul>
       </nav>
     </header>
     <main>
       <aside>
-        <h1>Balance</h1>
-        <h3>Ganancias</h3>
-        <h3>Gastos</h3>
-        <h3>Total</h3>
+        <title>Balance</title>
+        <h2>Ganancias</h2>
+        <h2>Gastos</h2>
+        <h2>Total</h2>
       </aside>
       <section>
-        <h2>Filtros</h2>
+        <h1>Filtros</h1>
         <label for="type-filters">Tipo</label>
         <select name="filters-type" id="filters-type">
           <option value="todos">Todos</option>
@@ -63,7 +61,7 @@
           max="2022-12-31"
         />
 
-        <h2>Ordenar por</h2>
+        <h1>Ordenar por</h1>
         <select name="filters-categoriesThree" id="filters-categoriesThree">
           <option value="">Más reciente</option>
           <option value="">Menos reciente</option>
@@ -75,8 +73,7 @@
       </section>
 
       <section>
-        <h2>Operaciones</h2>
-        <button>Nueva Operacion</button>
+        <h1>Operaciones</h1>
         <table>
           <tr>
             <td><strong>Descripción</strong></td>
@@ -115,44 +112,7 @@
         <p>Supermercado</p>
         <button>Editar</button> <button>Eliminar</button>
       </section>
-      <section class="reports">
-        <h2>Reportes</h2>
-        <h3>Resumen</h3>
-        <p>Categoría con mayor ganancia</p>
-        <p>Categoría con mayor gasto</p>
-        <p>Categoría con mayor balance</p>
-        <p>Mes con mayor ganancia</p>
-        <p>Mes con mayor gasto</p>
-
-        <h3>Totales por categorías</h3>
-        <table>
-          <tr>
-            <td><strong>Categoria</strong></td>
-            <td><strong>Ganancias</strong></td>
-            <td><strong>Gastos</strong></td>
-            <td><strong>Balance</strong></td>
-          </tr>
-          <tr>
-            <td>Comida</td>
-            <td>Trabajo</td>
-            <td>Servicios</td>
-            <td>Salidas</td>
-          </tr>
-        </table>
-
-        <h3>Totales por mes</h3>
-        <table>
-          <tr>
-            <td><strong>Mes</strong></td>
-            <td><strong>Ganancias</strong></td>
-            <td><strong>Gastos</strong></td>
-            <td><strong>Balance</strong></td>
-          </tr>
-          <tr>
-            <td>fecha</td>
-          </tr>
-
-      </section>
+      <section class="reports"></section>
     </main>
     <footer></footer>
   </body>
