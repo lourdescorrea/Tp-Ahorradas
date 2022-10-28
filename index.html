@@ -4,155 +4,227 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' integrity='sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==' crossorigin='anonymous' referrerpolicy='no-referrer' />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Ahorradas</title>
   </head>
   <body>
     <header>
       <nav>
-        <ul>
-          <li>
-            <a href="#">Balance</a><i class="fa-solid fa-scale-unbalanced-flip"></i>
-
-          </li>
-          <li>
-            <a href="#">Categorias</a><i class="fa-solid fa-tags"></i>
-          </li>
-          <li>
-            <a href="#">Reportes</a><i class="fa-solid fa-chart-pie"></i>
-
-          </li>
-        </ul>
+        <div
+          class="flex items-center justify-between h-16 px-8 bg-indigo-400 text-white"
+        >
+          <h1 class="text-4xl">
+            <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
+            AhorrADAs
+          </h1>
+          <div class="flex flex-row text-xl text-white">
+            <ul class="flex flex-row">
+              <li class="mx-5 hover:text-red-300">
+                <a href="#">Balance</a>
+                <i class="mx-1 fa-solid fa-scale-unbalanced-flip"></i>
+              </li>
+              <li class="mx-5 hover:text-red-300">
+                <a href="#">Categorias</a><i class="mx-1 fa-solid fa-tags"></i>
+              </li>
+              <li class="mx-5 hover:text-red-300">
+                <a href="#">Reportes</a>
+                <i class="mx-1 fa-solid fa-chart-pie"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
     </header>
-    <main>
-      <aside>
-        <h1>Balance</h1>
-        <h3>Ganancias</h3>
-        <h3>Gastos</h3>
-        <h3>Total</h3>
-      </aside>
-      <section>
-        <h2>Filtros</h2>
-        <label for="type-filters">Tipo</label>
-        <select name="filters-type" id="filters-type">
-          <option value="todos">Todos</option>
-          <option value="gasto">Gastos</option>
-          <option value="ganancia">Ganancias</option>
-        </select>
+    <main class="flex flex-col text-white font-sans">
+      <div class="flex justify-center">
+        <section class="">
+          <aside class="flex bg-indigo-400 h-64 w-80 my-10">
+            <div class="flex flex-col justify-center text-2xl px-8">
+              <h1 class="text-4xl mb-6">Balance</h1>
+              <h3 class="py-2">Ganancias</h3>
+              <h3 class="py-2">Gastos</h3>
+              <h3 class="py-2">Total</h3>
+            </div>
+          </aside>
 
-        <label for="categories">Categorías</label>
-        <select name="filters-categories" id="filters-categories">
-          <option value="todas">Todas</option>
-          <option value="comida">Comida</option>
-          <option value="salidas">Salidas</option>
-          <option value="servicios">Servicios</option>
-          <option value="educación">Educación</option>
-          <option value="transporte">Transporte</option>
-          <option value="trabajo">Trabajo</option>
-        </select>
+          <div class="flex flex-col bg-indigo-400 h-96 w-80 px-8">
+            <div class="flex justify-between mb-6">
+              <h2 class="text-3xl">Filtros</h2>
+              <div class="flex justify-end hover:text-red-300">
+                <button>Ocultar Filtros</button>
+              </div>
+            </div>
+            <label class="text-xl my-2" for="type-filters">Tipo</label>
+            <select class="text-gray-800" name="filters-type" id="filters-type">
+              <option value="todos">Todos</option>
+              <option value="gasto">Gastos</option>
+              <option value="ganancia">Ganancias</option>
+            </select>
 
-        <label for="filters-calendars">Desde</label>
-        <input
-          type="date"
-          id="calendario"
-          name="calendario"
-          value="2022-10-01"
-          min="2022-01-01"
-          max="2022-12-31"
-        />
+            <label class="text-xl my-2" for="categories">Categorías</label>
+            <select
+              class="text-gray-800"
+              name="filters-categories"
+              id="filters-categories"
+            >
+              <option value="todas">Todas</option>
+              <option value="comida">Comida</option>
+              <option value="salidas">Salidas</option>
+              <option value="servicios">Servicios</option>
+              <option value="educación">Educación</option>
+              <option value="transporte">Transporte</option>
+              <option value="trabajo">Trabajo</option>
+            </select>
 
-        <h2>Ordenar por</h2>
-        <select name="filters-categoriesThree" id="filters-categoriesThree">
-          <option value="">Más reciente</option>
-          <option value="">Menos reciente</option>
-          <option value="">Menor Monto</option>
-          <option value="">Mayor monto</option>
-          <option value="">A/Z</option>
-          <option value="">Z/A</option>
-        </select>
-      </section>
+            <label class="text-xl my-2" for="filters-calendars">Desde</label>
+            <input
+              class="text-gray-800"
+              type="date"
+              id="calendario"
+              name="calendario"
+              value="2022-10-01"
+              min="2022-01-01"
+              max="2022-12-31"
+            />
 
-      <section>
-        <h2>Operaciones</h2>
-        <button>Nueva Operacion</button>
-        <table>
-          <tr>
-            <td><strong>Descripción</strong></td>
-            <td><strong>Categoría</strong></td>
-            <td><strong>Fecha</strong></td>
-            <td><strong>Monto</strong></td>
-            <td><strong>Acciones</strong></td>
-          </tr>
-          <tr>
-            <td>Trabajo</td>
-            <td>Transporte</td>
-            <td>26/10</td>
-            <td></td>
-            <th><button>Editar</button></th>
-            <th><button>Eliminar</button></th>
-          </tr>
-        </table>
-      </section>
-      <section class="categories">
-        <h2>Categorias</h2>
-        <h3>Nombre</h3>
-        <p>ingresar categoria</p>
-        <button>Agregar</button>
-        <p>Comida</p>
-        <button>Editar</button> <button>Eliminar</button>
-        <p>Servicios</p>
-        <button>Editar</button> <button>Eliminar</button>
-        <p>Salidas</p>
-        <button>Editar</button> <button>Eliminar</button>
-        <p>Educacion</p>
-        <button>Editar</button> <button>Eliminar</button>
-        <p>Transporte</p>
-        <button>Editar</button> <button>Eliminar</button>
-        <p>Trabajo</p>
-        <button>Editar</button> <button>Eliminar</button>
-        <p>Supermercado</p>
-        <button>Editar</button> <button>Eliminar</button>
-      </section>
-      <section class="reports">
-        <h2>Reportes</h2>
-        <h3>Resumen</h3>
-        <p>Categoría con mayor ganancia</p>
-        <p>Categoría con mayor gasto</p>
-        <p>Categoría con mayor balance</p>
-        <p>Mes con mayor ganancia</p>
-        <p>Mes con mayor gasto</p>
+            <label class="text-xl my-2" for="categories">Ordenar por</label>
+            <select
+              class="text-gray-800"
+              name="filters-categoriesThree"
+              id="filters-categoriesThree"
+            >
+              <option value="">Más reciente</option>
+              <option value="">Menos reciente</option>
+              <option value="">Menor Monto</option>
+              <option value="">Mayor monto</option>
+              <option value="">A/Z</option>
+              <option value="">Z/A</option>
+            </select>
+          </div>
+        </section>
 
-        <h3>Totales por categorías</h3>
-        <table>
-          <tr>
-            <td><strong>Categoria</strong></td>
-            <td><strong>Ganancias</strong></td>
-            <td><strong>Gastos</strong></td>
-            <td><strong>Balance</strong></td>
-          </tr>
-          <tr>
-            <td>Comida</td>
-            <td>Trabajo</td>
-            <td>Servicios</td>
-            <td>Salidas</td>
-          </tr>
-        </table>
+        <section>
+          <div class="w-[50rem] m-10 shadow-lg shadow-indigo-500/50">
+            <div class="flex justify-between m-10 py-8 text-gray-800">
+              <h2 class="text-gray-800 text-4xl">Operaciones</h2>
+              <div
+                class="flex jutify-center items-center rounded-md w-36 text-white bg-indigo-400 hover:bg-indigo-800 drop-shadow-2xl"
+              >
+                <button type="button" id="">+Nueva operación</button>
+              </div>
+            </div>
+            <div>
+              <figure class="flex justify-center">
+                <img class="w-4/6" src="assets/economi.webp" alt="" />
+              </figure>
+            </div>
+            <div class="flex flex-col items-center py-8 text-gray-800">
+              <h4 class="text-2xl">Sin resultados</h4>
+              <p class="text-base">Cambia los filtros o agrega operaciones</p>
+            </div>
+          </div>
+          <!-- <div id="operaciones">
 
-        <h3>Totales por mes</h3>
-        <table>
-          <tr>
-            <td><strong>Mes</strong></td>
-            <td><strong>Ganancias</strong></td>
-            <td><strong>Gastos</strong></td>
-            <td><strong>Balance</strong></td>
-          </tr>
-          <tr>
-            <td>fecha</td>
-          </tr>
+                  <div id="" class="">
+                    <h2>operaciones</h2>
+                    <div class="">
+                      <div class="">Descripción</div>
+                      <div class="">Categoría</div>
+                      <div class="">Fecha</div>
+                      <div class="">Monto</div>
+                      <div class="">Acciones</div>
+                    </div>
+                  </div>
+                  <div class="">
+                    <span class="">Prueba</span>
+                  </div>
+                  <div class="">
+                    <a href="#" class="">Editar</a>
+                    <a href="#" class="">Eliminar</a>
+                  </div>
 
-      </section>
+                  <div class="">
+                    <span class="">Prueba</span>
+                  </div>
+                  <div class="">
+                    27/10/2022
+                  </div>
+                  <div class="">
+                    +$20000
+                  </div>
+                  <div class="">
+                    <a href="#" class="">Editar</a>
+                    <a href="#" class="">Eliminar</a>
+                  </div>
+              </div>   -->
+        </section>
+      </div>
+      <!-- 
+          <section class="categories">
+            <h2>Categorias</h2>
+            <h3>Nombre</h3>
+            <p>ingresar categoria</p>
+            <button>Agregar</button>
+            <p>Comida</p>
+            <button>Editar</button> <button>Eliminar</button>
+            <p>Servicios</p>
+            <button>Editar</button> <button>Eliminar</button>
+            <p>Salidas</p>
+            <button>Editar</button> <button>Eliminar</button>
+            <p>Educacion</p>
+            <button>Editar</button> <button>Eliminar</button>
+            <p>Transporte</p>
+            <button>Editar</button> <button>Eliminar</button>
+            <p>Trabajo</p>
+            <button>Editar</button> <button>Eliminar</button>
+            <p>Supermercado</p>
+            <button>Editar</button> <button>Eliminar</button>
+          </section>
+         
+          <section class="reports">
+            <h2>Reportes</h2>
+            <h3>Resumen</h3>
+            <p>Categoría con mayor ganancia</p>
+            <p>Categoría con mayor gasto</p>
+            <p>Categoría con mayor balance</p>
+            <p>Mes con mayor ganancia</p>
+            <p>Mes con mayor gasto</p>
+
+            <h3>Totales por categorías</h3>
+            <table>
+              <tr>
+                <td><strong>Categoria</strong></td>
+                <td><strong>Ganancias</strong></td>
+                <td><strong>Gastos</strong></td>
+                <td><strong>Balance</strong></td>
+              </tr>
+              <tr>
+                <td>Comida</td>
+                <td>Trabajo</td>
+                <td>Servicios</td>
+                <td>Salidas</td>
+              </tr>
+            </table>
+
+            <h3>Totales por mes</h3>
+            <table>
+              <tr>
+                <td><strong>Mes</strong></td>
+                <td><strong>Ganancias</strong></td>
+                <td><strong>Gastos</strong></td>
+                <td><strong>Balance</strong></td>
+              </tr>
+              <tr>
+                <td>fecha</td>
+              </tr>
+          </section> -->
     </main>
     <footer></footer>
   </body>
