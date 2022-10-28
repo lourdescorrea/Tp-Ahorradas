@@ -45,7 +45,9 @@
     <main class="flex flex-col text-white font-sans">
       <div class="flex justify-center">
         <section class="">
-          <aside class="flex bg-indigo-400 h-64 w-80 my-10">
+          <aside
+            class="flex bg-indigo-400 h-64 w-80 my-10 shadow-lg shadow-indigo-500/50"
+          >
             <div class="flex flex-col justify-center text-2xl px-8">
               <h1 class="text-4xl mb-6">Balance</h1>
               <h3 class="py-2">Ganancias</h3>
@@ -54,59 +56,74 @@
             </div>
           </aside>
 
-          <div class="flex flex-col bg-indigo-400 h-96 w-80 px-8">
-            <div class="flex justify-between mb-6">
+          <div
+            class="flex flex-col bg-indigo-400 h-2/4 w-80 px-8 shadow-xl shadow-indigo-500/50"
+          >
+            <div class="flex justify-between">
               <h2 class="text-3xl">Filtros</h2>
-              <div class="flex justify-end hover:text-red-300">
+              <div class="flex justify-end text-gray-800 hover:text-red-300">
                 <button>Ocultar Filtros</button>
               </div>
             </div>
+
             <label class="text-xl my-2" for="type-filters">Tipo</label>
-            <select class="text-gray-800" name="filters-type" id="filters-type">
-              <option value="todos">Todos</option>
-              <option value="gasto">Gastos</option>
-              <option value="ganancia">Ganancias</option>
-            </select>
+            <div class="text-gray-800">
+              <select
+                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer"
+                name="filters-type"
+                id="filters-type"
+              >
+                <option value="todos">Todos</option>
+                <option value="gasto">Gastos</option>
+                <option value="ganancia">Ganancias</option>
+              </select>
+            </div>
 
             <label class="text-xl my-2" for="categories">Categorías</label>
-            <select
-              class="text-gray-800"
-              name="filters-categories"
-              id="filters-categories"
-            >
-              <option value="todas">Todas</option>
-              <option value="comida">Comida</option>
-              <option value="salidas">Salidas</option>
-              <option value="servicios">Servicios</option>
-              <option value="educación">Educación</option>
-              <option value="transporte">Transporte</option>
-              <option value="trabajo">Trabajo</option>
-            </select>
+            <div class="text-gray-800">
+              <select
+                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer"
+                name="filters-categories"
+                id="filters-categories"
+              >
+                <option value="todas">Todas</option>
+                <option value="comida">Comida</option>
+                <option value="salidas">Salidas</option>
+                <option value="servicios">Servicios</option>
+                <option value="educación">Educación</option>
+                <option value="transporte">Transporte</option>
+                <option value="trabajo">Trabajo</option>
+              </select>
+            </div>
 
             <label class="text-xl my-2" for="filters-calendars">Desde</label>
-            <input
-              class="text-gray-800"
-              type="date"
-              id="calendario"
-              name="calendario"
-              value="2022-10-01"
-              min="2022-01-01"
-              max="2022-12-31"
-            />
+            <div class="text-gray-800">
+              <input
+                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer"
+                type="date"
+                id="calendario"
+                name="calendario"
+                value="2022-10-01"
+                min="2022-01-01"
+                max="2022-12-31"
+              />
+            </div>
 
             <label class="text-xl my-2" for="categories">Ordenar por</label>
-            <select
-              class="text-gray-800"
-              name="filters-categoriesThree"
-              id="filters-categoriesThree"
-            >
-              <option value="">Más reciente</option>
-              <option value="">Menos reciente</option>
-              <option value="">Menor Monto</option>
-              <option value="">Mayor monto</option>
-              <option value="">A/Z</option>
-              <option value="">Z/A</option>
-            </select>
+            <div class="text-gray-800 table-cell items-center">
+              <select
+                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer"
+                name="filters-categoriesThree"
+                id="filters-categoriesThree"
+              >
+                <option value="">Más reciente</option>
+                <option value="">Menos reciente</option>
+                <option value="">Menor Monto</option>
+                <option value="">Mayor monto</option>
+                <option value="">A/Z</option>
+                <option value="">Z/A</option>
+              </select>
+            </div>
           </div>
         </section>
 
