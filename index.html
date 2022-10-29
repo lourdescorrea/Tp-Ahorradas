@@ -20,14 +20,14 @@
         <div
           class="flex items-center justify-between h-16 px-8 bg-indigo-400 text-white"
         >
-          <h1 class="text-4xl">
+          <h1 class="text-4xl font-semibold">
             <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
             AhorrADAs
           </h1>
           <div class="flex flex-row text-xl text-white">
             <ul class="flex flex-row">
-              <li class="mx-5 hover:text-red-300">
-                <a href="#">Balance</a>
+              <li class="mx-5 hover:text-red-300 ">
+                <a class="" href="#">Balance</a>
                 <i class="mx-1 fa-solid fa-scale-unbalanced-flip"></i>
               </li>
               <li class="mx-5 hover:text-red-300">
@@ -48,7 +48,7 @@
         <section class="">    
           <aside class="">
             <div class=" flex flex-col justify-center bg-indigo-400 h-64 w-80 my-10 shadow-lg shadow-indigo-500/50 text-2xl px-8">
-                <h1 class="text-4xl mb-6">Balance </h1>
+                <h1 class="font-semibold text-4xl mb-6">Balance </h1>
                 <div class="flex justify-between items-center">
                   <h3 class="py-2">Ganancias</h3>
                   <p class="text-yellow-400  text-xl"> +$0</p>
@@ -68,7 +68,7 @@
             class="flex flex-col justify-center  bg-indigo-400 h-2/5 w-80 px-8 shadow-xl shadow-indigo-500/50"
           >
             <div class="flex justify-between items-center mb-2">
-              <h2 class="text-3xl">Filtros</h2>
+              <h2 class=" font-semibold text-3xl">Filtros</h2>
               <div class="text-gray-800 hover:text-red-300">
                 <button>Ocultar Filtros</button>
               </div>
@@ -138,7 +138,7 @@
         <section>
           <div class="w-[50rem] m-10 shadow-lg shadow-indigo-500/50">
             <div class="flex justify-between m-10 py-8 text-gray-800">
-              <h2 class="text-gray-800 text-4xl">Operaciones</h2>
+              <h2 class=" font-semibold text-gray-800 text-4xl">Operaciones</h2>
               <div
                 class="flex justify-center items-center rounded-md w-40 h-10 text-white bg-indigo-400 hover:bg-indigo-800 drop-shadow-2xl"
               >
@@ -150,9 +150,9 @@
                 <img class="w-4/6" src="assets/economi.webp" alt="" />
               </figure>
             </div>
-            <div class="flex flex-col items-center py-8 text-gray-800">
+            <div class="flex flex-col items-center font-medium py-8 text-gray-800">
               <h4 class="text-2xl">Sin resultados</h4>
-              <p class="text-base">Cambia los filtros o agrega operaciones</p>
+              <p class="  text-base">Cambia los filtros o agrega operaciones</p>
             </div>
           </div>
           
@@ -193,25 +193,90 @@
         </section>
       </div>
       
-          <section class="categories ">
-            <h2>Categorias</h2>
-            <h3>Nombre</h3>
-            <p>ingresar categoria</p>
-            <button>Agregar</button>
-            <p>Comida</p>
-            <button>Editar</button> <button>Eliminar</button>
-            <p>Servicios</p>
-            <button>Editar</button> <button>Eliminar</button>
-            <p>Salidas</p>
-            <button>Editar</button> <button>Eliminar</button>
-            <p>Educacion</p>
-            <button>Editar</button> <button>Eliminar</button>
-            <p>Transporte</p>
-            <button>Editar</button> <button>Eliminar</button>
-            <p>Trabajo</p>
-            <button>Editar</button> <button>Eliminar</button>
-            <p>Supermercado</p>
-            <button>Editar</button> <button>Eliminar</button>
+          <section class="categories flex justify-center ">
+            <div class="flex justify-center flex-col w-3/5 h-[45rem] items-center rounded shadow-2xl shadow-indigo-500/50 text-gray-800">
+              <div class="Section categories">
+                <h2 class=" font-semibold ml-8 text-5xl">Categorías</h2>
+               
+                <div class="flex justify-between items-center m-8 ">
+                  
+                  <div class=" ">
+                    
+                    <input class="h-12 w-[50rem] rounded border-2 border-indigo-500 focus:border-blue-600 focus:outline-none" type="text" name="" id="categoria-input">
+                  </div>
+                  <div class=" flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl  text-white rounded-md hover:bg-indigo-800 ">
+                    <button class="" id="">
+                      Agregar
+                    </button>
+                  </div>
+                </div>
+                <div class=" flex justify-between m-8" >
+                  <div class="">
+                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Comida</span>
+                  </div>
+                 <div class=" text-m mr-8 font-medium " >
+                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
+                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
+                 </div>
+                </div>
+              
+                <div class=" flex justify-between m-8" >
+                  <div class="">
+                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Servicios</span>
+                  </div>
+                 <div class=" text-m  mr-8  font-medium " >
+                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
+                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
+                 </div>
+                </div>
+               
+                <div class=" flex justify-between m-8" >
+                  <div class="">
+                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Salidas</span>
+                  </div>
+                 <div class=" text-m  mr-8  font-medium " >
+                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
+                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
+                 </div>
+                </div>
+                <div class=" flex justify-between m-8" >
+                  <div class="">
+                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Educación</span>
+                  </div>
+                 <div class=" text-m  mr-8  font-medium " >
+                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
+                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
+                 </div>
+                </div>
+                <div class=" flex justify-between m-8" >
+                  <div class="">
+                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Transporte</span>
+                  </div>
+                 <div class=" text-m   mr-8 font-medium " >
+                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
+                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
+                 </div>
+                </div>
+                <div class=" flex justify-between m-8" >
+                  <div class="">
+                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Trabajo</span>
+                  </div>
+                 <div class=" text-m  mr-8  font-medium " >
+                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
+                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
+                 </div>
+                </div>
+                <div class=" flex justify-between m-8" >
+                  <div class="">
+                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Supermercado</span>
+                  </div>
+                 <div class=" text-m  mr-8  font-medium " >
+                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
+                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
+                 </div>
+                </div>
+              </div>
+           
           </section>
          
           <section class="reports">
