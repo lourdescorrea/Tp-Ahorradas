@@ -9,6 +9,7 @@ const newOperation = () => {
     const category = $("#category").value
     const amount = $("#amount").value
     const type = $("#type").value
+    const calendar  = $("#calendar").value
   
   
 
@@ -16,7 +17,8 @@ const newOperation = () => {
         description,
         category,
         type,
-        amount
+        amount,
+        calendar
     }
 }
 
@@ -24,7 +26,7 @@ const generateTable = () => {
     $("#table").innerHTML = ""
 
     operations.map(operation =>{
-        const {description, category, type, amount} = operation
+        const {description, category, type, amount, calendar} = operation
         $("#table").innerHTML += `
 
         <tr> 
@@ -33,6 +35,7 @@ const generateTable = () => {
                 <td>${category}</td>
                 <td>${amount}</td>
                 <td>${type}</td>
+                <td>${calendar}</td>
             </tr>
         `
     })
