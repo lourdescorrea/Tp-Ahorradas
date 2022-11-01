@@ -2,7 +2,7 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
 const agregarOperacion = $("#btnAddOperation")
-const tableEditarEliminar = $("#tableEditarEliminar")
+const tableEditDelete = $("#tableEditDelete")
 
 // genera array de objetos con la informacion de cada operacion
 const operations = []
@@ -50,7 +50,7 @@ const findOperation = (id) => {
     return operations.find(product => product.id === id)
 }
 
-const cleanPage = () => nuevaOperacion.innerHTML = ""
+const cleanPage = () => newOperation.innerHTML = ""
 
 const operationEdit = (id) => {
     cleanPage()
@@ -65,6 +65,6 @@ $("#btnAddOperation").addEventListener("click", () =>{
     operations.push(newOperation())
     generateTable() 
     cleanPage()
-    tableEditarEliminar.classList.remove("hidden")
+    tableEditDelete.classList.remove("hidden")
     console.log(operations)
 })

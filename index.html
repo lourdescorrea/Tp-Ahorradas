@@ -160,8 +160,8 @@
           </div>
         </div>
       </section>
-      <!-- section new operation  -->
-      <section class="new operation">
+      <!-- section add new operation  -->
+      <section id="addNewOperation" class="new operation">
         <div
           class="hidden my-3.5 w-[50rem] m-10 shadow-lg shadow-indigo-500/50 h-auto"
         >
@@ -174,6 +174,7 @@
               id="amount"
             />
           </div>
+
           <div>
             <label for="type" class="text-xl my-2 text-gray-800">Tipo</label>
             <select
@@ -185,6 +186,7 @@
               <option value="ganacia">Ganacia</option>
             </select>
           </div>
+
           <div>
             <label for="category" class="text-xl my-2 text-gray-800"
               >Categoria</label
@@ -203,6 +205,7 @@
               <option value="supermercado">Supermercado</option>
             </select>
           </div>
+
           <div>
             <label for="date" class="text-xl my-2 text-gray-800">Fecha</label>
             <input
@@ -215,6 +218,7 @@
               max="2022-12-31"
             />
           </div>
+
           <div>
             <label for="description" class="text-xl my-2 text-gray-800"
               >Descripcion</label
@@ -229,13 +233,120 @@
             <div
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
             >
-              <button type="button" id="btnNewOperation">Agregar</button>
+              <button type="button" id="btnAddOperation">Agregar</button>
             </div>
             <div
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
             >
               <button type="button" id="btnDeleteOperation">Cancelar</button>
             </div>
+          </div>
+        </div>
+      </section>
+      <!-- section edit operations register -->
+      <section class="hidden" id="tableEditDelete">
+        <div class="my-3.5 w-[50rem] m-10 shadow-lg shadow-indigo-500/50 h-auto">
+            <h2 class=" font-semibold text-gray-800 text-4xl">Registro de Operaciones</h2>
+         <div class="flex flex-col">
+            <table class="table">
+                <thead>
+                <tr>    
+                    <th>Descripcion</th>
+                    
+                    <th>Categoria</th>
+    
+                    <th>Fecha</th> 
+    
+                    <th>Monto</th> 
+                
+                    <th>Acciones</th> 
+                    
+                </tr>
+            </thead>
+    
+            <tbody class="my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none" id="table" >
+    
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    
+      <!-- section edit operations from table -->
+      <section class="hidden" id="editOption">
+        <div class="my-3.5 w-[50rem] m-10 shadow-lg shadow-indigo-500/50 h-auto">
+            <h2 class=" font-semibold text-gray-800 text-4xl">Editar Operacion</h2>
+         <div class="flex flex-col">
+            <div>
+              <label for="amount" class="text-xl" >Monto</label>
+              <input 
+              class="my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+              type="number"
+              id="preAmount"/> 
+            </div>
+    
+          <div>
+            <label for="type" class="text-xl my-2 text-gray-800" >Tipo</label>
+            <select
+                  class="my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none""
+                  name="type"
+                  id="preType"
+                >
+                  <option value="gasto">Gasto</option>
+                  <option value="ganacia">Ganacia</option>
+                </select>
+          </div>
+    
+          <div>
+            <label for="category" class="text-xl my-2 text-gray-800" >Categoria</label>
+            <select
+                  class="my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                  name="category"
+                  id="preCategory"
+                >
+                  
+                  <option value="comida">Comida</option>
+                  <option value="servicios">Servicios</option>
+                  <option value="salidas">Salidas</option>
+                  <option value="educación">Educación</option>
+                  <option value="transporte">Transporte</option>
+                  <option value="trabajo">Trabajo</option>
+                  <option value="supermercado">Supermercado</option>
+                </select>
+          </div>
+    
+          <div>
+            <label for="date" class="text-xl my-2 text-gray-800" >Fecha</label>
+            <input
+                  class="my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                  type="date"
+                  id="preCalendar"
+                  name="calendario"
+                  value="2022-10-01"
+                  min="2022-01-01"
+                  max="2022-12-31"
+                /> 
+          </div>
+    
+          <div>
+            <label for="description" class="text-xl my-2 text-gray-800" >Descripcion</label>
+            <input 
+            class="my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+            type="text" 
+            id="preDescription" /> 
+          </div>
+        </div>  
+    
+        <div class=" flex flex-row-reverse">
+          <div class=" flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl  text-white rounded-md hover:bg-indigo-800 ">
+            <button type="button" id="btnNewOperation">Editar</button>
+          </div>
+        
+    
+          <div class=" flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl  text-white rounded-md hover:bg-indigo-800 ">  
+            <button type="button" id="btnDeleteOperation">Cancelar</button>
+          </div>
+        </div>
           </div>
         </div>
       </section>
