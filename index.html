@@ -26,7 +26,7 @@
           </h1>
           <div class="flex flex-row text-xl text-white">
             <ul class="flex flex-row">
-              <li class="mx-5 hover:text-red-300 ">
+              <li class="mx-5 hover:text-red-300">
                 <a class="" href="#">Balance</a>
                 <i class="mx-1 fa-solid fa-scale-unbalanced-flip"></i>
               </li>
@@ -42,106 +42,106 @@
         </div>
       </nav>
     </header>
-    <main class="flex flex-col text-white font-sans">
-      <div class="flex justify-center">
 
-        <section class="">    
-          <aside class="">
-            <div class=" flex flex-col justify-center bg-indigo-400 h-64 w-80 my-10 shadow-lg shadow-indigo-500/50 text-2xl px-8">
-                <h1 class="font-semibold text-4xl mb-6">Balance </h1>
-                <div class="flex justify-between items-center">
-                  <h3 class="py-2">Ganancias</h3>
-                  <p class="text-yellow-400  text-xl"> +$0</p>
-                </div>
+    <main class="flex flex-col text-white font-sans">
+      <section class="hero flex justify-center">
+        <div class="container total flex justify-center">
+          <div class="aside">
+            <div
+              class="flex flex-col justify-center bg-indigo-400 h-64 w-80 my-10 shadow-lg shadow-indigo-500/50 text-2xl px-8"
+            >
+              <h2 class="font-semibold text-4xl mb-6">Balance</h2>
+              <div class="flex justify-between items-center">
+                <h3 class="py-2">Ganancias</h3>
+                <p class="text-yellow-400 text-xl">+$0</p>
+              </div>
               <div class="flex justify-between items-center">
                 <h3 class="py-2">Gastos</h3>
-                <p class="text-red-300  text-xl">-$0</p>
+                <p class="text-red-300 text-xl">-$0</p>
               </div>
               <div class="flex justify-between items-center">
-                <h3 class="py-2" >Total</h3>
-                <p class="text-gray-800 text-xl"> $0</p>
+                <h3 class="py-2">Total</h3>
+                <p class="text-gray-800 text-xl">$0</p>
               </div>
             </div>
-          </aside>
-
-          <div
-            class="flex flex-col justify-center  bg-indigo-400 h-2/5 w-80 px-8 shadow-xl shadow-indigo-500/50"
-          >
-            <div class="flex justify-between items-center mb-2">
-              <h2 class=" font-semibold text-3xl">Filtros</h2>
-              <div class="text-gray-800 hover:text-red-300">
-                <button>Ocultar Filtros</button>
+            <div
+              class="flex flex-col justify-center bg-indigo-400 h-96 w-80 px-8 shadow-xl shadow-indigo-500/50"
+            >
+              <div class="flex justify-between items-center mb-2">
+                <h2 class="font-semibold text-3xl">Filtros</h2>
+                <div class="text-gray-800 hover:text-red-300">
+                  <button>Ocultar Filtros</button>
+                </div>
               </div>
-            </div>
 
-            <label class="text-xl my-2" for="type-filters">Tipo</label>
-            <div class="text-gray-800">
-              <select
-                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
-                name="filters-type"
-                id="filters-type"
-              >
-                <option value="todos">Todos</option>
-                <option value="gasto">Gastos</option>
-                <option value="ganancia">Ganancias</option>
-              </select>
-            </div>
+              <label class="text-xl my-2" for="type-filters">Tipo</label>
+              <div class="text-gray-800">
+                <select
+                  class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                  name="filters-type"
+                  id="filters-type"
+                >
+                  <option value="todos">Todos</option>
+                  <option value="gasto">Gastos</option>
+                  <option value="ganancia">Ganancias</option>
+                </select>
+              </div>
 
-            <label class="text-xl my-2" for="categories">Categorías</label>
-            <div class="text-gray-800">
-              <select
-                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
-                name="filters-categories"
-                id="filters-categories"
-              >
-                <option value="todas">Todas</option>
-                <option value="comida">Comida</option>
-                <option value="salidas">Salidas</option>
-                <option value="servicios">Servicios</option>
-                <option value="educación">Educación</option>
-                <option value="transporte">Transporte</option>
-                <option value="trabajo">Trabajo</option>
-              </select>
-            </div>
+              <label class="text-xl my-2" for="categories">Categorías</label>
+              <div class="text-gray-800">
+                <select
+                  class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                  name="filters-categories"
+                  id="filters-categories"
+                >
+                  <option value="todas">Todas</option>
+                  <option value="comida">Comida</option>
+                  <option value="salidas">Salidas</option>
+                  <option value="servicios">Servicios</option>
+                  <option value="educación">Educación</option>
+                  <option value="transporte">Transporte</option>
+                  <option value="trabajo">Trabajo</option>
+                </select>
+              </div>
 
-            <label class="text-xl my-2" for="filters-calendars">Desde</label>
-            <div class="text-gray-800">
-              <input
-                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
-                type="date"
-                id="calendario"
-                name="calendario"
-                value="2022-10-01"
-                min="2022-01-01"
-                max="2022-12-31"
-              />
-            </div>
+              <label class="text-xl my-2" for="filters-calendars">Desde</label>
+              <div class="text-gray-800">
+                <input
+                  class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                  type="date"
+                  id="calendario"
+                  name="calendario"
+                  value="2022-10-01"
+                  min="2022-01-01"
+                  max="2022-12-31"
+                />
+              </div>
 
-            <label class="text-xl my-2" for="categories">Ordenar por</label>
-            <div class="text-gray-800 table-cell items-center">
-              <select
-                class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer focus:border-blue-600 focus:outline-none"
-                name="filters-categoriesThree"
-                id="filters-categoriesThree"
-              >
-                <option value="">Más reciente</option>
-                <option value="">Menos reciente</option>
-                <option value="">Menor Monto</option>
-                <option value="">Mayor monto</option>
-                <option value="">A/Z</option>
-                <option value="">Z/A</option>
-              </select>
+              <label class="text-xl my-2" for="categories">Ordenar por</label>
+              <div class="text-gray-800 table-cell items-center">
+                <select
+                  class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer focus:border-blue-600 focus:outline-none"
+                  name="filters-categoriesThree"
+                  id="filters-categoriesThree"
+                >
+                  <option value="">Más reciente</option>
+                  <option value="">Menos reciente</option>
+                  <option value="">Menor Monto</option>
+                  <option value="">Mayor monto</option>
+                  <option value="">A/Z</option>
+                  <option value="">Z/A</option>
+                </select>
+              </div>
             </div>
           </div>
-        </section>
 
-        <section>
           <div class="w-[50rem] m-10 shadow-lg shadow-indigo-500/50">
             <div class="flex justify-between m-10 py-8 text-gray-800">
-              <h2 class=" font-semibold text-gray-800 text-4xl">Operaciones</h2>
+              <h2 class="font-semibold text-gray-800 text-4xl">Operaciones</h2>
               <div
-                class="flex justify-center items-center rounded-md w-40 h-10 text-white bg-indigo-400 hover:bg-indigo-800 drop-shadow-2xl">
-                <button type="button" id=""> + Nueva operación</button>
+                class="flex justify-center items-center rounded-md w-40 h-10 text-white bg-indigo-400 hover:bg-indigo-800 drop-shadow-2xl"
+              >
+                <button type="button" id="">+ Nueva operación</button>
               </div>
             </div>
             <div class="md:max-w-2xl">
@@ -149,218 +149,268 @@
                 <img class="w-4/6" src="assets/economi.webp" alt="" />
               </figure>
             </div>
-            <div class="flex flex-col items-center font-medium py-8 text-gray-800">
+            <div
+              class="flex flex-col items-center font-medium py-8 text-gray-800"
+            >
               <h4 class="text-2xl">Sin resultados</h4>
-              <p class="  text-base">Cambia los filtros o agrega operaciones</p>
+              <p class="text-base">Cambia los filtros o agrega operaciones</p>
             </div>
           </div>
-          
-           <div id="operaciones">
+        </div>
+      </section>
 
-            <h2>Nueva Operacion</h2>
-            <div>
-              <label for="amount" class="formLabel" >Monto</label>
-              <input type="number" class="formLabel" id="amount" /> 
+      <section class="nuevaOperacion">
+        <div
+          class="hidden my-3.5 w-[50rem] m-10 shadow-lg shadow-indigo-500/50 h-auto"
+        >
+          <h2 class="font-semibold text-gray-800 text-4xl">Nueva Operacion</h2>
+          <div>
+            <label for="amount" class="text-xl text-gray-800">Monto</label>
+            <input
+              class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+              type="number"
+              id="amount"
+            />
+          </div>
+          <div>
+            <label for="type" class="text-xl my-2 text-gray-800">Tipo</label>
+            <select
+              class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+              name="type"
+              id="type"
+            >
+              <option value="gasto">Gasto</option>
+              <option value="ganacia">Ganacia</option>
+            </select>
+          </div>
+          <div>
+            <label for="category" class="text-xl my-2 text-gray-800"
+              >Categoria</label
+            >
+            <select
+              class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+              name="category"
+              id="category"
+            >
+              <option value="comida">Comida</option>
+              <option value="servicios">Servicios</option>
+              <option value="salidas">Salidas</option>
+              <option value="educación">Educación</option>
+              <option value="transporte">Transporte</option>
+              <option value="trabajo">Trabajo</option>
+              <option value="supermercado">Supermercado</option>
+            </select>
+          </div>
+          <div>
+            <label for="date" class="text-xl my-2 text-gray-800">Fecha</label>
+            <input
+              class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+              type="date"
+              id="calendar"
+              name="calendario"
+              value="2022-10-01"
+              min="2022-01-01"
+              max="2022-12-31"
+            />
+          </div>
+          <div>
+            <label for="description" class="text-xl my-2 text-gray-800"
+              >Descripcion</label
+            >
+            <input
+              class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+              type="text"
+              id="description"
+            />
+          </div>
+          <div class="flex flex-row-reverse">
+            <div
+              class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
+            >
+              <button type="button" id="btnNewOperation">Agregar</button>
             </div>
-      
-            <div>
-              <label for="type" class="formLabel" >Tipo</label>
-              <select
-                    class="formLabel"
-                    name="type"
-                    id="type"
-                  >
-                    <option value="gasto">Gasto</option>
-                    <option value="ganacia">Ganacia</option>
-                  </select>
-            </div>
-      
-            <div>
-              <label for="category" class="formLabel" >Categoria</label>
-              <select
-                    class="formLabel"
-                    name="category"
-                    id="category"
-                  >
-                    
-                    <option value="comida">Comida</option>
-                    <option value="servicios">Servicios</option>
-                    <option value="salidas">Salidas</option>
-                    <option value="educación">Educación</option>
-                    <option value="transporte">Transporte</option>
-                    <option value="trabajo">Trabajo</option>
-                    <option value="supermercado">Supermercado</option>
-                  </select>
-            </div>
-      
-            <div>
-              <label for="date" class="formLabel" >Fecha</label>
-              <input
-                    class="formLabel"
-                    type="date"
-                    id="calendario"
-                    name="calendario"
-                    value="2022-10-01"
-                    min="2022-01-01"
-                    max="2022-12-31"
-                  /> 
-            </div>
-      
-            <div>
-              <label for="description" class="formLabel" >Descripcion</label>
-              <input type="text" class="formLabel" id="description" /> 
-            </div>
-      
-            <div>
-              <button type="button" id="btnNewOperation">+ Nueva operación</button>
+            <div
+              class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
+            >
               <button type="button" id="btnDeleteOperation">Cancelar</button>
             </div>
-      
-            <div>
-              <table class="table">
-                  <thead>
-                  <tr>    
-                      <th>Descripcion</th>
-                      <th>Categoria</th>
-                      <th>Tipo</th>
-                      <th>Monto</th>
-                      <th>Fecha</th>
-                  </tr>
-              </thead>
-      
-              <tbody id="table">
-      
-              </tbody>
-              </table>
-            </div>
-        </section>
-      </div>
-      
-          <section class="categories flex justify-center ">
-            <div class="flex justify-center flex-col w-3/5 h-[45rem] items-center rounded shadow-2xl shadow-indigo-500/50 text-gray-800">
-              <div class="Section categories">
-                <h2 class=" font-semibold ml-8 text-5xl">Categorías</h2>
-               
-                <div class="flex justify-between items-center m-8 ">
-                  
-                  <div class=" ">
-                    
-                    <input class="h-12 w-[50rem] rounded border-2 border-indigo-500 focus:border-blue-600 focus:outline-none" type="text" name="" id="categoria-input">
-                  </div>
-                  <div class=" flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl  text-white rounded-md hover:bg-indigo-800 ">
-                    <button class="" id="">
-                      Agregar
-                    </button>
-                  </div>
-                </div>
-                <div class=" flex justify-between m-8" >
-                  <div class="">
-                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Comida</span>
-                  </div>
-                 <div class=" text-m mr-8 font-medium " >
-                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
-                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
-                 </div>
-                </div>
-              
-                <div class=" flex justify-between m-8" >
-                  <div class="">
-                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Servicios</span>
-                  </div>
-                 <div class=" text-m  mr-8  font-medium " >
-                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
-                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
-                 </div>
-                </div>
-               
-                <div class=" flex justify-between m-8" >
-                  <div class="">
-                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Salidas</span>
-                  </div>
-                 <div class=" text-m  mr-8  font-medium " >
-                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
-                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
-                 </div>
-                </div>
-                <div class=" flex justify-between m-8" >
-                  <div class="">
-                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Educación</span>
-                  </div>
-                 <div class=" text-m  mr-8  font-medium " >
-                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
-                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
-                 </div>
-                </div>
-                <div class=" flex justify-between m-8" >
-                  <div class="">
-                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Transporte</span>
-                  </div>
-                 <div class=" text-m   mr-8 font-medium " >
-                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
-                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
-                 </div>
-                </div>
-                <div class=" flex justify-between m-8" >
-                  <div class="">
-                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Trabajo</span>
-                  </div>
-                 <div class=" text-m  mr-8  font-medium " >
-                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
-                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
-                 </div>
-                </div>
-                <div class=" flex justify-between m-8" >
-                  <div class="">
-                   <span class=" text-lg rounded text-indigo-800 bg-indigo-100">Supermercado</span>
-                  </div>
-                 <div class=" text-m  mr-8  font-medium " >
-                   <a href="#" class=" m-3 cursor-pointer hover:text-green-600">Editar</a>
-                   <a href="#" class="cursor-pointer hover:text-red-600">Eliminar</a>
-                 </div>
-                </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hidden categories flex justify-center">
+        <div
+          class="flex justify-center flex-col w-3/5 h-[45rem] items-center rounded shadow-2xl shadow-indigo-500/50 text-gray-800"
+        >
+          <div class="Section categories">
+            <h2 class="font-semibold ml-8 text-5xl">Categorías</h2>
+
+            <div class="flex justify-between items-center m-8">
+              <div class=" ">
+                <input
+                  class="h-12 w-[50rem] rounded border-2 border-indigo-500 focus:border-blue-600 focus:outline-none"
+                  type="text"
+                  name=""
+                  id="categoria-input"
+                />
               </div>
-           
-          </section>
-         
-          <section class="reports">
-            <h2>Reportes</h2>
-            <h3>Resumen</h3>
-            <p>Categoría con mayor ganancia</p>
-            <p>Categoría con mayor gasto</p>
-            <p>Categoría con mayor balance</p>
-            <p>Mes con mayor ganancia</p>
-            <p>Mes con mayor gasto</p>
+              <div
+                class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
+              >
+                <button class="" id="">Agregar</button>
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Comida</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
 
-            <h3>Totales por categorías</h3>
-            <table>
-              <tr>
-                <td><strong>Categoria</strong></td>
-                <td><strong>Ganancias</strong></td>
-                <td><strong>Gastos</strong></td>
-                <td><strong>Balance</strong></td>
-              </tr>
-              <tr>
-                <td>Comida</td>
-                <td>Trabajo</td>
-                <td>Servicios</td>
-                <td>Salidas</td>
-              </tr>
-            </table>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Servicios</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
 
-            <h3>Totales por mes</h3>
-            <table>
-              <tr>
-                <td><strong>Mes</strong></td>
-                <td><strong>Ganancias</strong></td>
-                <td><strong>Gastos</strong></td>
-                <td><strong>Balance</strong></td>
-              </tr>
-              <tr>
-                <td>fecha</td>
-              </tr>
-          </section>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Salidas</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Educación</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Transporte</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Trabajo</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Supermercado</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- <section class="reports">
+        <h2>Reportes</h2>
+        <h3>Resumen</h3>
+        <p>Categoría con mayor ganancia</p>
+        <p>Categoría con mayor gasto</p>
+        <p>Categoría con mayor balance</p>
+        <p>Mes con mayor ganancia</p>
+        <p>Mes con mayor gasto</p>
+
+        <h3>Totales por categorías</h3>
+        <table>
+          <tr>
+            <td><strong>Categoria</strong></td>
+            <td><strong>Ganancias</strong></td>
+            <td><strong>Gastos</strong></td>
+            <td><strong>Balance</strong></td>
+          </tr>
+          <tr>
+            <td>Comida</td>
+            <td>Trabajo</td>
+            <td>Servicios</td>
+            <td>Salidas</td>
+          </tr>
+        </table>
+
+        <h3>Totales por mes</h3>
+        <table>
+          <tr>
+            <td><strong>Mes</strong></td>
+            <td><strong>Ganancias</strong></td>
+            <td><strong>Gastos</strong></td>
+            <td><strong>Balance</strong></td>
+          </tr>
+          <tr>
+            <td>fecha</td>
+          </tr>
+        </table>
+      </section> -->
     </main>
     <footer></footer>
-    <script src="js/script.js"></script> 
+    <script src="js/script.js"></script>
   </body>
 </html>
