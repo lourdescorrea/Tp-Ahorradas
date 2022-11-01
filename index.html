@@ -24,7 +24,7 @@
           </h1>
           <div class="flex flex-row text-xl text-white">
             <ul class="flex flex-row">
-              <li class="mx-5 hover:text-red-300 ">
+              <li class="mx-5 hover:text-red-300">
                 <a class="" href="#">Balance</a>
                 <i class="mx-1 fa-solid fa-scale-unbalanced-flip"></i>
               </li>
@@ -329,21 +329,21 @@
             <p>Mes con mayor ganancia</p>
             <p>Mes con mayor gasto</p>
 
-            <h3>Totales por categorías</h3>
-            <table>
-              <tr>
-                <td><strong>Categoria</strong></td>
-                <td><strong>Ganancias</strong></td>
-                <td><strong>Gastos</strong></td>
-                <td><strong>Balance</strong></td>
-              </tr>
-              <tr>
-                <td>Comida</td>
-                <td>Trabajo</td>
-                <td>Servicios</td>
-                <td>Salidas</td>
-              </tr>
-            </table>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Servicios</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
 
             <h3>Totales por mes</h3>
             <table>
