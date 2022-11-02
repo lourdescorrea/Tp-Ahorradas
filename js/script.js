@@ -1,7 +1,10 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
+const agregarOperacion = $("#btnAddOperation")
+const tableEditDelete = $("#tableEditDelete")
 
+// genera array de objetos con la informacion de cada operacion
 const operations = []
 
 const newOperation = () => {
@@ -10,10 +13,10 @@ const newOperation = () => {
     const amount = $("#amount").value
     const type = $("#type").value
     const calendar  = $("#calendar").value
-  
-  
-
+    const id = $("#id")
+    
     return{
+        id,
         description,
         category,
         type,
@@ -22,28 +25,46 @@ const newOperation = () => {
     }
 }
 
+// genera tabla con el registro de operaciones
 const generateTable = () => {
     $("#table").innerHTML = ""
 
     operations.map(operation =>{
-        const {description, category, type, amount, calendar} = operation
+        const {id, description, category, type, amount, calendar} = operation
         $("#table").innerHTML += `
-
         <tr> 
-
                 <td>${description}</td>
                 <td>${category}</td>
-                <td>${amount}</td>
-                <td>${type}</td>
                 <td>${calendar}</td>
-            </tr>
+                <td>${amount}</td>
+                <td><button id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
+                <td><button id="btnDeleteTableElement">eliminar</button></td>
+               
+        </tr>
         `
     })
 }
 
 
-$("#btnNewOperation").addEventListener("click", () =>{
+const findOperation = (id) => {
+    return operations.find(product => product.id === id)
+}
+
+const cleanPage = () => newOperation.innerHTML = ""
+
+const operationEdit = (id) => {
+    cleanPage()
+    editarOperacion.classList.remove("hidden")
+    const chosenOperation = findOperation(id)
+
+}
+
+//evento que pushea nueva operacion
+
+$("#btnAddOperation").addEventListener("click", () =>{
     operations.push(newOperation())
-    generateTable()
+    generateTable() 
+    cleanPage()
+    tableEditDelete.classList.remove("hidden")
     console.log(operations)
 })
