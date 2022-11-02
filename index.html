@@ -136,32 +136,39 @@
               </div>
             </div>
           </div>
-
-          <div class="w-[50rem] m-10 shadow-lg shadow-indigo-500/50">
-            <div class="flex justify-between m-10 py-8 text-gray-800">
-              <h2 class="font-semibold text-gray-800 text-4xl">Operaciones</h2>
+          <!-- section operation img -->
+          <section class="seccion operaciones/imagen">
+            <div
+              class="w-[50rem] h-full m-10 bg-white shadow-lg shadow-indigo-500/50"
+            >
+              <div class="flex justify-between m-10 py-8 text-gray-800">
+                <h2 class="font-semibold text-gray-800 text-4xl">
+                  Operaciones
+                </h2>
+                <div
+                  class="flex justify-center items-center rounded-md w-40 h-10 text-white bg-indigo-500 hover:bg-indigo-800 drop-shadow-2xl"
+                >
+                  <button type="button" id="btnNewOperation">
+                    + Nueva operación
+                  </button>
+                </div>
+              </div>
+              <div class="md:max-w-2xl">
+                <figure class="flex justify-center">
+                  <img class="w-4/6" src="assets/economi.webp" alt="" />
+                </figure>
+              </div>
               <div
-                class="flex justify-center items-center rounded-md w-40 h-10 text-white bg-indigo-400 hover:bg-indigo-800 drop-shadow-2xl"
+                class="flex flex-col items-center font-medium py-8 text-gray-800"
               >
-                <button type="button" id="btnNewOperation">
-                  + Nueva operación
-                </button>
+                <h4 class="text-2xl">Sin resultados</h4>
+                <p class="text-base">Cambia los filtros o agrega operaciones</p>
               </div>
             </div>
-            <div class="md:max-w-2xl">
-              <figure class="flex justify-center">
-                <img class="w-4/6" src="assets/economi.webp" alt="" />
-              </figure>
-            </div>
-            <div
-              class="flex flex-col items-center font-medium py-8 text-gray-800"
-            >
-              <h4 class="text-2xl">Sin resultados</h4>
-              <p class="text-base">Cambia los filtros o agrega operaciones</p>
-            </div>
-          </div>
+          </section>
         </div>
       </section>
+
       <!-- section add new operation  -->
       <section
         class="hidden flex justify-center bg-slate-100"
