@@ -1,79 +1,126 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
-// selectores utiles
-const agregarOperacion = $("#btnAddOperation");
-const tableEditDelete = $("#tableEditDelete");
-const addNewOperation = $("#addNewOperation");
-const balance = $("#balance");
+const $btnAddOperation = $("#btnAddOperation")
+const $tableEditarEliminar = $("#tableEditarEliminar")
+const $btnEditOperation = $("#btnEditOperation")
+const $btnCancelateOperation = $("#btnCancelateOperation")
+const $editarOperacion = $("#editarOperacion")
 
-const btnNewOperation = $("#btnNewOperation");
-
-// funcion para btn nueva operacion
-btnNewOperation.addEventListener("click", () => {
-  balance.classList.add("hidden");
-  addNewOperation.classList.remove("hidden");
-});
-
-//  genera array de objetos con la informacion de cada operacion
-const operations = [];
+// genera array de objetos con la informacion de cada operacion
+let operations = []
 
 const newOperation = () => {
-  const description = $("#description").value;
-  const category = $("#category").value;
-  const amount = $("#amount").value;
-  const type = $("#type").value;
-  const calendar = $("#calendar").value;
-  const id = $("#id");
+    const description = $("#description").value
+    const category = $("#category").value
+    const amount = $("#amount").value
+    const type = $("#type").value
+    const calendar  = $("#calendar").value
+    const id = operations.length + 1
+    
+    return{
+        id,
+        description,
+        category,
+        type,
+        amount,
+        calendar
+    }
+}
 
-  return {
-    id,
-    description,
-    category,
-    type,
-    amount,
-    calendar,
-  };
-};
+// genera tabla con el registro de operaciones
+const generateTable = (operations) => {
+    $("#table").innerHTML = ""
+console.log(operations)
+    operations.map(operation =>{
+        const {id, description, category, type, amount, calendar} = operation
+        $("#table").innerHTML += `
+        <tr> 
+                <td>${description}</td>
+                <td>${category}</td>
+                <td>${calendar}</td>
+                <td>${amount}</td>
+                <td><button id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
+                <td><button id="btnDeleteTableElement">eliminar</button></td>
+               
+        </tr>
+        `
+    })
+}
 
-//  genera tabla con el registro de operaciones
-const generateTable = () => {
-  $("#table").innerHTML = "";
-
-  operations.map((operation) => {
-    const { id, description, category, type, amount, calendar } = operation;
-    $("#table").innerHTML += `
-         <tr>
-                 <td>${description}</td>
-                 <td>${category}</td>
-                 <td>${calendar}</td>
-                 <td>${amount}</td>
-                 <td><button id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
-                 <td><button id="btnDeleteTableElement">eliminar</button></td>
-
-         </tr>
-         `;
-  });
-};
-
+// funcion que ubica id del objeto
 const findOperation = (id) => {
-  return operations.find((product) => product.id === id);
-};
+    return operations.find(product => product.id === parseInt(id))
+}
 
-const cleanPage = () => (newOperation.innerHTML = "");
+//funcion que deja vacia la pagina para mostrar otra seccion
+const cleanPage = () => nuevaOperacion.classList.add("hidden")
 
+// funcion que trae form de edit con el objeto que el usuario completo en nueva operacion
 const operationEdit = (id) => {
-  cleanPage();
-  editarOperacion.classList.remove("hidden");
-  const chosenOperation = findOperation(id);
-};
+    cleanPage()
+    $editarOperacion.classList.remove("hidden")
+    $tableEditarEliminar.classList.add("hidden")
+    const chosenOperation = findOperation(id)
+    description.value = chosenOperation.description
+    $("#category").value = chosenOperation.category
+    $("#amount").value = chosenOperation.amount
+    $("#type").value = chosenOperation.type
+    $("#calendar").value = chosenOperation.calendar
 
-// //evento que pushea nueva operacion
+    $btnEditOperation.setAttribute("data-id", id)
+    $btnCancelateOperation.setAttribute("data-id", id)
+}
 
-$("#btnAddOperation").addEventListener("click", () => {
-  operations.push(newOperation());
-  generateTable();
-  cleanPage();
-  tableEditDelete.classList.remove("hidden");
-  console.log(operations);
-});
+//funcion y evento que cancela desde el boton cancelar del form editar operacion
+const removeOperation = (id) => {
+    return  operations.filter(operation => operation.id !== parseInt(id))
+}
+
+$btnCancelateOperation.addEventListener("click", () => {
+    const operationId = $btnCancelateOperation.getAttribute("data-id")
+    $editarOperacion.classList.add("hidden")
+    $tableEditarEliminar.classList.remove("hidden")
+    generateTable(removeOperation(operationId))
+})
+//funcion para almacenar modificaciones
+const saveOperationData = (id) => {
+ return {
+        id: parseInt(id), 
+        description: $("#editDescription").value,
+        category: $("#editCategory").value,
+        amount: $("#editAmount").value,
+        type: $("#editType").value,
+        calendar: $("#editCalendar").value
+ }
+}
+// funcion para editar operacion previa
+const editOperation = (id) => {
+    return operations.map(operation => {
+        console.log(operation.id, parseInt(id), id);
+        if (operation.id === parseInt(id)){
+            console.log("encontre el obj")
+            return saveOperationData(id)
+        }
+        return operation
+    })
+}
+// evento para editar y mostrar modificaciones del usuario sobre una operacion previa
+$btnEditOperation.addEventListener("click", () => {
+    const operationId = $btnEditOperation.getAttribute("data-id")
+    $editarOperacion.classList.add("hidden")
+    $tableEditarEliminar.classList.remove("hidden")
+    console.log (typeof operationId)
+    generateTable(editOperation(operationId))
+
+})
+
+//evento que pushea nueva operacion
+
+$btnAddOperation.addEventListener("click", () =>{
+    operations.push(newOperation())
+    generateTable(operations) 
+    cleanPage()
+    $tableEditarEliminar.classList.remove("hidden")
+    console.log(operations)
+})
