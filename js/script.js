@@ -1,4 +1,4 @@
-onconst $ = (selector) => document.querySelector(selector);
+const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
 const $btnAddOperation = $("#btnAddOperation")
@@ -13,10 +13,13 @@ const reports = $("#reports");
 const categories = $("#categories");
 const addNewOperation = $("#addNewOperation");
 const balance = $("#balance");
+const navBalance = $("#navBalance")
+const navCategories = $("#navCategories")
+const navReports = $("#navReports")
 const total = $("#total");
 
 // selector btn nueva nuevaOperacion
-const btnNewOperation = $("#newOperation");
+const btnNewOperation = $("#btnNewOperation");
 
 
  // funcion para btn nueva operacion
@@ -26,10 +29,6 @@ btnNewOperation.addEventListener("click", () => {
     addNewOperation.classList.remove("hidden");
   });
 
-  const cleanpage = () => {
-    total.innerHTML = "";
-  };
-  
 //   funcion esconder formularios desde el nav 
 
   navBalance.addEventListener("click", () => {
@@ -101,7 +100,7 @@ const findOperation = (id) => {
 }
 
 //funcion que deja vacia la pagina para mostrar otra seccion
-const cleanPage = () => nuevaOperacion.classList.add("hidden")
+const cleanPage = () => IMAGEN.classList.add("hidden")
 
 // funcion que trae form de edit con el objeto que el usuario completo en nueva operacion
 const operationEdit = (id) => {
