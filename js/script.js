@@ -1,4 +1,4 @@
-const $ = (selector) => document.querySelector(selector);
+onconst $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
 const $btnAddOperation = $("#btnAddOperation")
@@ -6,6 +6,53 @@ const $tableEditarEliminar = $("#tableEditarEliminar")
 const $btnEditOperation = $("#btnEditOperation")
 const $btnCancelateOperation = $("#btnCancelateOperation")
 const $editarOperacion = $("#editarOperacion")
+
+
+// seletores nav
+const reports = $("#reports");
+const categories = $("#categories");
+const addNewOperation = $("#addNewOperation");
+const balance = $("#balance");
+const total = $("#total");
+
+// selector btn nueva nuevaOperacion
+const btnNewOperation = $("#newOperation");
+
+
+ // funcion para btn nueva operacion
+
+btnNewOperation.addEventListener("click", () => {
+    balance.classList.add("hidden");
+    addNewOperation.classList.remove("hidden");
+  });
+
+  const cleanpage = () => {
+    total.innerHTML = "";
+  };
+  
+//   funcion esconder formularios desde el nav 
+
+  navBalance.addEventListener("click", () => {
+    balance.classList.remove("hidden");
+    categories.classList.add("hidden");
+    addNewOperation.classList.add("hidden");
+    reports.classList.add("hidden");
+  });
+  
+  navCategories.addEventListener("click", () => {
+    categories.classList.remove("hidden");
+    balance.classList.add("hidden");
+    reports.classList.add("hidden");
+    addNewOperation.classList.add("hidden");
+  });
+  
+  navReports.addEventListener("click", () => {
+    reports.classList.remove("hidden");
+    balance.classList.add("hidden");
+    categories.classList.add("hidden");
+    addNewOperation.classList.add("hidden");
+  });
+  
 
 // genera array de objetos con la informacion de cada operacion
 let operations = []
@@ -124,3 +171,6 @@ $btnAddOperation.addEventListener("click", () =>{
     $tableEditarEliminar.classList.remove("hidden")
     console.log(operations)
 })
+
+
+
