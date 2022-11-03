@@ -28,14 +28,14 @@
           <div class="flex flex-row text-xl text-white">
             <ul class="flex flex-row">
               <li class="mx-5 hover:text-red-300">
-                <a class="" href="#">Balance</a>
+                <a class="" href="#" id="navBalance">Balance</a>
                 <i class="mx-1 fa-solid fa-scale-unbalanced-flip"></i>
               </li>
               <li class="mx-5 hover:text-red-300">
-                <a href="#">Categorias</a><i class="mx-1 fa-solid fa-tags"></i>
+                <a href="#" id="navCategories">Categorias</a><i class="mx-1 fa-solid fa-tags"></i>
               </li>
               <li class="mx-5 hover:text-red-300">
-                <a href="#">Reportes</a>
+                <a href="#" id="navReports">Reportes</a>
                 <i class="mx-1 fa-solid fa-chart-pie"></i>
               </li>
             </ul>
@@ -136,6 +136,7 @@
               </div>
             </div>
           </div>
+
           <!-- section operation img -->
           <section class="seccion operaciones/imagen">
             <div
@@ -277,7 +278,7 @@
               </thead>
 
               <tbody
-                class="my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                class="text-gray-800  my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
                 id="table"
               ></tbody>
             </table>
@@ -369,7 +370,141 @@
         </div>
       </section>
 
-      <!-- section categories -->
+      <!-- section categories  -->
+      <section class="hidden flex justify-center bg-slate-100" id="categories">
+        <div
+          class="w-3/5 h-[35rem] m-20 p-10 text-gray-800 bg-white shadow-lg shadow-indigo-500/50 h-auto"
+        >
+          <div class="Section categories">
+            <h2 class="font-bold ml-8 text-4xl">Categorías</h2>
+
+            <div class="flex justify-between items-center m-8">
+              <div class=" ">
+                <input
+                  class="h-12 w-[50rem] rounded border-2 border-indigo-500 focus:border-blue-600 focus:outline-none"
+                  type="text"
+                  name=""
+                  id="categoria-input"
+                />
+              </div>
+              <div
+                class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
+              >
+                <button class="" id="">Agregar</button>
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Comida</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Servicios</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Salidas</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Educación</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div class="">
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Transporte</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div>
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Trabajo
+                </span>
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+            <div class="flex justify-between m-8">
+              <div>
+                <span class="text-lg rounded text-indigo-800 bg-indigo-100"
+                  >Supermercado</span
+                >
+              </div>
+              <div class="text-m mr-8 font-medium">
+                <a href="#" class="m-3 cursor-pointer hover:text-green-600"
+                  >Editar</a
+                >
+                <a href="#" class="cursor-pointer hover:text-red-600"
+                  >Eliminar</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- section form edit categories -->
       <section
         class="hidden flex justify-center bg-slate-100"
         id="editCategories "
