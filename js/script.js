@@ -8,16 +8,16 @@ const $btnCancelateOperation = $("#btnCancelOperation");
 const $editarOperacion = $("#editarOperacion");
 
 // seletores nav
-const reports = $("#reports");
-const categories = $("#categories");
-const addNewOperation = $("#addNewOperation");
-const balance = $("#balance");
 const navBalance = $("#navBalance");
 const navCategories = $("#navCategories");
 const navReports = $("#navReports");
-const total = $("#total");
-const imagen = $("#imagen");
-const contenedor = $("#contenedor");
+
+// selectores formularios
+const balance = $("#balance");
+const categories = $("#categories");
+const reports = $("#reports");
+const addNewOperation = $("#addNewOperation");
+const containerImage = $("#containerImage");
 const textOperations = $("#textOperations");
 
 // selector btn nueva nuevaOperacion
@@ -26,7 +26,7 @@ const btnNewOperation = $("#btnNewOperation");
 // funcion esconder formularios desde el nav
 navBalance.addEventListener("click", () => {
   balance.classList.remove("hidden");
-  imagen.classList.remove("hidden");
+  containerImage.classList.remove("hidden");
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
   reports.classList.add("hidden");
@@ -37,12 +37,12 @@ navCategories.addEventListener("click", () => {
   balance.classList.add("hidden");
   reports.classList.add("hidden");
   addNewOperation.classList.add("hidden");
-  imagen.classList.add("hidden");
+  containerImage.classList.add("hidden");
 });
 
 navReports.addEventListener("click", () => {
   reports.classList.remove("hidden");
-  imagen.classList.add("hidden");
+  containerImage.classList.add("hidden");
   balance.classList.add("hidden");
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
@@ -51,7 +51,7 @@ navReports.addEventListener("click", () => {
 // function/evento de btn nueva nueva Operacion, desde pantalla balance
 btnNewOperation.addEventListener("click", () => {
   balance.classList.add("hidden");
-  imagen.classList.add("hidden");
+  containerImage.classList.add("hidden");
   addNewOperation.classList.remove("hidden");
 });
 
@@ -59,7 +59,7 @@ btnNewOperation.addEventListener("click", () => {
 $btnCancelateOperation.addEventListener("click", () => {
   balance.classList.remove("hidden");
   addNewOperation.classList.add("hidden");
-  imagen.classList.remove("hidden");
+  containerImage.classList.remove("hidden");
   img.classList.add("hidden");
 });
 
@@ -71,7 +71,7 @@ $btnAddOperation.addEventListener("click", () => {
   $tableEditarEliminar.classList.remove("hidden");
   balance.classList.remove("hidden");
   addNewOperation.classList.add("hidden");
-  imagen.classList.remove("hidden");
+  containerImage.classList.remove("hidden");
   textOperations.classList.add("hidden");
 });
 
