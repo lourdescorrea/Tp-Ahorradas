@@ -23,45 +23,7 @@ const textOperations = $("#textOperations");
 // selector btn nueva nuevaOperacion
 const btnNewOperation = $("#btnNewOperation");
 
-// function/evento de btn nueva nueva Operacion, desde pantalla balance
-btnNewOperation.addEventListener("click", () => {
-  balance.classList.add("hidden");
-  imagen.classList.add("hidden");
-  addNewOperation.classList.remove("hidden");
-});
-
-//funtion/evento de btn cancelar desde pantalla nueva operacion
-$btnCancelateOperation.addEventListener("click", () => {
-  balance.classList.remove("hidden");
-  addNewOperation.classList.add("hidden");
-  imagen.classList.remove("hidden");
-  img.classList.add("hidden");
-});
-
-// $btnAddOperation.addEventListener("click", () => {
-//   $tableEditarEliminar.remove("hidden");
-//   balance.classList.remove("hidden");
-//   addNewOperation.classList.add("hidden");
-// });
-
-//funcion que deja vacia la pagina para mostrar otra seccion
-const cleanPage = () => img.classList.add("hidden");
-
-//evento que pushea nueva operacion
-$btnAddOperation.addEventListener("click", () => {
-  operations.push(newOperation());
-  generateTable(operations);
-  cleanPage();
-  $tableEditarEliminar.classList.remove("hidden");
-  balance.classList.remove("hidden");
-  addNewOperation.classList.add("hidden");
-  imagen.classList.remove("hidden");
-  textOperations.classList.add("hidden");
-
-  console.log(operations);
-});
-
-//   funcion esconder formularios desde el nav
+// funcion esconder formularios desde el nav
 navBalance.addEventListener("click", () => {
   balance.classList.remove("hidden");
   imagen.classList.remove("hidden");
@@ -85,6 +47,36 @@ navReports.addEventListener("click", () => {
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
 });
+
+// function/evento de btn nueva nueva Operacion, desde pantalla balance
+btnNewOperation.addEventListener("click", () => {
+  balance.classList.add("hidden");
+  imagen.classList.add("hidden");
+  addNewOperation.classList.remove("hidden");
+});
+
+//funtion/evento de btn cancelar desde pantalla nueva operacion
+$btnCancelateOperation.addEventListener("click", () => {
+  balance.classList.remove("hidden");
+  addNewOperation.classList.add("hidden");
+  imagen.classList.remove("hidden");
+  img.classList.add("hidden");
+});
+
+// function/evento que pushea tabla de nueva operacion a pantalla principal
+$btnAddOperation.addEventListener("click", () => {
+  operations.push(newOperation());
+  generateTable(operations);
+  cleanPage();
+  $tableEditarEliminar.classList.remove("hidden");
+  balance.classList.remove("hidden");
+  addNewOperation.classList.add("hidden");
+  imagen.classList.remove("hidden");
+  textOperations.classList.add("hidden");
+});
+
+//funcion que deja vacia la pagina para mostrar otra seccion
+const cleanPage = () => img.classList.add("hidden");
 
 // genera array de objetos con la informacion de cada operacion
 let operations = [];
