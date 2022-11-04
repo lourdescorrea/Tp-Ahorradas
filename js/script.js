@@ -23,6 +23,14 @@ const textOperations = $("#textOperations");
 // selector btn nueva nuevaOperacion
 const btnNewOperation = $("#btnNewOperation");
 
+// function/evento de btn nueva nueva Operacion, desde pantalla balance
+btnNewOperation.addEventListener("click", () => {
+  balance.classList.add("hidden");
+  imagen.classList.add("hidden");
+  addNewOperation.classList.remove("hidden");
+});
+
+//funtion/evento de btn cancelar desde pantalla nueva operacion
 $btnCancelateOperation.addEventListener("click", () => {
   balance.classList.remove("hidden");
   addNewOperation.classList.add("hidden");
