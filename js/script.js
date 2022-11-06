@@ -221,7 +221,6 @@ const sendDataToLocalStorage = (key, data) => {
 const addOperation = () => {
   let operationsLocalStorage = JSON.parse(localStorage.getItem("operations"));
   operationsLocalStorage.push(newOperation());
-
   sendDataToLocalStorage("operations", operationsLocalStorage);
 }; 
 
