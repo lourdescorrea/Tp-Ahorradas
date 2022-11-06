@@ -51,12 +51,15 @@ navReports.addEventListener("click", () => {
 let operations = [];
 
 const newOperation = () => {
+
+ lsopp = getDataFromLocalStorage(operations)
+
   const description = $("#description").value;
   const category = $("#category").value;
   const amount = $("#amount").value;
   const type = $("#type").value;
   const calendar = $("#calendar").value;
-  const id = operations.length + 1;
+  const id = lsopp.length + 1;
 
   return {
     id,
@@ -71,7 +74,8 @@ const newOperation = () => {
 // genera tabla con el registro de operaciones
 const generateTable = (operations) => {
   $("#table").innerHTML = "";
-  operations.map((operation) => {
+  const localstorageoperationsdelet = JSON.parse(localStorage.getItem(operations));
+  localstorageoperationsdelet.map((operation) => {
     const { id, description, category, type, amount, calendar } = operation;
     $("#table").innerHTML += `
       
@@ -91,7 +95,7 @@ const generateTable = (operations) => {
 
 // funcion que ubica id del objeto
 const findOperation = (id) => {
-  return operations.find((product) => product.id === parseInt(id));
+  return getDataFromLocalStorage(operations).find((operation) => operation.id === parseInt(id));
 };
 
 //funcion que deja vacia la pagina para mostrar otra seccion
@@ -115,7 +119,9 @@ const operationEdit = (id) => {
 
 //funcion y evento que cancela desde el boton cancelar del form editar operacion
 const removeOperation = (id) => {
-  return operations.filter((operation) => operation.id !== parseInt(id));
+  const localstorageoperationsdelet = JSON.parse(localStorage.getItem(operations));
+
+  return localstorageoperationsdelet.filter((operation) => operation.id !== parseInt(id));
 };
 
 const operationDelet = (id) => {
@@ -126,6 +132,7 @@ const operationDelet = (id) => {
   $tableOperations.classList.remove("hidden");
   generateTable(removeOperation(operationId));
   removeLocalStorageOperation(operations)
+  recargarBalanceInicial(operations)
 };
 
 //funcion para almacenar modificaciones
@@ -164,6 +171,7 @@ $btnEditAdd.addEventListener("click", () => {
 
 // function/evento que agrega la tabla de nueva operacion a pantalla principal
 $btnNewAdd.addEventListener("click", () => {
+  const operations = getOperations()
   operations.push(newOperation());
   generateTable(operations);
   cleanPage();
@@ -190,7 +198,6 @@ $btnNewCancel.addEventListener("click", () => {
   balance.classList.remove("hidden");
   addNewOperation.classList.add("hidden");
   $formEDit.classList.add("hidden");
-
   $tableOperations.classList.remove("hidden");
 });
 
@@ -204,9 +211,9 @@ $btnEditCancel.addEventListener("click", () => {
 })
 
 //********************************* FUNCIONES STORAGE OPERATIONS *************/
-if (!localStorage.getItem("operations")) {
-  localStorage.setItem("operations", JSON.stringify([]));
-}
+// if (!localStorage.getItem("operations")) {
+//   localStorage.setItem("operations", JSON.stringify([]));
+// }
 
 const getDataFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
@@ -233,9 +240,37 @@ const localStorageEditOperations = () => {
 
 const removeLocalStorageOperation = (ops) => {
   sendDataToLocalStorage("operations", ops);
-};    
+}; 
 
+const recargarBalanceInicial = () => {
+  const operationsfromLocalStorage = JSON.parse(localStorage.getItem("operations"))
+  if (operationsfromLocalStorage === []) {
+    containerImage.classList.remove("hidden");
+    img.classList.remove("hidden");
+    textOperations.classList.remove("hidden");
+  } else {
+    $tableOperations.classList.remove("hidden");
+    img.classList.add("hidden");
+    textOperations.classList.add("hidden");
+  }
+};
 
+const setinicialdata = () => {
+  const operations = getOperationsFromLocalsTORAGE()
+  if (!localStorage.getItem("operations")) {
+    localStorage.setItem("operations", JSON.stringify([]));
+    $tableOperations.classList.add("hidden");
+    img.classList.remove("hidden")
+    containerImage.classList.remove("hidden")
+  } else {
+    let operationsLocalStorage = JSON.parse(localStorage.getItem("operations"));
+    generateTable(operationsLocalStorage)
+    $tableOperations.classList.remove("hidden");
+    img.classList.add("hidden")
+  }
+}
+
+setinicialdata()
 
 
 
