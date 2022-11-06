@@ -1,14 +1,13 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
-const $btnPlusOperation = $("#btnPlusOperation"); // boton + nueva operacion // 
-const $btnNewAdd = $("#btnNewAdd"); //boton de agregar en la pantalla nueva operacion // 
+const $btnPlusOperation = $("#btnPlusOperation"); // boton + nueva operacion //
+const $btnNewAdd = $("#btnNewAdd"); //boton de agregar en la pantalla nueva operacion //
 const $btnNewCancel = $("#btnNewCancel"); //boton cancelar en pantalla nueva operacion
-const $btnEditAdd = $("#btnEditAdd"); //boton editar formulario en pantalla editar operacion  
-const $btnEditCancel = $("#btnEditCancel") //bonton cancelar desde pantalla editar  
+const $btnEditAdd = $("#btnEditAdd"); //boton editar formulario en pantalla editar operacion
+const $btnEditCancel = $("#btnEditCancel"); //bonton cancelar desde pantalla editar
 const $formEDit = $("#formEDit"); //id del form
 const $tableOperations = $("#tableOperations"); //id de la tabla
- 
 
 // seletores nav
 const navBalance = $("#navBalance");
@@ -125,7 +124,8 @@ const operationDelet = (id) => {
   $formEDit.classList.add("hidden");
   $tableOperations.classList.remove("hidden");
   generateTable(removeOperation(operationId));
-  removeLocalStorageOperation(operations)
+  removeLocalStorageOperation(operations);
+  recargarBalanceInicial();
 };
 
 //funcion para almacenar modificaciones
@@ -142,9 +142,7 @@ const saveOperationData = (id) => {
 // funcion para editar operacion previa
 const editOperation = (id) => {
   return operations.map((operation) => {
-  
     if (operation.id === parseInt(id)) {
-     
       return saveOperationData(id);
     }
     return operation;
@@ -159,7 +157,7 @@ $btnEditAdd.addEventListener("click", () => {
   containerImage.classList.remove("hidden");
 
   generateTable(editOperation(operationId));
-  localStorageEditOperations(operations)
+  localStorageEditOperations(operations);
 });
 
 // function/evento que agrega la tabla de nueva operacion a pantalla principal
@@ -172,7 +170,7 @@ $btnNewAdd.addEventListener("click", () => {
   addNewOperation.classList.add("hidden");
   containerImage.classList.remove("hidden");
   textOperations.classList.add("hidden");
-  addOperation(operations)
+  addOperation(operations);
 });
 
 // function/evento de btn nueva Operacion, desde pantalla balance
@@ -185,8 +183,8 @@ $btnPlusOperation.addEventListener("click", () => {
 
 //funtion/evento de btn cancelar desde pantalla nueva operacion
 $btnNewCancel.addEventListener("click", () => {
-  img.classList.add("hidden")
-  containerImage.classList.remove("hidden")
+  img.classList.add("hidden");
+  containerImage.classList.remove("hidden");
   balance.classList.remove("hidden");
   addNewOperation.classList.add("hidden");
   $formEDit.classList.add("hidden");
@@ -195,55 +193,74 @@ $btnNewCancel.addEventListener("click", () => {
 });
 
 $btnEditCancel.addEventListener("click", () => {
-  img.classList.add("hidden")
-  containerImage.classList.remove("hidden")
+  img.classList.add("hidden");
+  containerImage.classList.remove("hidden");
   balance.classList.remove("hidden");
   addNewOperation.classList.add("hidden");
   $formEDit.classList.add("hidden");
   $tableOperations.classList.remove("hidden");
-})
+});
 
 //********************************* FUNCIONES STORAGE OPERATIONS *************/
-if (!localStorage.getItem("operations")) {
-  localStorage.setItem("operations", JSON.stringify([]));
-}
 
 const getDataFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
 
-
 const sendDataToLocalStorage = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data));
 };
-
 
 const addOperation = () => {
   let operationsLocalStorage = JSON.parse(localStorage.getItem("operations"));
   operationsLocalStorage.push(newOperation());
   sendDataToLocalStorage("operations", operationsLocalStorage);
-}; 
+};
 
 const localStorageEditOperations = () => {
   let operationsLocalStorage = JSON.parse(localStorage.getItem("operations"));
   operationsLocalStorage.push(saveOperationData());
 
   sendDataToLocalStorage("operations", operationsLocalStorage);
-};    
+};
 
 const removeLocalStorageOperation = (ops) => {
   sendDataToLocalStorage("operations", ops);
-};    
+};
 
+const setinicialdata = () => {
+  if (!localStorage.getItem("operations")) {
+    localStorage.setItem("operations", JSON.stringify([]));
+    $tableOperations.classList.add("hidden");
+    img.classList.remove("hidden");
+    containerImage.classList.remove("hidden");
+  } else {
+    let operationsLocalStorage = JSON.parse(localStorage.getItem("operations"));
+    generateTable(operationsLocalStorage);
+    $tableOperations.classList.remove("hidden");
+    img.classList.add("hidden");
+    textOperations.classList.add("hidden");
+  }
+};
 
+setinicialdata();
 
-
-
+const recargarBalanceInicial = () => {
+  if (operations === []) {
+    containerImage.classList.remove("hidden");
+    img.classList.remove("hidden");
+    textOperations.classList.remove("hidden");
+  } else {
+    $tableOperations.classList.remove("hidden");
+    img.classList.add("hidden");
+    sendDataToLocalStorage();
+  }
+};
 
 // //*********************************************** WORKING ON CATEGORIES SECTION********************** */
 // const $containerCategories = $("#containerCategories")
 // const $categories = $("#categories")
-// const $btnEditCategories =$("#btnEditCategories") 
+// const $btnEditCategories =$("#btnEditCategories")
 
 // let categories = [
 //     {
@@ -271,7 +288,7 @@ const removeLocalStorageOperation = (ops) => {
 //         name: "Trabajo",
 //       },
 //   ];
- 
+
 // //*************************** FUNCIONES CREAR TABLA CATEGORIES *******************************************//
 
 // const categoriesInfo = () =>{
@@ -286,12 +303,12 @@ const removeLocalStorageOperation = (ops) => {
 //     $("#table").innerHTML = "";
 //     categories.map(category => {
 //         const {id, name} = category
-//         $("#table").innerHTML +=  ` 
+//         $("#table").innerHTML +=  `
 //             <tr>
 //             <td>${name}</td>
 //             <td><button id="btnEditCategories" onclick="categoryEdit(${id})">Editar</button></td>
 //             <td> <button id="btnCancelCategories" onclick="categoryDelet(${id})">Eliminar</button></td>
-//             </tr>          
+//             </tr>
 //         `
 //     })
 // }
@@ -301,70 +318,65 @@ const removeLocalStorageOperation = (ops) => {
 // const findCategory = (id) => {
 //     return categories.find((category) => category.id === parseInt(id));
 //   };
-  
+
 // //************************ FUNCION QUE DEJA VACIO EL HTML *****************************************//
 //   const cleanPage = () => categories.classList.add("hidden");
 
 //   //************************ FUNCION QUE EDITA *****************************************//
-  
+
 //   const categoryEdit = (id) => {
 //     $categories.classList.add("hidden");
 //     $containerCategories.classList.remove("hidden");
 //     const chosenOperation = findCategory(id);
-//     $("#name").value = chosenOperation.name;   
+//     $("#name").value = chosenOperation.name;
 //     $btnEditCategories.setAttribute("data-id" , id)
-     
+
 //   };
-  
 
 //   //************************ FUNCION QUE ELIMINA *****************************************//
-
 
 //   const removeCategories = (id) => {
 //     return categories.filter((category) => category.id !== parseInt(id));
 //   };
-  
+
 //   const categoryDelet = (id) => {
-//     
+
 //     const $btnCancelCategories = $("#btnCancelCategories");
 //     $btnCancelCategories.setAttribute("data-id", id);
 //     const operationId = $btnCancelCategories.getAttribute("data-id");
 //     $categories.classList.remove("hidden");
 //     $containerCategories.classList.add("hidden");
 
-
 //     categories = removeCategories(operationId)
 //     generateTable();
 //   };
-
 
 // //*************************** EVENTO QUE CONECTA BOTON AGREGAR CON TABLA ***************************************//
 // $("#btnCategoryAdd").addEventListener("click", () => {
 //     categories.push(categoriesInfo())
 //     generateTable()
-//     addOperation(categories)   
+//     addOperation(categories)
 // })
-
 
 // //*************************** FUNCIONES LOCAL STORAGE *******************************************//
 
 //  if (!localStorage.getItem("categories")) {
 //     localStorage.setItem("categories", JSON.stringify([]));
 //   }
-  
+
 //   //funcion que te trae info desde el localstorage y lo conviene en objeto
 //   const getDataFromLocalStorage = (key) => {
 //     return JSON.parse(localStorage.getItem(key));
 //   };
-  
+
 // //le paso el parametro a la funcion
 //   getDataFromLocalStorage("categories");
-  
+
 // //funcion que envia la informacion a local stogre convirtiendola en string
 //   const sendDataToLocalStorage = (key, data) => {
 //     localStorage.setItem(key, JSON.stringify(data));
 //   };
-  
+
 //   const addOperation = () => {
 //     // Pido el array de operaciones
 //     let operationsLocalStorage = JSON.parse(localStorage.getItem("categories"));
@@ -373,4 +385,4 @@ const removeLocalStorageOperation = (ops) => {
 //     operationsLocalStorage.push(categories);
 //     // Envio el array modificado
 //     sendDataToLocalStorage("categories", operationsLocalStorage);
-//   };    
+//   };
