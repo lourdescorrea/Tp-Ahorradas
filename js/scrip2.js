@@ -32,6 +32,10 @@ const getDataFromLocalStorage = (key) => {
     localStorage.setItem(key, JSON.stringify(data));
   };
 
+  const removeLocalStorage = (ops) => {
+    setDataToLocalStorage("operations", ops);
+  }; 
+
   //*********************************** SETTEAR ARRAY DE OBJETOS VACIO EN LOCAL STORAGE ******************/
 
   if (!localStorage.getItem("operations")) {
@@ -73,10 +77,89 @@ const generateTable = () => {
                     <td>${calendar}</td>
                     <td class="mt-0 pt-0 pl-12 text-lg text-${typeEarnins} font-bold">${typeSpent}${amount}</td>
                     <td><button  id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
-                    <td><button  id="btnDeleteTableElement" onclick="operationDelet(${id})">eliminar</button></td>
+                    <td><button  id="btnDeleteTableElement" data-id="${id}" onclick="operationDelet(${id})">eliminar</button></td>
                    
                </tr>
            
             `;
+    });
+  };
+
+  //***************************  FUNCION QUE ENCUENTRA OPERACION POR ID ****************************/
+
+  const findOperation = (id) => {
+    let operations = getDataFromLocalStorage("operations")
+    return operations.find((operation) => operation.id === parseInt(id));
+  };
+
+  //***************************  FUNCION QUE ESCONDE LA IMG ****************************/
+  const cleanPage = () => img.classList.add("hidden");
+
+//***************************  FUNCION QUE TRAE FORMULARIO DE EDITAR  ****************************/
+
+const operationEdit = (id) => {
+  $formEDit.classList.remove("hidden");
+  balance.classList.add("hidden");
+  containerImage.classList.add("hidden");
+  $tableOperations.classList.remove("hidden");
+
+  const chosenOperation = findOperation(id);
+  $("#editDescription").value = chosenOperation.description;
+  $("#editCategory").value = chosenOperation.category;
+  $("#editAmount").value = chosenOperation.amount;
+  $("#editType").value = chosenOperation.type;
+  $("#editCalendar").value = chosenOperation.calendar;
+
+  $btnEditAdd.setAttribute("data-id", id);
+};
+
+
+//***************************  FUNCION QUE REMUEVE OBJETO  ****************************/
+const removeOperation = (id) => {
+    let operations = getDataFromLocalStorage("operations")
+    return operations.filter((operation) => operation.id !== parseInt(id));
+  };
+
+  const operationDelet = (id) => {
+    $formEDit.classList.add("hidden");
+    $tableOperations.classList.remove("hidden");
+    
+    const $btnDeleteTableElement = $("#btnDeleteTableElement");
+   
+    const operationId = $btnDeleteTableElement.getAttribute("data-id");
+    
+    generateTable(removeOperation(operationId));
+    setDataToLocalStorage("opertions", (removeOperation(operations)))
+
+  };
+
+//***************************  FUNCION QUE PARA ALMACENAR LAS MODIFICACIONES  ****************************/
+
+
+const saveOperationData = (id) => {
+    const idLs = getDataFromLocalStorage("operations").length+1
+    return {
+      id: idLs,
+      description: $("#editDescription").value,
+      category: $("#editCategory").value,
+      amount: $("#editAmount").value,
+      type: $("#editType").value,
+      calendar: $("#editCalendar").value,
+    };
+  };
+
+  //***************************  FUNCION QUE PARA EDITAR OPERACION  ****************************/
+
+  const editOperation = (id) => {
+
+    let operations = getDataFromLocalStorage("operations")
+    
+    return operations.map((operation) => {
+    
+      if (operation.id === parseInt(id)) {
+       
+        return saveOperationData(id);
+      }
+      return operation;
     });
   };
