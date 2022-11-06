@@ -153,7 +153,7 @@
               <div
                 class="flex justify-center items-center rounded-md w-40 h-10 text-white bg-indigo-500 hover:bg-indigo-800 drop-shadow-2xl"
               >
-                <button type="button" id="btnNewOperation">
+                <button type="button" id="btnPlusOperation">
                   + Nueva operación
                 </button>
               </div>
@@ -164,7 +164,7 @@
               </figure>
             </div>
             <!-- section edit operations register -->
-            <section class="hidden" id="tableEditarEliminar">
+            <section class="hidden" id="tableOperations">
               <div class="flex justify-center text-gray-800">
                 <div class="text-center bg-white flex flex-col">
                   <table class="font-normal text-lg">
@@ -265,19 +265,19 @@
             <div
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
             >
-              <button type="button" id="btnAddOperation">Agregar</button>
+              <button type="button" id="btnNewAdd">Agregar</button>
             </div>
             <div
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
             >
-              <button type="button" id="btnCancelOperation">Cancelar</button>
+              <button type="button" id="btnNewCancel">Cancelar</button>
             </div>
           </div>
         </div>
       </section>
 
       <!-- section edit operations from table -->
-      <section class="flex justify-center" id="editarOperacion">
+      <section class="hidden flex justify-center" id="formEDit">
         <div
           class="w-3/5 h-[35rem] m-20 p-10 bg-white shadow-lg shadow-indigo-500/50 h-auto"
         >
@@ -348,14 +348,14 @@
             <div
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
             >
-              <button type="button" id="btnEditOperation">
+              <button type="button" id="btnEditAdd">
                 Editar Formulario
               </button>
             </div>
             <div
               class="flex justify-center m-2 h-12 w-40 m-2 h-12 w-40 text-xl text-indigo-500 rounded-md hover:bg-slate-300"
             >
-              <button type="button" id="btnCancelateOperation">Cancelar</button>
+              <button type="button" id="btnEditCancel">Cancelar</button>
               <a href="#hero" class="btn"></a>
             </div>
           </div>
@@ -497,7 +497,7 @@
       </section>
 
       <!-- section form edit categories -->
-      <section class="hidden flex justify-center" id="editCategories ">
+      <section class="hidden flex justify-center" id="editCategories">
         <div
           class="w-3/5 h-[35rem] m-20 p-10 text-gray-800 bg-white shadow-lg shadow-indigo-500/50 h-auto"
         >
