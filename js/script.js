@@ -386,3 +386,11 @@ const categoryDelet = (id) => {
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
 };
+
+const categoryEdit = (id) => {
+  $categories.classList.add('hidden');
+  $containerCategories.classList.remove('hidden');
+  const chosenOperation = findCategory(id);
+  $('#categoryNameInput').value = chosenOperation.name;
+  $btnEditCategories.setAttribute('data-id', id);
+};
