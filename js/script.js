@@ -1,146 +1,16 @@
 
-// funcion que ubica id del objeto
-const findOperation = (id) => {
-  return getDataFromLocalStorage(operations).find((operation) => operation.id === parseInt(id));
-};
-
-//funcion que deja vacia la pagina para mostrar otra seccion
-const cleanPage = () => img.classList.add("hidden");
-
-// funcion que trae form de edit con el objeto que el usuario completo en nueva operacion
-const operationEdit = (id) => {
-  $formEDit.classList.remove("hidden");
-  balance.classList.add("hidden");
-  containerImage.classList.add("hidden");
-  $tableOperations.classList.remove("hidden");
-  const chosenOperation = findOperation(id);
-  $("#editDescription").value = chosenOperation.description;
-  $("#editCategory").value = chosenOperation.category;
-  $("#editAmount").value = chosenOperation.amount;
-  $("#editType").value = chosenOperation.type;
-  $("#editCalendar").value = chosenOperation.calendar;
-
-  $btnEditAdd.setAttribute("data-id", id);
-};
-
-//funcion y evento que cancela desde el boton cancelar del form editar operacion
-const removeOperation = (id) => {
-  const localstorageoperationsdelet = JSON.parse(localStorage.getItem(operations));
-
-  return localstorageoperationsdelet.filter((operation) => operation.id !== parseInt(id));
-};
-
-const operationDelet = (id) => {
-  const $btnDeleteTableElement = $("#btnDeleteTableElement");
-  $btnDeleteTableElement.setAttribute("data-id", id);
-  const operationId = $btnDeleteTableElement.getAttribute("data-id");
-  $formEDit.classList.add("hidden");
-  $tableOperations.classList.remove("hidden");
-  generateTable(removeOperation(operationId));
-  removeLocalStorageOperation(operations)
-  recargarBalanceInicial(operations)
-};
-
-//funcion para almacenar modificaciones
-const saveOperationData = (id) => {
-  return {
-    id: parseInt(id),
-    description: $("#editDescription").value,
-    category: $("#editCategory").value,
-    amount: $("#editAmount").value,
-    type: $("#editType").value,
-    calendar: $("#editCalendar").value,
-  };
-};
-// funcion para editar operacion previa
-const editOperation = (id) => {
-  return operations.map((operation) => {
-  
-    if (operation.id === parseInt(id)) {
-     
-      return saveOperationData(id);
-    }
-    return operation;
-  });
-};
-// evento para editar y mostrar modificaciones del usuario sobre una operacion previa
-$btnEditAdd.addEventListener("click", () => {
-  const operationId = $btnEditAdd.getAttribute("data-id");
-  $formEDit.classList.add("hidden");
-  $tableOperations.classList.remove("hidden");
-  balance.classList.remove("hidden");
-  containerImage.classList.remove("hidden");
-
-  generateTable(editOperation(operationId));
-  localStorageEditOperations(operations)
-});
-
-// function/evento que agrega la tabla de nueva operacion a pantalla principal
-$btnNewAdd.addEventListener("click", () => {
-  const operations = getOperations()
-  operations.push(newOperation());
-  generateTable(operations);
-  cleanPage();
-  $tableOperations.classList.remove("hidden");
-  balance.classList.remove("hidden");
-  addNewOperation.classList.add("hidden");
-  containerImage.classList.remove("hidden");
-  textOperations.classList.add("hidden");
-  addOperation(operations)
-});
-
-// function/evento de btn nueva Operacion, desde pantalla balance
-$btnPlusOperation.addEventListener("click", () => {
-  balance.classList.add("hidden");
-  containerImage.classList.add("hidden");
-  addNewOperation.classList.remove("hidden");
-  $formEDit.classList.add("hidden");
-});
-
-//funtion/evento de btn cancelar desde pantalla nueva operacion
-$btnNewCancel.addEventListener("click", () => {
-  img.classList.add("hidden")
-  containerImage.classList.remove("hidden")
-  balance.classList.remove("hidden");
-  addNewOperation.classList.add("hidden");
-  $formEDit.classList.add("hidden");
-  $tableOperations.classList.remove("hidden");
-});
-
-$btnEditCancel.addEventListener("click", () => {
-  img.classList.add("hidden")
-  containerImage.classList.remove("hidden")
-  balance.classList.remove("hidden");
-  addNewOperation.classList.add("hidden");
-  $formEDit.classList.add("hidden");
-  $tableOperations.classList.remove("hidden");
-})
 
 //********************************* FUNCIONES STORAGE OPERATIONS *************/
 // if (!localStorage.getItem("operations")) {
 //   localStorage.setItem("operations", JSON.stringify([]));
 // }
 
-const getDataFromLocalStorage = (key) => {
-  return JSON.parse(localStorage.getItem(key));
-};
-
-
-const sendDataToLocalStorage = (key, data) => {
-  localStorage.setItem(key, JSON.stringify(data));
-};
-
-
-const addOperation = () => {
-  let operationsLocalStorage = JSON.parse(localStorage.getItem("operations"));
-  operationsLocalStorage.push(newOperation());
-  sendDataToLocalStorage("operations", operationsLocalStorage);
-}; 
+ 
+ 
 
 const localStorageEditOperations = () => {
   let operationsLocalStorage = JSON.parse(localStorage.getItem("operations"));
   operationsLocalStorage.push(saveOperationData());
-
   sendDataToLocalStorage("operations", operationsLocalStorage);
 };    
 
