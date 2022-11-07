@@ -80,6 +80,19 @@ navReports.addEventListener("click", () => {
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
 });
+
+//************************************** FUNCIONES PARA LOCAL STORAGE **************************************/
+const getDataFromLocalStorage = (key) => {
+  return JSON.parse(localStorage.getItem(key));
+};
+
+const setDataToLocalStorage = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+const removeLocalStorage = (ops) => {
+  setDataToLocalStorage('operations', ops);
+};
 ///////////////////// BLOQUE DE OPERACIONES ///////////////////////////////////
 
 //***************************  FUNCION QUE RECIBE DATOS DEL FORM Y RETORNA OBJETO ********************************/
@@ -126,4 +139,4 @@ const generateTable = () => {
   $('#table').innerHTML = elements.join('');
 };
 
-//***************************  FUNCION QUE ENCUENTRA OPERACION POR ID ****************************/
+
