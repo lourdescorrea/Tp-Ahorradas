@@ -360,18 +360,29 @@ $("#btnCategoryAdd").addEventListener("click", () => {
   CategoriesGenerateTable();
 });
 
-$('#btnCancelCategories').addEventListener('click', () => {
-  $categories.classList.remove('hidden');
-  $containerCategories.classList.add('hidden');
+$("#btnCancelCategories").addEventListener("click", () => {
+  $categories.classList.remove("hidden");
+  $containerCategories.classList.add("hidden");
 });
 
-$('#btnEditCategories').addEventListener('click', () => {
-  const id = $btnEditCategories.getAttribute('data-id');
+$("#btnEditCategories").addEventListener("click", () => {
+  const id = $btnEditCategories.getAttribute("data-id");
   const categories = editCategory(parseInt(id));
 
   setDataToLocalStorage(LS_KEYS.categories, categories);
 
   CategoriesGenerateTable();
-  $categories.classList.remove('hidden');
-  $containerCategories.classList.add('hidden');
+  $categories.classList.remove("hidden");
+  $containerCategories.classList.add("hidden");
 });
+
+const removeCategories = (id) => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  return categories.filter((category) => category.id !== parseInt(id));
+};
+
+const categoryDelet = (id) => {
+  const categories = removeCategories(id);
+  setDataToLocalStorage(LS_KEYS.categories, categories);
+  CategoriesGenerateTable();
+};
