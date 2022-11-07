@@ -145,33 +145,67 @@ const findOperation = (id) => {
   return operations.find((operation) => operation.id === parseInt(id));
 };
 //***************************  FUNCION QUE ESCONDE LA IMG ****************************/
-const cleanPage = () => img.classList.add('hidden');
+const cleanPage = () => img.classList.add("hidden");
 
 const showTable = () => {
-  $tableOperations.classList.remove('hidden');
-  img.classList.add('hidden');
-  textOperations.classList.add('hidden');
-  containerImage.classList.remove('hidden');
-  balance.classList.remove('hidden');
+  $tableOperations.classList.remove("hidden");
+  img.classList.add("hidden");
+  textOperations.classList.add("hidden");
+  containerImage.classList.remove("hidden");
+  balance.classList.remove("hidden");
 };
 
 const showEmptyPage = () => {
-  $tableOperations.classList.add('hidden');
-  img.classList.remove('hidden');
-  textOperations.classList.remove('hidden');
+  $tableOperations.classList.add("hidden");
+  img.classList.remove("hidden");
+  textOperations.classList.remove("hidden");
 };
 
 const hideNewOperationsForm = () => {
-  addNewOperation.classList.add('hidden');
+  addNewOperation.classList.add("hidden");
 };
 
 const showEditOperationForm = () => {
-  $formEDit.classList.remove('hidden');
-  $tableOperations.classList.remove('hidden');
-  balance.classList.add('hidden');
-  containerImage.classList.add('hidden');
+  $formEDit.classList.remove("hidden");
+  $tableOperations.classList.remove("hidden");
+  balance.classList.add("hidden");
+  containerImage.classList.add("hidden");
 };
 
 const hideEditOperationForm = () => {
-  $formEDit.classList.add('hidden');
+  $formEDit.classList.add("hidden");
+};
+
+//***************************  FUNCION QUE TRAE FORMULARIO DE EDITAR  ****************************/
+
+const operationEdit = (id) => {
+  const chosenOperation = findOperation(id);
+
+  $("#editDescription").value = chosenOperation.description;
+  $("#editCategory").value = chosenOperation.category;
+  $("#editAmount").value = chosenOperation.amount;
+  $("#editType").value = chosenOperation.type;
+  $("#editCalendar").value = chosenOperation.calendar;
+
+  $btnEditAdd.setAttribute("data-id", id);
+
+  showEditOperationForm();
+};
+/***************************  FUNCION QUE REMUEVE OBJETO  ****************************/
+const removeOperation = (id) => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter((operation) => operation.id !== id);
+  setDataToLocalStorage(LS_KEYS.operations, newOperations);
+  return newOperations;
+};
+
+const operationDelet = (id) => {
+  const operations = removeOperation(id);
+
+  if (operations.length === 0) {
+    showEmptyPage();
+  } else {
+    generateTable();
+    showTable();
+  }
 };
