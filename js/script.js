@@ -80,3 +80,99 @@ navReports.addEventListener("click", () => {
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
 });
+
+//************************************** FUNCIONES PARA LOCAL STORAGE **************************************/
+const getDataFromLocalStorage = (key) => {
+  return JSON.parse(localStorage.getItem(key));
+};
+
+const setDataToLocalStorage = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+const removeLocalStorage = (ops) => {
+  setDataToLocalStorage("operations", ops);
+};
+///////////////////// BLOQUE DE OPERACIONES ///////////////////////////////////
+
+//***************************  FUNCION QUE RECIBE DATOS DEL FORM Y RETORNA OBJETO ********************************/
+
+const getNewOperation = (id) => {
+  const description = $("#description").value;
+  const category = $("#category").value;
+  const amount = $("#amount").value;
+  const type = $("#type").value;
+  const calendar = $("#calendar").value;
+
+  return {
+    id,
+    description,
+    category,
+    type,
+    amount,
+    calendar,
+  };
+};
+
+//***************************  FUNCION QUE CREA TABLA ****************************/
+const generateTable = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  const elements = operations.map((operation) => {
+    const { id, description, category, type, amount, calendar } = operation;
+    const isEarning = type === "ganancia";
+    const textClass = isEarning ? "green-600" : "red-600";
+    const symbol = isEarning ? "+" : "-";
+
+    return `
+            <tr> 
+                <td>${description}</td>
+                <td>${category}</td>
+                <td>${calendar}</td>
+                <td class="mt-0 pt-0 pl-12 text-lg text-${textClass} font-bold">${symbol}${amount}</td>
+                <td><button  id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
+                <td><button  id="btnDeleteTableElement" data-id="${id}" onclick="operationDelet(${id})">eliminar</button></td>
+            </tr>
+            `;
+  });
+
+  $("#table").innerHTML = elements.join("");
+};
+//***************************  FUNCION QUE ENCUENTRA OPERACION POR ID ****************************/
+
+const findOperation = (id) => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  return operations.find((operation) => operation.id === parseInt(id));
+};
+
+//***************************  FUNCION QUE ESCONDE LA IMG ****************************/
+const cleanPage = () => img.classList.add("hidden");
+
+const showTable = () => {
+  $tableOperations.classList.remove("hidden");
+  img.classList.add("hidden");
+  textOperations.classList.add("hidden");
+  containerImage.classList.remove("hidden");
+  balance.classList.remove("hidden");
+};
+
+const showEmptyPage = () => {
+  $tableOperations.classList.add("hidden");
+  img.classList.remove("hidden");
+  textOperations.classList.remove("hidden");
+};
+
+const hideNewOperationsForm = () => {
+  addNewOperation.classList.add("hidden");
+};
+
+const showEditOperationForm = () => {
+  $formEDit.classList.remove("hidden");
+  $tableOperations.classList.remove("hidden");
+  balance.classList.add("hidden");
+  containerImage.classList.add("hidden");
+};
+
+const hideEditOperationForm = () => {
+  $formEDit.classList.add("hidden");
+};
