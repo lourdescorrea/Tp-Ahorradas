@@ -298,3 +298,24 @@ const onLoadOperations = () => {
 //  * ========================================================================================================================
 //  *
 //  * ========================================================================================================================
+const $containerCategories = $('#containerCategories');
+const $categories = $('#categories');
+const $btnEditCategories = $('#btnEditCategories');
+
+//************************ FUNCION QUE CREA Y PUSHE LA TABLA *****************************************//
+const CategoriesGenerateTable = () => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+
+  const elements = categories.map((category) => {
+    const { id, name } = category;
+    return ` 
+                <tr>
+                <td>${name}</td>
+                <td><button id="editCategories" onclick="categoryEdit(${id})">Editar</button></td>
+                <td> <button id="btnCancelCategories" onclick="categoryDelet(${id})">Eliminar</button></td>
+                </tr>          
+            `;
+  });
+
+  $('#categories-table').innerHTML = elements.join('');
+};
