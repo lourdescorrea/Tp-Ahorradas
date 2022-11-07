@@ -359,3 +359,19 @@ $("#btnCategoryAdd").addEventListener("click", () => {
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
 });
+
+$('#btnCancelCategories').addEventListener('click', () => {
+  $categories.classList.remove('hidden');
+  $containerCategories.classList.add('hidden');
+});
+
+$('#btnEditCategories').addEventListener('click', () => {
+  const id = $btnEditCategories.getAttribute('data-id');
+  const categories = editCategory(parseInt(id));
+
+  setDataToLocalStorage(LS_KEYS.categories, categories);
+
+  CategoriesGenerateTable();
+  $categories.classList.remove('hidden');
+  $containerCategories.classList.add('hidden');
+});
