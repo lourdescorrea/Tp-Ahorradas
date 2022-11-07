@@ -55,7 +55,7 @@ const CATEGORIES_BASE = [
 ];
 
 //************************************** FUNCIONES NAVEGACION **************************************/
-// funcion esconder formularios desde el nav
+
 navBalance.addEventListener("click", () => {
   balance.classList.remove("hidden");
   containerImage.classList.remove("hidden");
@@ -82,6 +82,7 @@ navReports.addEventListener("click", () => {
 });
 
 //************************************** FUNCIONES PARA LOCAL STORAGE **************************************/
+
 const getDataFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
@@ -115,6 +116,7 @@ const getNewOperation = (id) => {
 };
 
 //***************************  FUNCION QUE CREA TABLA ****************************/
+
 const generateTable = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
@@ -138,13 +140,16 @@ const generateTable = () => {
 
   $("#table").innerHTML = elements.join("");
 };
+
 //***************************  FUNCION QUE ENCUENTRA OPERACION POR ID ****************************/
 
 const findOperation = (id) => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   return operations.find((operation) => operation.id === parseInt(id));
 };
+
 //***************************  FUNCION QUE ESCONDE LA IMG ****************************/
+
 const cleanPage = () => img.classList.add("hidden");
 
 const showTable = () => {
@@ -191,7 +196,9 @@ const operationEdit = (id) => {
 
   showEditOperationForm();
 };
+
 /***************************  FUNCION QUE REMUEVE OBJETO  ****************************/
+
 const removeOperation = (id) => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const newOperations = operations.filter((operation) => operation.id !== id);
@@ -209,6 +216,7 @@ const operationDelet = (id) => {
     showTable();
   }
 };
+
 //***************************  FUNCION PARA ALMACENAR LAS MODIFICACIONES  ****************************/
 
 const saveOperationData = (id) => {
@@ -221,6 +229,7 @@ const saveOperationData = (id) => {
     calendar: $("#editCalendar").value,
   };
 };
+
 //***************************  FUNCION  PARA EDITAR OPERACION  ****************************/
 
 const editOperation = (id) => {
@@ -235,6 +244,7 @@ const editOperation = (id) => {
 };
 
 //******************************************EVENTO PARA EDITAR **************************************/
+
 $btnEditAdd.addEventListener("click", () => {
   const id = $btnEditAdd.getAttribute("data-id");
   const operations = editOperation(parseInt(id));
@@ -245,7 +255,9 @@ $btnEditAdd.addEventListener("click", () => {
   hideEditOperationForm();
   showTable();
 });
+
 //******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
+
 $btnNewAdd.addEventListener("click", () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const newOperation = getNewOperation(operations.length + 1);
@@ -258,7 +270,9 @@ $btnNewAdd.addEventListener("click", () => {
   hideNewOperationsForm();
   showTable();
 });
+
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
+
 $btnPlusOperation.addEventListener("click", () => {
   balance.classList.add("hidden");
   containerImage.classList.add("hidden");
@@ -267,6 +281,7 @@ $btnPlusOperation.addEventListener("click", () => {
 });
 
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
+
 $btnNewCancel.addEventListener("click", () => {
   img.classList.add("hidden");
   containerImage.classList.remove("hidden");
@@ -303,6 +318,7 @@ const $categories = $("#categories");
 const $btnEditCategories = $("#btnEditCategories");
 
 //************************ FUNCION QUE CREA Y PUSHE LA TABLA *****************************************//
+
 const CategoriesGenerateTable = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
 
@@ -328,6 +344,7 @@ const findCategory = (id) => {
 };
 
 // //*************************** EVENTO QUE CONECTA BOTON AGREGAR CON TABLA ***************************************//
+
 const getNewCategory = (id) => {
   const categoriesInput = $("#categoriesInput").value;
   return {
@@ -393,4 +410,11 @@ const categoryEdit = (id) => {
   const chosenOperation = findCategory(id);
   $('#categoryNameInput').value = chosenOperation.name;
   $btnEditCategories.setAttribute('data-id', id);
+};
+
+const onLoadCategories = () => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  if (!categories) {
+    setDataToLocalStorage(LS_KEYS.categories, CATEGORIES_BASE);
+  }
 };
