@@ -380,3 +380,9 @@ const removeCategories = (id) => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
   return categories.filter((category) => category.id !== parseInt(id));
 };
+
+const categoryDelet = (id) => {
+  const categories = removeCategories(id);
+  setDataToLocalStorage(LS_KEYS.categories, categories);
+  CategoriesGenerateTable();
+};
