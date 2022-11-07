@@ -298,9 +298,9 @@ const onLoadOperations = () => {
 //  * ========================================================================================================================
 //  *
 //  * ========================================================================================================================
-const $containerCategories = $('#containerCategories');
-const $categories = $('#categories');
-const $btnEditCategories = $('#btnEditCategories');
+const $containerCategories = $("#containerCategories");
+const $categories = $("#categories");
+const $btnEditCategories = $("#btnEditCategories");
 
 //************************ FUNCION QUE CREA Y PUSHE LA TABLA *****************************************//
 const CategoriesGenerateTable = () => {
@@ -317,5 +317,45 @@ const CategoriesGenerateTable = () => {
             `;
   });
 
-  $('#categories-table').innerHTML = elements.join('');
+  $("#categories-table").innerHTML = elements.join("");
 };
+
+// //************************ FUNCION QUE UBICA EL ID DEL OBJETO *****************************************//
+
+const findCategory = (id) => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  return categories.find((category) => category.id === parseInt(id));
+};
+
+// //*************************** EVENTO QUE CONECTA BOTON AGREGAR CON TABLA ***************************************//
+const getNewCategory = (id) => {
+  const categoriesInput = $("#categoriesInput").value;
+  return {
+    id,
+    name: categoriesInput,
+  };
+};
+
+const editCategory = (id) => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+
+  return categories.map((category) => {
+    if (category.id === parseInt(id)) {
+      return {
+        id: id,
+        name: $("#categoryNameInput").value,
+      };
+    }
+    return category;
+  });
+};
+
+$("#btnCategoryAdd").addEventListener("click", () => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  const newCategory = getNewCategory(categories.length + 1);
+
+  categories.push(newCategory);
+
+  setDataToLocalStorage(LS_KEYS.categories, categories);
+  CategoriesGenerateTable();
+});
