@@ -405,11 +405,11 @@ const categoryDelet = (id) => {
 };
 
 const categoryEdit = (id) => {
-  $categories.classList.add('hidden');
-  $containerCategories.classList.remove('hidden');
+  $categories.classList.add("hidden");
+  $containerCategories.classList.remove("hidden");
   const chosenOperation = findCategory(id);
-  $('#categoryNameInput').value = chosenOperation.name;
-  $btnEditCategories.setAttribute('data-id', id);
+  $("#categoryNameInput").value = chosenOperation.name;
+  $btnEditCategories.setAttribute("data-id", id);
 };
 
 const onLoadCategories = () => {
@@ -418,3 +418,10 @@ const onLoadCategories = () => {
     setDataToLocalStorage(LS_KEYS.categories, CATEGORIES_BASE);
   }
 };
+
+// evento para la carga inicial
+
+window.addEventListener("load", () => {
+  onLoadOperations();
+  onLoadCategories();
+});
