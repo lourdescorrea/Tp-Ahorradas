@@ -214,11 +214,11 @@ const operationDelet = (id) => {
 const saveOperationData = (id) => {
   return {
     id: id,
-    description: $('#editDescription').value,
-    category: $('#editCategory').value,
-    amount: $('#editAmount').value,
-    type: $('#editType').value,
-    calendar: $('#editCalendar').value,
+    description: $("#editDescription").value,
+    category: $("#editCategory").value,
+    amount: $("#editAmount").value,
+    type: $("#editType").value,
+    calendar: $("#editCalendar").value,
   };
 };
 //***************************  FUNCION  PARA EDITAR OPERACION  ****************************/
@@ -233,3 +233,28 @@ const editOperation = (id) => {
     return operation;
   });
 };
+
+//******************************************EVENTO PARA EDITAR **************************************/
+$btnEditAdd.addEventListener("click", () => {
+  const id = $btnEditAdd.getAttribute("data-id");
+  const operations = editOperation(parseInt(id));
+
+  setDataToLocalStorage(LS_KEYS.operations, operations);
+
+  generateTable();
+  hideEditOperationForm();
+  showTable();
+});
+//******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
+$btnNewAdd.addEventListener("click", () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperation = getNewOperation(operations.length + 1);
+  operations.push(newOperation);
+
+  setDataToLocalStorage(LS_KEYS.operations, operations);
+
+  generateTable();
+
+  hideNewOperationsForm();
+  showTable();
+});
