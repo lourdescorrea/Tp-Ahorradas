@@ -209,3 +209,27 @@ const operationDelet = (id) => {
     showTable();
   }
 };
+//***************************  FUNCION PARA ALMACENAR LAS MODIFICACIONES  ****************************/
+
+const saveOperationData = (id) => {
+  return {
+    id: id,
+    description: $('#editDescription').value,
+    category: $('#editCategory').value,
+    amount: $('#editAmount').value,
+    type: $('#editType').value,
+    calendar: $('#editCalendar').value,
+  };
+};
+//***************************  FUNCION  PARA EDITAR OPERACION  ****************************/
+
+const editOperation = (id) => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  return operations.map((operation) => {
+    if (operation.id === parseInt(id)) {
+      return saveOperationData(id);
+    }
+    return operation;
+  });
+};
