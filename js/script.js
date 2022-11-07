@@ -91,18 +91,18 @@ const setDataToLocalStorage = (key, data) => {
 };
 
 const removeLocalStorage = (ops) => {
-  setDataToLocalStorage('operations', ops);
+  setDataToLocalStorage("operations", ops);
 };
 ///////////////////// BLOQUE DE OPERACIONES ///////////////////////////////////
 
 //***************************  FUNCION QUE RECIBE DATOS DEL FORM Y RETORNA OBJETO ********************************/
 
 const getNewOperation = (id) => {
-  const description = $('#description').value;
-  const category = $('#category').value;
-  const amount = $('#amount').value;
-  const type = $('#type').value;
-  const calendar = $('#calendar').value;
+  const description = $("#description").value;
+  const category = $("#category").value;
+  const amount = $("#amount").value;
+  const type = $("#type").value;
+  const calendar = $("#calendar").value;
 
   return {
     id,
@@ -120,9 +120,9 @@ const generateTable = () => {
 
   const elements = operations.map((operation) => {
     const { id, description, category, type, amount, calendar } = operation;
-    const isEarning = type === 'ganancia';
-    const textClass = isEarning ? 'green-600' : 'red-600';
-    const symbol = isEarning ? '+' : '-';
+    const isEarning = type === "ganancia";
+    const textClass = isEarning ? "green-600" : "red-600";
+    const symbol = isEarning ? "+" : "-";
 
     return `
             <tr> 
@@ -136,7 +136,11 @@ const generateTable = () => {
             `;
   });
 
-  $('#table').innerHTML = elements.join('');
+  $("#table").innerHTML = elements.join("");
 };
+//***************************  FUNCION QUE ENCUENTRA OPERACION POR ID ****************************/
 
-
+const findOperation = (id) => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  return operations.find((operation) => operation.id === parseInt(id));
+};
