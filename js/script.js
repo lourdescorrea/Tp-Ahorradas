@@ -53,3 +53,30 @@ const CATEGORIES_BASE = [
     name: "Trabajo",
   },
 ];
+
+//************************************** FUNCIONES NAVEGACION **************************************/
+// funcion esconder formularios desde el nav
+navBalance.addEventListener("click", () => {
+  balance.classList.remove("hidden");
+  containerImage.classList.remove("hidden");
+  categories.classList.add("hidden");
+  addNewOperation.classList.add("hidden");
+  reports.classList.add("hidden");
+});
+
+navCategories.addEventListener("click", () => {
+  categories.classList.remove("hidden");
+  balance.classList.add("hidden");
+  reports.classList.add("hidden");
+  addNewOperation.classList.add("hidden");
+  containerImage.classList.add("hidden");
+  CategoriesGenerateTable();
+});
+
+navReports.addEventListener("click", () => {
+  reports.classList.remove("hidden");
+  containerImage.classList.add("hidden");
+  balance.classList.add("hidden");
+  categories.classList.add("hidden");
+  addNewOperation.classList.add("hidden");
+});
