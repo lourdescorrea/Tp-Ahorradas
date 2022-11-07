@@ -245,3 +245,16 @@ $btnEditAdd.addEventListener("click", () => {
   hideEditOperationForm();
   showTable();
 });
+//******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
+$btnNewAdd.addEventListener("click", () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperation = getNewOperation(operations.length + 1);
+  operations.push(newOperation);
+
+  setDataToLocalStorage(LS_KEYS.operations, operations);
+
+  generateTable();
+
+  hideNewOperationsForm();
+  showTable();
+});
