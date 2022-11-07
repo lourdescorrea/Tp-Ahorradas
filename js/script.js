@@ -258,3 +258,20 @@ $btnNewAdd.addEventListener("click", () => {
   hideNewOperationsForm();
   showTable();
 });
+//******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
+$btnPlusOperation.addEventListener('click', () => {
+  balance.classList.add('hidden');
+  containerImage.classList.add('hidden');
+  addNewOperation.classList.remove('hidden');
+  $formEDit.classList.add('hidden');
+});
+
+//******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
+$btnNewCancel.addEventListener('click', () => {
+  img.classList.add('hidden');
+  containerImage.classList.remove('hidden');
+  balance.classList.remove('hidden');
+  addNewOperation.classList.add('hidden');
+  $formEDit.classList.add('hidden');
+  $tableOperations.classList.remove('hidden');
+});
