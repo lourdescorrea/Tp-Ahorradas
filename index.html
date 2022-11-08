@@ -146,7 +146,7 @@
         <!-- section operation img -->
         <section class="contents" id="containerImage">
           <div
-            class="w-5/12 h-auto m-10 pt-10 bg-white shadow-lg shadow-indigo-500/50"
+            class="w-auto h-auto m-10 pt-10 bg-white shadow-lg shadow-indigo-500/50"
           >
             <div class="flex justify-between mb-8 px-8 text-gray-800">
               <h2 class="font-semibold text-gray-800 text-4xl">Operaciones</h2>
@@ -165,8 +165,8 @@
             </div>
             <!-- section edit operations register -->
             <section class="hidden" id="tableOperations">
-              <div class="flex justify-center text-gray-800">
-                <div class="text-center bg-white flex flex-col">
+              <div class="text-gray-800">
+                <div class="text-center">
                   <table class="font-normal text-lg">
                     <thead>
                       <tr>
@@ -178,7 +178,7 @@
 
                         <th class="px-8">Monto</th>
 
-                        <th class="px-8">Acciones</th>
+                        <th class="pl-16">Acciones</th>
                       </tr>
                     </thead>
 
@@ -363,36 +363,30 @@
       <!-- section categories  -->
       <section class="hidden flex justify-center" id="categories">
         <div
-          class="w-7/12 h-auto p-10 bg-white text-gray-800 shadow-lg shadow-indigo-500/50"
+          class="flex flex-col justify-center w-auto h-auto p-10 bg-white text-gray-800 shadow-lg shadow-indigo-500/50"
         >
-          <div class="Section categories">
-            <h2 class="font-bold ml-8 text-gray-800 text-4xl">Categorías</h2>
+          <h2 class="font-bold ml-8 text-gray-800 text-4xl">Categorías</h2>
 
-            <div class="flex justify-between items-center m-8">
-              <div class=" ">
-                <label>Nombre</label>
-                <input
-                  class="h-12 w-[50rem] rounded border-2 border-indigo-500 focus:border-blue-600 focus:outline-none"
-                  type="text"
-                  name=""
-                  id="categoriesInput"
-                />
-              </div>
-              <div
-                class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
-              >
-                <button class="" id="btnCategoryAdd">Agregar</button>
-              </div>
+          <div class="flex justify-between items-center m-8">
+            <div class="flex flex-col">
+              <label>Nombre</label>
+              <input
+                class="h-12 w-[40rem] rounded border-2 border-indigo-500 focus:border-blue-600 focus:outline-none"
+                type="text"
+                name=""
+                id="categoriesInput"
+              />
             </div>
-            <section class="" id="tableOperations">
-              <div class="font-text-gray-800">
-                <div class="font-bold bg-white">
-                  <table class="font-normal text-lg">
-                    <tbody class="text-gray-800" id="categories-table"></tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
+            <div
+              class="flex justify-center h-12 w-20 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
+            >
+              <button class="" id="btnCategoryAdd">Agregar</button>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <table class="">
+              <tbody class="text-gray-800" id="categories-table"></tbody>
+            </table>
           </div>
         </div>
       </section>

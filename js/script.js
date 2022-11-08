@@ -127,14 +127,15 @@ const generateTable = () => {
     const symbol = isEarning ? "+" : "-";
 
     return `
-            <tr> 
+            <tr class=""> 
                 <td>${description}</td>
                 <td>${category}</td>
                 <td>${calendar}</td>
-                <td class="mt-0 pt-0 pl-12 text-lg text-${textClass} font-bold">${symbol}${amount}</td>
-                <td><button  id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
-                <td><button  id="btnDeleteTableElement" data-id="${id}" onclick="operationDelet(${id})">eliminar</button></td>
-            </tr>
+                <td class="text-lg text-${textClass} font-bold">${symbol}${amount}</td>
+                <td><button class="rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
+                <td ><button  class="pr-18 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id="${id}" onclick="operationDelet(${id})">eliminar</button></td>
+             
+             </tr>
             `;
   });
 
@@ -325,11 +326,12 @@ const CategoriesGenerateTable = () => {
   const elements = categories.map((category) => {
     const { id, name } = category;
     return ` 
-                <tr>
-                <td>${name}</td>
-                <td><button id="editCategories" onclick="categoryEdit(${id})">Editar</button></td>
-                <td> <button id="btnCancelCategories" onclick="categoryDelet(${id})">Eliminar</button></td>
-                </tr>          
+                 <tr class="pl-60">
+                    <td class="pr-60">${name}</td>
+                    <td class="px-4 pl-60" ><button class="pl-90 rounded hover:bg-indigo-400" id="editCategories" onclick="categoryEdit(${id})">Editar</button></td>
+                    <td> <button class="pl-90 rounded hover:bg-indigo-400 " id="btnCancelCategories" onclick="categoryDelet(${id})">Eliminar</button></td>
+                  </tr>     
+                  
             `;
   });
 
