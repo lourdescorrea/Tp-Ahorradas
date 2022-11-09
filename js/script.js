@@ -244,6 +244,48 @@ const editOperation = (id) => {
   });
 };
 
+//********************************************* FUNCION QUE FILTRA GANANCIAS ********************************/
+const earningsBalance = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  let acumulatedEarnings = 0;
+  for (const {amount, type} of operations){
+    if (type === "ganancia") {
+      acumulatedEarnings += parseInt(amount)
+    }
+    console.log(acumulatedEarnings)
+  }
+}
+//********************************************* FUNCION QUE FILTRA GASTOS ********************************/
+const spendingBalance = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  let acumulatedSpent = 0;
+  for (const {amount, type} of operations){
+    if (type !== "ganancia") {
+      acumulatedSpent -= parseInt(amount)
+    }
+    console.log(acumulatedSpent)
+  }
+}
+
+//********************************************* FUNCION QUE CALCULA EL TOTAL ********************************/
+
+ 
+const totalBalance = () => {
+   
+  const total =  earningsBalance() 
+  console.log(">>>>>>>>>>>> TOTAL", total)
+
+  const total2 = spendingBalance()
+  console.log(">>>>>>>>>>>> total2", total2)
+
+ const totaltotal = total - total2
+
+    console.log(">>>>>>>>>>>> totaltotal", totaltotal)
+  }
+
+
+ 
+
 //******************************************EVENTO PARA EDITAR **************************************/
 
 $btnEditAdd.addEventListener("click", () => {
