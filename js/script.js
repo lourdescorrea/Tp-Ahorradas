@@ -218,6 +218,9 @@ const operationDelet = (id) => {
   } else {
     generateTable();
     showTable();
+    totalBalance()
+    earningsBalance()
+    spendingBalance()
   }
 };
 
@@ -282,11 +285,10 @@ return acumulatedSpent
 
 // //********************************************* FUNCION QUE CALCULA EL TOTAL ********************************/
 
- 
 const totalBalance = () => {
   const acumulatedEarnings = earningsBalance()
   const acumulatedSpent = spendingBalance()
- let total =  acumulatedEarnings + acumulatedSpent
+  let total =  acumulatedEarnings + acumulatedSpent
   $("#Total").innerText = total
   return total
 }
@@ -302,6 +304,9 @@ $btnEditAdd.addEventListener("click", () => {
   generateTable();
   hideEditOperationForm();
   showTable();
+  totalBalance();
+  earningsBalance();
+  spendingBalance();
 });
 
 //******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
@@ -317,6 +322,10 @@ $btnNewAdd.addEventListener("click", () => {
 
   hideNewOperationsForm();
   showTable();
+
+totalBalance()
+earningsBalance()
+spendingBalance()
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -473,4 +482,8 @@ const onLoadCategories = () => {
 window.addEventListener("load", () => {
   onLoadOperations();
   onLoadCategories();
+
+  earningsBalance();
+  spendingBalance();
+  totalBalance();
 });
