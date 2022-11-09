@@ -8,6 +8,9 @@ const $btnEditAdd = $("#btnEditAdd"); //boton editar formulario en pantalla edit
 const $btnEditCancel = $("#btnEditCancel"); //bonton cancelar desde pantalla editar
 const $formEDit = $("#formEDit"); //id del form
 const $tableOperations = $("#tableOperations"); //id de la tabla
+const $Ganancias =   $("#Ganancias");
+const $Gastos =  $("#Gastos");
+const $Total =  $("#Total");
 
 // seletores nav
 const navBalance = $("#navBalance");
@@ -244,47 +247,49 @@ const editOperation = (id) => {
   });
 };
 
-//********************************************* FUNCION QUE FILTRA GANANCIAS ********************************/
+
+//********************************************* FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
+
 const earningsBalance = () => {
+
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   let acumulatedEarnings = 0;
   for (const {amount, type} of operations){
     if (type === "ganancia") {
-      acumulatedEarnings += parseInt(amount)
+     acumulatedEarnings += parseInt(amount)
     }
-    console.log(acumulatedEarnings)
+    $("#Ganancias").innerText = acumulatedEarnings
+   
   }
+  return acumulatedEarnings
 }
-//********************************************* FUNCION QUE FILTRA GASTOS ********************************/
+// //********************************************* FUNCION QUE FILTRA Y ACUMULA GASTOS ********************************/
+
 const spendingBalance = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
   let acumulatedSpent = 0;
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
   for (const {amount, type} of operations){
     if (type !== "ganancia") {
+      console.log (">>>>>>>>>>> entre al if")
       acumulatedSpent -= parseInt(amount)
     }
-    console.log(acumulatedSpent)
-  }
+
+    $("#Gastos").innerText = acumulatedSpent
+}
+return acumulatedSpent
 }
 
-//********************************************* FUNCION QUE CALCULA EL TOTAL ********************************/
+// //********************************************* FUNCION QUE CALCULA EL TOTAL ********************************/
 
  
 const totalBalance = () => {
-   
-  const total =  earningsBalance() 
-  console.log(">>>>>>>>>>>> TOTAL", total)
-
-  const total2 = spendingBalance()
-  console.log(">>>>>>>>>>>> total2", total2)
-
- const totaltotal = total - total2
-
-    console.log(">>>>>>>>>>>> totaltotal", totaltotal)
-  }
-
-
- 
+  const acumulatedEarnings = earningsBalance()
+  const acumulatedSpent = spendingBalance()
+ let total =  acumulatedEarnings + acumulatedSpent
+  $("#Total").innerText = total
+  return total
+}
 
 //******************************************EVENTO PARA EDITAR **************************************/
 
