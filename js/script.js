@@ -215,6 +215,9 @@ const operationDelet = (id) => {
 
   if (operations.length === 0) {
     showEmptyPage();
+    totalBalance()
+    earningsBalance()
+    spendingBalance()
   } else {
     generateTable();
     showTable();
@@ -273,6 +276,7 @@ const spendingBalance = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
   for (const {amount, type} of operations){
+    
     if (type !== "ganancia") {
       console.log (">>>>>>>>>>> entre al if")
       acumulatedSpent -= parseInt(amount)
