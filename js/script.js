@@ -8,9 +8,9 @@ const $btnEditAdd = $("#btnEditAdd"); //boton editar formulario en pantalla edit
 const $btnEditCancel = $("#btnEditCancel"); //bonton cancelar desde pantalla editar
 const $formEDit = $("#formEDit"); //id del form
 const $tableOperations = $("#tableOperations"); //id de la tabla
-const $Ganancias =   $("#Ganancias");
-const $Gastos =  $("#Gastos");
-const $Total =  $("#Total");
+const $Ganancias = $("#Ganancias");
+const $Gastos = $("#Gastos");
+const $Total = $("#Total");
 
 // seletores nav
 const navBalance = $("#navBalance");
@@ -125,7 +125,7 @@ const cleanNewOperation = () => {
   $("#amount").value = "";
   $("#type").value = "";
   const calendar = $("#calendar").value;
-}
+};
 //***************************  FUNCION QUE CREA TABLA ****************************/
 
 const generateTable = () => {
@@ -223,15 +223,15 @@ const operationDelet = (id) => {
 
   if (operations.length === 0) {
     showEmptyPage();
-    totalBalance()
-    earningsBalance()
-    spendingBalance()
+    totalBalance();
+    earningsBalance();
+    spendingBalance();
   } else {
     generateTable();
     showTable();
-    totalBalance()
-    earningsBalance()
-    spendingBalance()
+    totalBalance();
+    earningsBalance();
+    spendingBalance();
   }
 };
 
@@ -261,49 +261,45 @@ const editOperation = (id) => {
   });
 };
 
-
 //********************************************* FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
 
 const earningsBalance = () => {
-
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   let acumulatedEarnings = 0;
-  for (const {amount, type} of operations){
+  for (const { amount, type } of operations) {
     if (type === "ganancia") {
-     acumulatedEarnings += parseInt(amount)
+      acumulatedEarnings += parseInt(amount);
     }
-    $("#Ganancias").innerText = acumulatedEarnings
-   
+    $("#Ganancias").innerText = acumulatedEarnings;
   }
-  return acumulatedEarnings
-}
+  return acumulatedEarnings;
+};
 // //********************************************* FUNCION QUE FILTRA Y ACUMULA GASTOS ********************************/
 
 const spendingBalance = () => {
   let acumulatedSpent = 0;
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
-  for (const {amount, type} of operations){
-    
+  for (const { amount, type } of operations) {
     if (type !== "ganancia") {
-      console.log (">>>>>>>>>>> entre al if")
-      acumulatedSpent -= parseInt(amount)
+      console.log(">>>>>>>>>>> entre al if");
+      acumulatedSpent -= parseInt(amount);
     }
 
-    $("#Gastos").innerText = acumulatedSpent
-}
-return acumulatedSpent
-}
+    $("#Gastos").innerText = acumulatedSpent;
+  }
+  return acumulatedSpent;
+};
 
 // //********************************************* FUNCION QUE CALCULA EL TOTAL ********************************/
 
 const totalBalance = () => {
-  const acumulatedEarnings = earningsBalance()
-  const acumulatedSpent = spendingBalance()
-  let total =  acumulatedEarnings + acumulatedSpent
-  $("#Total").innerText = total
-  return total
-}
+  const acumulatedEarnings = earningsBalance();
+  const acumulatedSpent = spendingBalance();
+  let total = acumulatedEarnings + acumulatedSpent;
+  $("#Total").innerText = total;
+  return total;
+};
 
 //******************************************EVENTO PARA EDITAR **************************************/
 
@@ -335,9 +331,9 @@ $btnNewAdd.addEventListener("click", () => {
   hideNewOperationsForm();
   showTable();
 
-totalBalance()
-earningsBalance()
-spendingBalance()
+  totalBalance();
+  earningsBalance();
+  spendingBalance();
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -347,7 +343,7 @@ $btnPlusOperation.addEventListener("click", () => {
   containerImage.classList.add("hidden");
   addNewOperation.classList.remove("hidden");
   $formEDit.classList.add("hidden");
-  cleanNewOperation()
+  cleanNewOperation();
 });
 
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
@@ -407,6 +403,12 @@ const CategoriesGenerateTable = () => {
   $("#categories-table").innerHTML = elements.join("");
 };
 
+// //************************  FUNCION QUE LIMPIA DATOS DEL INPUT EN CATEGORIAS   *****************************************//
+
+const cleanNewCategory = () => {
+  $("#categoriesInput").value = "";
+};
+
 // //************************ FUNCION QUE UBICA EL ID DEL OBJETO *****************************************//
 
 const findCategory = (id) => {
@@ -443,10 +445,10 @@ $("#btnCategoryAdd").addEventListener("click", () => {
   const newCategory = getNewCategory(categories.length + 1);
 
   categories.push(newCategory);
- 
 
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
+  cleanNewCategory();
 });
 
 $("#btnCancelCategories").addEventListener("click", () => {
