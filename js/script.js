@@ -99,7 +99,7 @@ const removeLocalStorage = (ops) => {
 };
 ///////////////////// BLOQUE DE OPERACIONES ///////////////////////////////////
 
-//***************************  FUNCION QUE RECIBE DATOS DEL FORM Y RETORNA OBJETO ********************************/
+//***************************  FUNCION QUE RECIBE DATOS DEL FORM Y RETORNA OBJETO ****************************/
 
 const getNewOperation = (id) => {
   const description = $("#description").value;
@@ -118,6 +118,14 @@ const getNewOperation = (id) => {
   };
 };
 
+//***************************  FUNCION QUE LIMPIA DATOS DEL FORM DE NUEVA OPERACION **************************/
+const cleanNewOperation = () => {
+  $("#description").value = "";
+  $("#category").value = "";
+  $("#amount").value = "";
+  $("#type").value = "";
+  const calendar = $("#calendar").value;
+}
 //***************************  FUNCION QUE CREA TABLA ****************************/
 
 const generateTable = () => {
@@ -339,6 +347,7 @@ $btnPlusOperation.addEventListener("click", () => {
   containerImage.classList.add("hidden");
   addNewOperation.classList.remove("hidden");
   $formEDit.classList.add("hidden");
+  cleanNewOperation()
 });
 
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
@@ -434,6 +443,7 @@ $("#btnCategoryAdd").addEventListener("click", () => {
   const newCategory = getNewCategory(categories.length + 1);
 
   categories.push(newCategory);
+ 
 
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
