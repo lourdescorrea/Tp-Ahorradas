@@ -99,6 +99,29 @@ const removeLocalStorage = (ops) => {
 };
 ///////////////////// BLOQUE DE OPERACIONES ///////////////////////////////////
 
+//***************************************** FUNCION QUE GENERA EL ID */
+
+const nums = "123456789";
+const mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+const generadorID = () => {
+
+let id = [];
+ 
+while (id.length < 10) {
+    const num = Math.floor(Math.random() * nums.length);
+  
+    const num1 = Math.floor(Math.random() * mayus.length);
+ 
+    id.push(nums[num])
+    id.push(mayus[num1]);
+ 
+}
+
+return id.join("")
+
+}
+
 //***************************  FUNCION QUE RECIBE DATOS DEL FORM Y RETORNA OBJETO ****************************/
 
 const getNewOperation = (id) => {
@@ -143,8 +166,8 @@ const generateTable = () => {
                 <td>${category}</td>
                 <td>${calendar}</td>
                 <td class="text-lg text-${textClass} font-bold">${symbol}${amount}</td>
-                <td><button class="rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
-                <td ><button  class="pr-18 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id="${id}" onclick="operationDelet(${id})">eliminar</button></td>
+                <td><button class="rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button></td>
+                <td ><button  class="pr-18 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button></td>
              
              </tr>
             `;
@@ -157,7 +180,7 @@ const generateTable = () => {
 
 const findOperation = (id) => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  return operations.find((operation) => operation.id === parseInt(id));
+  return operations.find((operation) => operation.id === id);
 };
 
 //***************************  FUNCION QUE ESCONDE LA IMG ****************************/
@@ -198,11 +221,11 @@ const hideEditOperationForm = () => {
 const operationEdit = (id) => {
   const chosenOperation = findOperation(id);
 
-  $("#editDescription").value = chosenOperation.description;
-  $("#editCategory").value = chosenOperation.category;
-  $("#editAmount").value = chosenOperation.amount;
-  $("#editType").value = chosenOperation.type;
-  $("#editCalendar").value = chosenOperation.calendar;
+    $("#editDescription").value = chosenOperation.description;
+    $("#editCategory").value = chosenOperation.category;
+    $("#editAmount").value = chosenOperation.amount;
+    $("#editType").value = chosenOperation.type;
+    $("#editCalendar").value = chosenOperation.calendar;
 
   $btnEditAdd.setAttribute("data-id", id);
 
@@ -254,7 +277,7 @@ const editOperation = (id) => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
   return operations.map((operation) => {
-    if (operation.id === parseInt(id)) {
+    if (operation.id === id) {
       return saveOperationData(id);
     }
     return operation;
@@ -305,7 +328,7 @@ const totalBalance = () => {
 
 $btnEditAdd.addEventListener("click", () => {
   const id = $btnEditAdd.getAttribute("data-id");
-  const operations = editOperation(parseInt(id));
+  const operations = editOperation(id);
 
   setDataToLocalStorage(LS_KEYS.operations, operations);
 
@@ -321,7 +344,7 @@ $btnEditAdd.addEventListener("click", () => {
 
 $btnNewAdd.addEventListener("click", () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperation = getNewOperation(operations.length + 1);
+  const newOperation = getNewOperation(generadorID());
   operations.push(newOperation);
 
   setDataToLocalStorage(LS_KEYS.operations, operations);
@@ -334,6 +357,8 @@ $btnNewAdd.addEventListener("click", () => {
   totalBalance();
   earningsBalance();
   spendingBalance();
+  generadorID()
+
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
