@@ -8,6 +8,9 @@ const $btnEditAdd = $("#btnEditAdd"); //boton editar formulario en pantalla edit
 const $btnEditCancel = $("#btnEditCancel"); //bonton cancelar desde pantalla editar
 const $formEDit = $("#formEDit"); //id del form
 const $tableOperations = $("#tableOperations"); //id de la tabla
+const $Ganancias =   $("#Ganancias");
+const $Gastos =  $("#Gastos");
+const $Total =  $("#Total");
 
 // seletores nav
 const navBalance = $("#navBalance");
@@ -215,6 +218,9 @@ const operationDelet = (id) => {
   } else {
     generateTable();
     showTable();
+    totalBalance()
+    earningsBalance()
+    spendingBalance()
   }
 };
 
@@ -244,6 +250,49 @@ const editOperation = (id) => {
   });
 };
 
+
+//********************************************* FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
+
+const earningsBalance = () => {
+
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  let acumulatedEarnings = 0;
+  for (const {amount, type} of operations){
+    if (type === "ganancia") {
+     acumulatedEarnings += parseInt(amount)
+    }
+    $("#Ganancias").innerText = acumulatedEarnings
+   
+  }
+  return acumulatedEarnings
+}
+// //********************************************* FUNCION QUE FILTRA Y ACUMULA GASTOS ********************************/
+
+const spendingBalance = () => {
+  let acumulatedSpent = 0;
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  for (const {amount, type} of operations){
+    if (type !== "ganancia") {
+      console.log (">>>>>>>>>>> entre al if")
+      acumulatedSpent -= parseInt(amount)
+    }
+
+    $("#Gastos").innerText = acumulatedSpent
+}
+return acumulatedSpent
+}
+
+// //********************************************* FUNCION QUE CALCULA EL TOTAL ********************************/
+
+const totalBalance = () => {
+  const acumulatedEarnings = earningsBalance()
+  const acumulatedSpent = spendingBalance()
+  let total =  acumulatedEarnings + acumulatedSpent
+  $("#Total").innerText = total
+  return total
+}
+
 //******************************************EVENTO PARA EDITAR **************************************/
 
 $btnEditAdd.addEventListener("click", () => {
@@ -255,6 +304,9 @@ $btnEditAdd.addEventListener("click", () => {
   generateTable();
   hideEditOperationForm();
   showTable();
+  totalBalance();
+  earningsBalance();
+  spendingBalance();
 });
 
 //******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
@@ -270,6 +322,10 @@ $btnNewAdd.addEventListener("click", () => {
 
   hideNewOperationsForm();
   showTable();
+
+totalBalance()
+earningsBalance()
+spendingBalance()
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -426,4 +482,8 @@ const onLoadCategories = () => {
 window.addEventListener("load", () => {
   onLoadOperations();
   onLoadCategories();
+
+  earningsBalance();
+  spendingBalance();
+  totalBalance();
 });
