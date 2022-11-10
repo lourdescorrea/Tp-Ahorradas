@@ -304,25 +304,12 @@ const validation = () => {
     description.value === "" ||
     type.value === "" ||
     category.value === ""
-  )
+  ) {
     return false;
+  } else {
+    return true;
+  }
 };
-
-// //********************************************* FUNCION QUE VALIDA EL FORM DE EDITAR OPERACIONES ********************************/
-
-// const validationEdit = () => {
-//   if (
-//     editAmount.value === "" ||
-//     editDescription.value === "" ||
-//     editType.value === "" ||
-//     editCategory.value === ""
-//   ) {
-//     return false
-//   } else {
-//   return true
-// }
-// };
-
 //******************************************EVENTO PARA EDITAR OPERACION**************************************/
 
 $btnEditAdd.addEventListener("click", () => {
@@ -337,18 +324,15 @@ $btnEditAdd.addEventListener("click", () => {
   totalBalance();
   earningsBalance();
   spendingBalance();
-  validationEdit();
 });
 
 //******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
 
 $btnNewAdd.addEventListener("click", () => {
   const isValid = validation();
-
   if (!isValid) {
     return alert("Debe completar los campos");
   }
-
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const newOperation = getNewOperation(generadorID());
   operations.push(newOperation);
@@ -360,7 +344,6 @@ $btnNewAdd.addEventListener("click", () => {
   hideNewOperationsForm();
   showTable();
 
-  validation();
   totalBalance();
   earningsBalance();
   spendingBalance();
@@ -498,31 +481,34 @@ const editCategory = (id) => {
   });
 };
 
+//*************************** FUNCION QUE VALIDA LOS CAMPOS DE CATEGORIAS *********************************//
+
+const validationCategory = () => {
+  if (categoriesInput.value === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 //*************************** EVENTO QUE PUSHEA NUEVA CATEGORIA A LA TABLA ********************************//
 
 $("#btnCategoryAdd").addEventListener("click", () => {
-  const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  const newCategory = getNewCategory(generadorID());
+  const isValidCategory = validationCategory();
+  if (!isValidCategory) {
+    return alert("Debe completar los campos");
+  } else {
+    const categories = getDataFromLocalStorage(LS_KEYS.categories);
+    const newCategory = getNewCategory(generadorID());
 
-  categories.push(newCategory);
+    categories.push(newCategory);
 
-  setDataToLocalStorage(LS_KEYS.categories, categories);
-  CategoriesGenerateTable();
-  cleanNewCategory();
-  validateCategory();
+    setDataToLocalStorage(LS_KEYS.categories, categories);
+    CategoriesGenerateTable();
+    cleanNewCategory();
+    validateCategory();
+  }
 });
-
-const validateCategory = () => {
-  if (categoriesInput.value === "") {
-    return alert(`Por favor completar campos`);
-  }
-};
-
-const validateEditCategory = () => {
-  if (categoryNameInput.value === "") {
-    return alert(`Por favor completar campos`);
-  }
-};
 
 //*************************** EVENTO PARA CANCELAR DESDE PANTALLA EDITAR *********************************//
 
