@@ -68,74 +68,82 @@
                 </div>
               </div>
               <div
-                class="flex flex-col justify-center bg-indigo-400 h-96 w-auto px-10 shadow-xl shadow-indigo-500/50"
+                class="flex flex-col justify-center bg-indigo-400 h-auto w-auto px-10 shadow-xl shadow-indigo-500/50"
               >
                 <div class="flex justify-between items-center mb-2">
                   <h2 class="font-semibold text-3xl">Filtros</h2>
                   <div class="text-gray-800 hover:text-red-300">
-                    <button>Ocultar Filtros</button>
+                    <button id="btnHideFilters">Ocultar Filtros</button>
+                    <button class="hidden" id="btnShowFilters">
+                      Mostrar Filtros
+                    </button>
                   </div>
                 </div>
+                <div class="filters" id="filters">
+                  <label class="text-xl my-2" for="filtersType">Tipo</label>
+                  <div class="text-gray-800">
+                    <select
+                      class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                      name="filtersType"
+                      id="filtersType"
+                    >
+                      <option value="todos">Todos</option>
+                      <option value="gasto">Gastos</option>
+                      <option value="ganancia">Ganancias</option>
+                    </select>
+                  </div>
 
-                <label class="text-xl my-2" for="type-filters">Tipo</label>
-                <div class="text-gray-800">
-                  <select
-                    class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
-                    name="filters-type"
-                    id="filters-type"
+                  <label class="text-xl my-2" for="categories"
+                    >Categorías</label
                   >
-                    <option value="todos">Todos</option>
-                    <option value="gasto">Gastos</option>
-                    <option value="ganancia">Ganancias</option>
-                  </select>
-                </div>
+                  <div class="text-gray-800">
+                    <select
+                      class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                      name="filtersCategory"
+                      id="filtersCategory"
+                    >
+                      <option value="todas">Todas</option>
+                      <option value="comida">Comida</option>
+                      <option value="salidas">Salidas</option>
+                      <option value="servicios">Servicios</option>
+                      <option value="educación">Educación</option>
+                      <option value="transporte">Transporte</option>
+                      <option value="trabajo">Trabajo</option>
+                    </select>
+                  </div>
 
-                <label class="text-xl my-2" for="categories">Categorías</label>
-                <div class="text-gray-800">
-                  <select
-                    class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
-                    name="filters-categories"
-                    id="filters-categories"
+                  <label class="text-xl my-2" for="filtersCalendars"
+                    >Desde</label
                   >
-                    <option value="todas">Todas</option>
-                    <option value="comida">Comida</option>
-                    <option value="salidas">Salidas</option>
-                    <option value="servicios">Servicios</option>
-                    <option value="educación">Educación</option>
-                    <option value="transporte">Transporte</option>
-                    <option value="trabajo">Trabajo</option>
-                  </select>
-                </div>
+                  <div class="text-gray-800">
+                    <input
+                      class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
+                      type="date"
+                      id="calendario"
+                      name="calendario"
+                      value="2022-10-01"
+                      min="2022-01-01"
+                      max="2022-12-31"
+                    />
+                  </div>
 
-                <label class="text-xl my-2" for="filters-calendars"
-                  >Desde</label
-                >
-                <div class="text-gray-800">
-                  <input
-                    class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
-                    type="date"
-                    id="calendario"
-                    name="calendario"
-                    value="2022-10-01"
-                    min="2022-01-01"
-                    max="2022-12-31"
-                  />
-                </div>
-
-                <label class="text-xl my-2" for="categories">Ordenar por</label>
-                <div class="text-gray-800 table-cell items-center">
-                  <select
-                    class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer focus:border-blue-600 focus:outline-none"
-                    name="filters-categoriesThree"
-                    id="filters-categoriesThree"
+                  <label class="text-xl my-2" for="categories"
+                    >Ordenar por</label
                   >
-                    <option value="">Más reciente</option>
-                    <option value="">Menos reciente</option>
-                    <option value="">Menor Monto</option>
-                    <option value="">Mayor monto</option>
-                    <option value="">A/Z</option>
-                    <option value="">Z/A</option>
-                  </select>
+                  <div class="text-gray-800 table-cell items-center">
+                    <select
+                      class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointer focus:border-blue-600 focus:outline-none"
+                      name="filtersSortBy"
+                      id="filtersSortBy"
+                    >
+                      <option value="">Más reciente</option>
+                      <option value="">Menos reciente</option>
+                      <option value="">Menor Monto</option>
+                      <option value="">Mayor monto</option>
+                      <option value="">A/Z</option>
+                      <option value="">Z/A</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -207,6 +215,7 @@
               class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
               type="number"
               id="amount"
+              required
             />
           </div>
           <div>
@@ -261,16 +270,21 @@
             />
           </div>
           <div class="flex flex-row-reverse">
-            <div
+            <input
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
-            >
-              <button type="button" id="btnNewAdd">Agregar</button>
-            </div>
-            <div
+              type="submit"
+              value="Agregar"
+              id="btnNewAdd"
+              required
+            />
+
+            <input
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
-            >
-              <button type="button" id="btnNewCancel">Cancelar</button>
-            </div>
+              type="submit"
+              value="Cancelar"
+              id="btnNewCancel"
+              required
+            />
           </div>
         </div>
       </section>
