@@ -300,6 +300,18 @@ const totalBalance = () => {
   $("#Total").innerText = total;
   return total;
 };
+// //********************************************* FUNCION QUE VALIDA EL FORM DE OPERACIONES ********************************/
+
+const validation = () => {
+  if (
+    amount.value === "" ||
+    description.value === "" ||
+    type.value === "" ||
+    category.value === ""
+  ) {
+    return alert(`Por favor completar campos`);
+  }
+};
 
 //******************************************EVENTO PARA EDITAR **************************************/
 
@@ -334,6 +346,7 @@ $btnNewAdd.addEventListener("click", () => {
   totalBalance();
   earningsBalance();
   spendingBalance();
+  validation();
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -436,7 +449,7 @@ const editCategory = (id) => {
         name: $("#categoryNameInput").value,
       };
     }
-    return category;
+    return getNewCategory();
   });
 };
 
