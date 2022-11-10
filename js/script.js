@@ -576,3 +576,24 @@ window.addEventListener("load", () => {
   totalBalance();
   generadorID();
 });
+
+//*************************** FUNCIONES PARA FILTRAR *********************************//
+const filterType = $("#filterType");
+const filterCalendar = $("#filterCalendar");
+const filtersCategory = $("#filtersCategory");
+const filtersSortBy = $("#filtersSortBy");
+const btnHideFilters = $("#btnHideFilters");
+const btnShowFilters = $("#btnShowFilters");
+const filters = $("#filters");
+
+$("#btnHideFilters").addEventListener("click", () => {
+  filters.classList.add("hidden");
+  btnHideFilters.classList.add("hidden");
+  btnShowFilters.classList.remove("hidden");
+});
+
+$("#btnShowFilters").addEventListener("click", () => {
+  filters.classList.remove("hidden");
+  btnHideFilters.classList.remove("hidden");
+  btnShowFilters.classList.add("hidden");
+});
