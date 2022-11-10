@@ -115,15 +115,6 @@ const getNewOperation = (id) => {
   };
 };
 
-//***************************  FUNCION QUE LIMPIA DATOS DEL FORM DE NUEVA OPERACION **************************/
-
-const cleanNewOperation = () => {
-  $("#description").value = "";
-  $("#category").value = "";
-  $("#amount").value = "";
-  $("#type").value = "";
-  const calendar = $("#calendar").value;
-};
 
 //***************************  FUNCION QUE CREA LA TABLA ****************************/
 
@@ -259,6 +250,17 @@ const editOperation = (id) => {
     return operation;
   });
 };
+
+//***************************  FUNCION QUE LIMPIA DATOS DEL FORM DE NUEVA OPERACION **************************/
+
+const cleanNewOperation = () => {
+  $("#description").value = "";
+  $("#category").value = "";
+  $("#amount").value = "";
+  $("#type").value = "";
+  const calendar = $("#calendar").value;
+};
+
 // //*************************** FUNCION QUE VALIDA EL FORM DE OPERACIONES *************************/
 
 const validation = () => {
@@ -511,11 +513,7 @@ const getNewCategory = (id) => {
 //*************************** FUNCION QUE EDITA UNA CATEGORIA *********************************//
 
 const editCategory = (id) => {
-  const isValidEdit = validationEditCategory();
-  if (!isValidEdit) {
-    return alert("Debe completar los campos");
-  } else {
-    const categories = getDataFromLocalStorage(LS_KEYS.categories);
+     const categories = getDataFromLocalStorage(LS_KEYS.categories);
 
     return categories.map((category) => {
       if (category.id === id) {
@@ -527,7 +525,6 @@ const editCategory = (id) => {
       return category;
     });
   }
-};
 
 //*************************** FUNCION PARA FILTRAR CATEGORIA *********************************//
 
@@ -565,10 +562,10 @@ const validationCategory = () => {
 };
 //*************************** FUNCION PARA VALIDA LOS CAMPOS DE CATEGORIAS *********************************//
 const validationEditCategory = () => {
-  if (categoriesInput.value === "") {
-    return false;
-  } else {
+  if (categoryNameInput.value !== "") {
     return true;
+  } else {
+    return false;
   }
 };
 //*************************** EVENTO QUE PUSHEA NUEVA CATEGORIA A LA TABLA ********************************//
@@ -599,6 +596,10 @@ $("#btnCancelCategories").addEventListener("click", () => {
 //*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
 
 $("#btnEditCategories").addEventListener("click", () => {
+  const isValidEdit = validationEditCategory();
+  if (!isValidEdit) {
+    return alert("Debe completar los campos");
+  } else{
   const id = $btnEditCategories.getAttribute("data-id");
   const categories = editCategory(id);
 
@@ -607,6 +608,7 @@ $("#btnEditCategories").addEventListener("click", () => {
   CategoriesGenerateTable();
   $categories.classList.remove("hidden");
   $containerCategories.classList.add("hidden");
+}
 });
 
 
@@ -616,6 +618,7 @@ $("#btnEditCategories").addEventListener("click", () => {
 const onLoadCategories = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
   if (!categories) {
+    console.log(categories)
     setDataToLocalStorage(LS_KEYS.categories, CATEGORIES_BASE);
   }
 };
