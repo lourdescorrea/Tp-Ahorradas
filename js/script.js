@@ -300,18 +300,6 @@ const totalBalance = () => {
   $("#Total").innerText = total;
   return total;
 };
-// //********************************************* FUNCION QUE VALIDA EL FORM DE OPERACIONES ********************************/
-
-const validation = () => {
-  if (
-    amount.value === "" ||
-    description.value === "" ||
-    type.value === "" ||
-    category.value === ""
-  ) {
-    return alert(`Por favor completar campos`);
-  }
-};
 
 //******************************************EVENTO PARA EDITAR **************************************/
 
@@ -327,6 +315,7 @@ $btnEditAdd.addEventListener("click", () => {
   totalBalance();
   earningsBalance();
   spendingBalance();
+  validationEdit();
 });
 
 //******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
@@ -516,3 +505,27 @@ window.addEventListener("load", () => {
   spendingBalance();
   totalBalance();
 });
+
+// //********************************************* FUNCION QUE VALIDA EL FORM DE OPERACIONES ********************************/
+
+const validation = () => {
+  if (
+    amount.value === "" ||
+    description.value === "" ||
+    type.value === "" ||
+    category.value === ""
+  ) {
+    return alert(`Por favor completar campos`);
+  }
+};
+
+const validationEdit = () => {
+  if (
+    editAmount.value === "" ||
+    editDescription.value === "" ||
+    editType.value === "" ||
+    editCategory.value === ""
+  ) {
+    return alert(`Por favor completar campos`);
+  }
+};
