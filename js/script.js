@@ -310,9 +310,28 @@ const validation = () => {
     return true;
   }
 };
+// //********************************************* FUNCION QUE VALIDA EL FORM DE EDITAR OPERACIONES********************************/
+
+const validationOperations = () => {
+  if (
+    editDescription.value === "" ||
+    editAmount.value === "" ||
+    editType.value === "" ||
+    editCategory.value === ""
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 //******************************************EVENTO PARA EDITAR OPERACION**************************************/
 
 $btnEditAdd.addEventListener("click", () => {
+  const isValidOperations = validationOperations();
+  if (!isValidOperations) {
+    return alert("Debe completar los campos");
+  }
   const id = $btnEditAdd.getAttribute("data-id");
   const operations = editOperation(id);
 
