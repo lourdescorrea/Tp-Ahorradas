@@ -266,6 +266,7 @@ const editOperation = (id) => {
 const earningsBalance = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   let acumulatedEarnings = 0;
+  $("#Ganancias").innerText = acumulatedEarnings;
   for (const { amount, type } of operations) {
     if (type === "ganancia") {
       acumulatedEarnings += parseInt(amount);
@@ -278,11 +279,11 @@ const earningsBalance = () => {
 
 const spendingBalance = () => {
   let acumulatedSpent = 0;
+  $("#Gastos").innerText = acumulatedSpent;
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
   for (const { amount, type } of operations) {
     if (type !== "ganancia") {
-      console.log(">>>>>>>>>>> entre al if");
       acumulatedSpent -= parseInt(amount);
     }
 
