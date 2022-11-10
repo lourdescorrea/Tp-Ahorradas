@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -208,6 +207,7 @@
               class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
               type="number"
               id="amount"
+              required
             />
           </div>
           <div>
@@ -262,16 +262,21 @@
             />
           </div>
           <div class="flex flex-row-reverse">
-            <div
+            <input
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
-            >
-              <button type="button" id="btnNewAdd">Agregar</button>
-            </div>
-            <div
+              type="submit"
+              value="Agregar"
+              id="btnNewAdd"
+              required
+            />
+
+            <input
               class="flex justify-center m-2 h-12 w-40 bg-indigo-400 text-xl text-white rounded-md hover:bg-indigo-800"
-            >
-              <button type="button" id="btnNewCancel">Cancelar</button>
-            </div>
+              type="submit"
+              value="Cancelar"
+              id="btnNewCancel"
+              required
+            />
           </div>
         </div>
       </section>

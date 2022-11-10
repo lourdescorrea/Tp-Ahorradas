@@ -30,33 +30,6 @@ const LS_KEYS = {
   categories: "categories",
 };
 
-const CATEGORIES_BASE = [
-  {
-    id: 0,
-    name: "Comida",
-  },
-  {
-    id: 1,
-    name: "Servicios",
-  },
-  {
-    id: 2,
-    name: "Salidas",
-  },
-  {
-    id: 3,
-    name: "Educacion",
-  },
-  {
-    id: 4,
-    name: "Transporte",
-  },
-  {
-    id: 5,
-    name: "Trabajo",
-  },
-];
-
 //************************************** FUNCIONES NAVEGACION **************************************/
 
 navBalance.addEventListener("click", () => {
@@ -99,6 +72,26 @@ const removeLocalStorage = (ops) => {
 };
 ///////////////////// BLOQUE DE OPERACIONES ///////////////////////////////////
 
+//***************************************** FUNCION QUE GENERA EL ID ****************************/
+
+const nums = "123456789";
+const mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+const generadorID = () => {
+  let id = [];
+
+  while (id.length < 10) {
+    const num = Math.floor(Math.random() * nums.length);
+
+    const num1 = Math.floor(Math.random() * mayus.length);
+
+    id.push(nums[num]);
+    id.push(mayus[num1]);
+  }
+
+  return id.join("");
+};
+
 //***************************  FUNCION QUE RECIBE DATOS DEL FORM Y RETORNA OBJETO ****************************/
 
 const getNewOperation = (id) => {
@@ -119,6 +112,7 @@ const getNewOperation = (id) => {
 };
 
 //***************************  FUNCION QUE LIMPIA DATOS DEL FORM DE NUEVA OPERACION **************************/
+
 const cleanNewOperation = () => {
   $("#description").value = "";
   $("#category").value = "";
@@ -126,7 +120,8 @@ const cleanNewOperation = () => {
   $("#type").value = "";
   const calendar = $("#calendar").value;
 };
-//***************************  FUNCION QUE CREA TABLA ****************************/
+
+//***************************  FUNCION QUE CREA LA TABLA ****************************/
 
 const generateTable = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
@@ -143,8 +138,8 @@ const generateTable = () => {
                 <td>${category}</td>
                 <td>${calendar}</td>
                 <td class="text-lg text-${textClass} font-bold">${symbol}${amount}</td>
-                <td><button class="rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit(${id})">editar</button></td>
-                <td ><button  class="pr-18 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id="${id}" onclick="operationDelet(${id})">eliminar</button></td>
+                <td><button class="rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button></td>
+                <td ><button  class="pr-18 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button></td>
              
              </tr>
             `;
@@ -157,10 +152,10 @@ const generateTable = () => {
 
 const findOperation = (id) => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  return operations.find((operation) => operation.id === parseInt(id));
+  return operations.find((operation) => operation.id === id);
 };
 
-//***************************  FUNCION QUE ESCONDE LA IMG ****************************/
+//***************************  FUNCION QUE ESCONDE  ****************************/
 
 const cleanPage = () => img.classList.add("hidden");
 
@@ -254,14 +249,14 @@ const editOperation = (id) => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
   return operations.map((operation) => {
-    if (operation.id === parseInt(id)) {
+    if (operation.id === id) {
       return saveOperationData(id);
     }
     return operation;
   });
 };
 
-//********************************************* FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
+//********************************** FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
 
 const earningsBalance = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
@@ -301,11 +296,38 @@ const totalBalance = () => {
   return total;
 };
 
-//******************************************EVENTO PARA EDITAR **************************************/
+// //********************************************* FUNCION QUE VALIDA EL FORM DE OPERACIONES ********************************/
+
+const validation = () => {
+  if (
+    amount.value === "" ||
+    description.value === "" ||
+    type.value === "" ||
+    category.value === ""
+  )
+    return false;
+};
+
+// //********************************************* FUNCION QUE VALIDA EL FORM DE EDITAR OPERACIONES ********************************/
+
+// const validationEdit = () => {
+//   if (
+//     editAmount.value === "" ||
+//     editDescription.value === "" ||
+//     editType.value === "" ||
+//     editCategory.value === ""
+//   ) {
+//     return false
+//   } else {
+//   return true
+// }
+// };
+
+//******************************************EVENTO PARA EDITAR OPERACION**************************************/
 
 $btnEditAdd.addEventListener("click", () => {
   const id = $btnEditAdd.getAttribute("data-id");
-  const operations = editOperation(parseInt(id));
+  const operations = editOperation(id);
 
   setDataToLocalStorage(LS_KEYS.operations, operations);
 
@@ -321,8 +343,14 @@ $btnEditAdd.addEventListener("click", () => {
 //******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
 
 $btnNewAdd.addEventListener("click", () => {
+  const isValid = validation();
+
+  if (!isValid) {
+    return alert("Debe completar los campos");
+  }
+
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperation = getNewOperation(operations.length + 1);
+  const newOperation = getNewOperation(generadorID());
   operations.push(newOperation);
 
   setDataToLocalStorage(LS_KEYS.operations, operations);
@@ -332,10 +360,10 @@ $btnNewAdd.addEventListener("click", () => {
   hideNewOperationsForm();
   showTable();
 
+  validation();
   totalBalance();
   earningsBalance();
   spendingBalance();
-  validation();
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -384,8 +412,34 @@ const onLoadOperations = () => {
 const $containerCategories = $("#containerCategories");
 const $categories = $("#categories");
 const $btnEditCategories = $("#btnEditCategories");
+const CATEGORIES_BASE = [
+  {
+    id: generadorID(),
+    name: "Comida",
+  },
+  {
+    id: generadorID(),
+    name: "Servicios",
+  },
+  {
+    id: generadorID(),
+    name: "Salidas",
+  },
+  {
+    id: generadorID(),
+    name: "Educacion",
+  },
+  {
+    id: generadorID(),
+    name: "Transporte",
+  },
+  {
+    id: generadorID(),
+    name: "Trabajo",
+  },
+];
 
-//************************ FUNCION QUE CREA Y PUSHE LA TABLA *****************************************//
+//************************ FUNCION QUE CREA  LA TABLA *****************************************//
 
 const CategoriesGenerateTable = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
@@ -395,8 +449,8 @@ const CategoriesGenerateTable = () => {
     return ` 
                  <tr class="pl-60">
                     <td class="pr-60">${name}</td>
-                    <td class="px-4 pl-60" ><button class="pl-90 rounded hover:bg-indigo-400" id="editCategories" onclick="categoryEdit(${id})">Editar</button></td>
-                    <td> <button class="pl-90 rounded hover:bg-indigo-400 " id="btnCancelCategories" onclick="categoryDelet(${id})">Eliminar</button></td>
+                    <td class="px-4 pl-60" ><button class="pl-90 rounded hover:bg-indigo-400" id="editCategories" onclick="categoryEdit('${id}')">Editar</button></td>
+                    <td> <button class="pl-90 rounded hover:bg-indigo-400 " id="btnCancelCategories" onclick="categoryDelet('${id}')">Eliminar</button></td>
                   </tr>     
                   
             `;
@@ -415,10 +469,10 @@ const cleanNewCategory = () => {
 
 const findCategory = (id) => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  return categories.find((category) => category.id === parseInt(id));
+  return categories.find((category) => category.id === id);
 };
 
-// //*************************** EVENTO QUE CONECTA BOTON AGREGAR CON TABLA ***************************************//
+//*************************** FUNCION QUE CREA UNA NUEVA CATEGORIA *********************************//
 
 const getNewCategory = (id) => {
   const categoriesInput = $("#categoriesInput").value;
@@ -428,11 +482,13 @@ const getNewCategory = (id) => {
   };
 };
 
+//*************************** FUNCION QUE EDITA UNA CATEGORIA *********************************//
+
 const editCategory = (id) => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
 
   return categories.map((category) => {
-    if (category.id === parseInt(id)) {
+    if (category.id === id) {
       return {
         id: id,
         name: $("#categoryNameInput").value,
@@ -442,43 +498,69 @@ const editCategory = (id) => {
   });
 };
 
+//*************************** EVENTO QUE PUSHEA NUEVA CATEGORIA A LA TABLA ********************************//
+
 $("#btnCategoryAdd").addEventListener("click", () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  const newCategory = getNewCategory(categories.length + 1);
+  const newCategory = getNewCategory(generadorID());
 
   categories.push(newCategory);
 
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
   cleanNewCategory();
+  validateCategory();
 });
+
+const validateCategory = () => {
+  if (categoriesInput.value === "") {
+    return alert(`Por favor completar campos`);
+  }
+};
+
+const validateEditCategory = () => {
+  if (categoryNameInput.value === "") {
+    return alert(`Por favor completar campos`);
+  }
+};
+
+//*************************** EVENTO PARA CANCELAR DESDE PANTALLA EDITAR *********************************//
 
 $("#btnCancelCategories").addEventListener("click", () => {
   $categories.classList.remove("hidden");
   $containerCategories.classList.add("hidden");
 });
 
+//*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
+
 $("#btnEditCategories").addEventListener("click", () => {
   const id = $btnEditCategories.getAttribute("data-id");
-  const categories = editCategory(parseInt(id));
+  const categories = editCategory(id);
 
   setDataToLocalStorage(LS_KEYS.categories, categories);
 
   CategoriesGenerateTable();
+  validateEditCategory();
   $categories.classList.remove("hidden");
   $containerCategories.classList.add("hidden");
 });
 
+//*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
+
 const removeCategories = (id) => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  return categories.filter((category) => category.id !== parseInt(id));
+  return categories.filter((category) => category.id !== id);
 };
+
+//*************************** EVENTO PARA ELIMINAR CATEGORIA *********************************//
 
 const categoryDelet = (id) => {
   const categories = removeCategories(id);
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
 };
+
+//*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
 
 const categoryEdit = (id) => {
   $categories.classList.add("hidden");
@@ -488,6 +570,8 @@ const categoryEdit = (id) => {
   $btnEditCategories.setAttribute("data-id", id);
 };
 
+//*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
+
 const onLoadCategories = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
   if (!categories) {
@@ -495,7 +579,7 @@ const onLoadCategories = () => {
   }
 };
 
-// evento para la carga inicial
+//*************************** EVENTO PARA CARGA INICIAL *********************************//
 
 window.addEventListener("load", () => {
   onLoadOperations();
@@ -504,28 +588,5 @@ window.addEventListener("load", () => {
   earningsBalance();
   spendingBalance();
   totalBalance();
+  generadorID();
 });
-
-// //********************************************* FUNCION QUE VALIDA EL FORM DE OPERACIONES ********************************/
-
-const validation = () => {
-  if (
-    amount.value === "" ||
-    description.value === "" ||
-    type.value === "" ||
-    category.value === ""
-  ) {
-    return alert(`Por favor completar campos`);
-  }
-};
-
-const validationEdit = () => {
-  if (
-    editAmount.value === "" ||
-    editDescription.value === "" ||
-    editType.value === "" ||
-    editCategory.value === ""
-  ) {
-    return alert(`Por favor completar campos`);
-  }
-};
