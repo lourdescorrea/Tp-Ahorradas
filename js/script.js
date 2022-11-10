@@ -310,20 +310,6 @@ const validation = () => {
     return true;
   }
 };
-// //********************************************* FUNCION QUE VALIDA EL FORM DE EDITAR OPERACIONES********************************/
-
-const validationOperations = () => {
-  if (
-    editDescription.value === "" ||
-    editAmount.value === "" ||
-    editType.value === "" ||
-    editCategory.value === ""
-  ) {
-    return false;
-  } else {
-    return true;
-  }
-};
 
 //******************************************EVENTO PARA EDITAR OPERACION**************************************/
 
@@ -366,6 +352,7 @@ $btnNewAdd.addEventListener("click", () => {
   totalBalance();
   earningsBalance();
   spendingBalance();
+  generadorID();
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -403,6 +390,20 @@ const onLoadOperations = () => {
   } else {
     generateTable();
     showTable();
+  }
+};
+// //********************************************* FUNCION QUE VALIDA EL FORM DE EDITAR OPERACIONES********************************/
+
+const validationOperations = () => {
+  if (
+    editDescription.value === "" ||
+    editAmount.value === "" ||
+    editType.value === "" ||
+    editCategory.value === ""
+  ) {
+    return false;
+  } else {
+    return true;
   }
 };
 
@@ -487,26 +488,21 @@ const getNewCategory = (id) => {
 //*************************** FUNCION QUE EDITA UNA CATEGORIA *********************************//
 
 const editCategory = (id) => {
-  const categories = getDataFromLocalStorage(LS_KEYS.categories);
-
-  return categories.map((category) => {
-    if (category.id === id) {
-      return {
-        id: id,
-        name: $("#categoryNameInput").value,
-      };
-    }
-    return getNewCategory();
-  });
-};
-
-//*************************** FUNCION QUE VALIDA LOS CAMPOS DE CATEGORIAS *********************************//
-
-const validationCategory = () => {
-  if (categoriesInput.value === "") {
-    return false;
+  const isValidEdit = validationEditCategory();
+  if (!isValidEdit) {
+    return alert("Debe completar los campos");
   } else {
-    return true;
+    const categories = getDataFromLocalStorage(LS_KEYS.categories);
+
+    return categories.map((category) => {
+      if (category.id === id) {
+        return {
+          id: id,
+          name: $("#categoryNameInput").value,
+        };
+      }
+      return category;
+    });
   }
 };
 
@@ -525,7 +521,6 @@ $("#btnCategoryAdd").addEventListener("click", () => {
     setDataToLocalStorage(LS_KEYS.categories, categories);
     CategoriesGenerateTable();
     cleanNewCategory();
-    validateCategory();
   }
 });
 
@@ -545,12 +540,11 @@ $("#btnEditCategories").addEventListener("click", () => {
   setDataToLocalStorage(LS_KEYS.categories, categories);
 
   CategoriesGenerateTable();
-  validateEditCategory();
   $categories.classList.remove("hidden");
   $containerCategories.classList.add("hidden");
 });
 
-//*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
+//*************************** EVENTO PARA FILTRAR CATEGORIA *********************************//
 
 const removeCategories = (id) => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
@@ -565,7 +559,7 @@ const categoryDelet = (id) => {
   CategoriesGenerateTable();
 };
 
-//*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
+//*************************** FUNCION PARA EDITAR CATEGORIA *********************************//
 
 const categoryEdit = (id) => {
   $categories.classList.add("hidden");
@@ -573,6 +567,24 @@ const categoryEdit = (id) => {
   const chosenOperation = findCategory(id);
   $("#categoryNameInput").value = chosenOperation.name;
   $btnEditCategories.setAttribute("data-id", id);
+};
+
+//*************************** FUNCION QUE VALIDA LOS CAMPOS DE EDITAR CATEGORIA *********************************//
+
+const validationCategory = () => {
+  if (categoriesInput.value === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
+//*************************** FUNCION QUE VALIDA LOS CAMPOS DE CATEGORIAS *********************************//
+const validationEditCategory = () => {
+  if (categoriesInput.value === "") {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 //*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
