@@ -30,7 +30,9 @@ const LS_KEYS = {
   categories: "categories",
 };
 
-//************************************** FUNCIONES NAVEGACION **************************************/
+////////////////////////////////////////BLOQUE FUNCIONES BASE//////////////////////////////////////////////
+
+//********************************** FUNCIONES NAVEGACION **********************************/
 
 navBalance.addEventListener("click", () => {
   balance.classList.remove("hidden");
@@ -57,7 +59,7 @@ navReports.addEventListener("click", () => {
   addNewOperation.classList.add("hidden");
 });
 
-//************************************** FUNCIONES PARA LOCAL STORAGE **************************************/
+//****************************** FUNCIONES PARA LOCAL STORAGE **********************************/
 
 const getDataFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
@@ -70,9 +72,11 @@ const setDataToLocalStorage = (key, data) => {
 const removeLocalStorage = (ops) => {
   setDataToLocalStorage("operations", ops);
 };
-///////////////////// BLOQUE DE OPERACIONES ///////////////////////////////////
 
-//***************************************** FUNCION QUE GENERA EL ID ****************************/
+
+//////////////////////////////////////////BLOQUE OPERACIONES/////////////////////////////////////////////////
+
+//****************************** FUNCION QUE GENERA EL ID ****************************/
 
 const nums = "123456789";
 const mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -255,49 +259,7 @@ const editOperation = (id) => {
     return operation;
   });
 };
-
-//********************************** FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
-
-const earningsBalance = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  let acumulatedEarnings = 0;
-  $("#Ganancias").innerText = acumulatedEarnings;
-  for (const { amount, type } of operations) {
-    if (type === "ganancia") {
-      acumulatedEarnings += parseInt(amount);
-    }
-    $("#Ganancias").innerText = acumulatedEarnings;
-  }
-  return acumulatedEarnings;
-};
-// //********************************************* FUNCION QUE FILTRA Y ACUMULA GASTOS ********************************/
-
-const spendingBalance = () => {
-  let acumulatedSpent = 0;
-  $("#Gastos").innerText = acumulatedSpent;
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-
-  for (const { amount, type } of operations) {
-    if (type !== "ganancia") {
-      acumulatedSpent -= parseInt(amount);
-    }
-
-    $("#Gastos").innerText = acumulatedSpent;
-  }
-  return acumulatedSpent;
-};
-
-// //********************************************* FUNCION QUE CALCULA EL TOTAL ********************************/
-
-const totalBalance = () => {
-  const acumulatedEarnings = earningsBalance();
-  const acumulatedSpent = spendingBalance();
-  let total = acumulatedEarnings + acumulatedSpent;
-  $("#Total").innerText = total;
-  return total;
-};
-
-// //********************************************* FUNCION QUE VALIDA EL FORM DE OPERACIONES ********************************/
+// //*************************** FUNCION QUE VALIDA EL FORM DE OPERACIONES *************************/
 
 const validation = () => {
   if (
@@ -311,8 +273,22 @@ const validation = () => {
     return true;
   }
 };
+// //************************ FUNCION QUE VALIDA EL FORM DE EDITAR OPERACIONES **************************/
 
-//******************************************EVENTO PARA EDITAR OPERACION**************************************/
+const validationOperations = () => {
+  if (
+    editDescription.value === "" ||
+    editAmount.value === "" ||
+    editType.value === "" ||
+    editCategory.value === ""
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+//************************************* EVENTO PARA EDITAR OPERACION **********************************/
 
 $btnEditAdd.addEventListener("click", () => {
   const isValidOperations = validationOperations();
@@ -332,7 +308,7 @@ $btnEditAdd.addEventListener("click", () => {
   spendingBalance();
 });
 
-//******************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL **********************/
+//****************** EVENTO QUE AGREGA LA TABLA DE OPERACIONES A LA PANTALLA PRINCIPAL *******************/
 
 $btnNewAdd.addEventListener("click", () => {
   const isValid = validation();
@@ -393,26 +369,72 @@ const onLoadOperations = () => {
     showTable();
   }
 };
-// //********************************************* FUNCION QUE VALIDA EL FORM DE EDITAR OPERACIONES********************************/
 
-const validationOperations = () => {
-  if (
-    editDescription.value === "" ||
-    editAmount.value === "" ||
-    editType.value === "" ||
-    editCategory.value === ""
-  ) {
-    return false;
-  } else {
-    return true;
+
+//  * ========================================================================================================================
+//  *
+//  * ========================================================================================================================
+//  *
+//  * ========================================================================================================================
+
+           //////////////////////////////// BLOQUE BALANCE Y FILTROS ////////////////////////////////////
+
+
+            // ************************************* BALANCE ********************************/
+
+//********************************** FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
+
+const earningsBalance = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  let acumulatedEarnings = 0;
+  $("#Ganancias").innerText = acumulatedEarnings;
+  for (const { amount, type } of operations) {
+    if (type === "ganancia") {
+      acumulatedEarnings += parseInt(amount);
+    }
+    $("#Ganancias").innerText = acumulatedEarnings;
   }
+  return acumulatedEarnings;
 };
 
+// //******************************** FUNCION QUE FILTRA Y ACUMULA GASTOS *************************/
+
+const spendingBalance = () => {
+  let acumulatedSpent = 0;
+  $("#Gastos").innerText = acumulatedSpent;
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  for (const { amount, type } of operations) {
+    if (type !== "ganancia") {
+      acumulatedSpent -= parseInt(amount);
+    }
+
+    $("#Gastos").innerText = acumulatedSpent;
+  }
+  return acumulatedSpent;
+};
+
+// //********************************* FUNCION QUE CALCULA EL TOTAL ********************************/
+
+const totalBalance = () => {
+  const acumulatedEarnings = earningsBalance();
+  const acumulatedSpent = spendingBalance();
+  let total = acumulatedEarnings + acumulatedSpent;
+  $("#Total").innerText = total;
+  return total;
+};
+
+
+     // ******************************************** FILTROS ********************************/
+
 //  * ========================================================================================================================
 //  *
 //  * ========================================================================================================================
 //  *
 //  * ========================================================================================================================
+
+////////////////////////////////////////BLOQUE FUNCIONES BASE//////////////////////////////////////////////
+
 const $containerCategories = $("#containerCategories");
 const $categories = $("#categories");
 const $btnEditCategories = $("#btnEditCategories");
@@ -507,6 +529,48 @@ const editCategory = (id) => {
   }
 };
 
+//*************************** FUNCION PARA FILTRAR CATEGORIA *********************************//
+
+const removeCategories = (id) => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  return categories.filter((category) => category.id !== id);
+};
+
+//*************************** FUNCION PARA ELIMINAR CATEGORIA *********************************//
+
+const categoryDelet = (id) => {
+  const categories = removeCategories(id);
+  setDataToLocalStorage(LS_KEYS.categories, categories);
+  CategoriesGenerateTable();
+};
+
+//*************************** FUNCION PARA EDITAR CATEGORIA *********************************//
+
+const categoryEdit = (id) => {
+  $categories.classList.add("hidden");
+  $containerCategories.classList.remove("hidden");
+  const chosenOperation = findCategory(id);
+  $("#categoryNameInput").value = chosenOperation.name;
+  $btnEditCategories.setAttribute("data-id", id);
+};
+
+//*************************** FUNCION PARA VALIDAR FORM DE EDITAR CATEGORIA *********************************//
+
+const validationCategory = () => {
+  if (categoriesInput.value === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
+//*************************** FUNCION PARA VALIDA LOS CAMPOS DE CATEGORIAS *********************************//
+const validationEditCategory = () => {
+  if (categoriesInput.value === "") {
+    return false;
+  } else {
+    return true;
+  }
+};
 //*************************** EVENTO QUE PUSHEA NUEVA CATEGORIA A LA TABLA ********************************//
 
 $("#btnCategoryAdd").addEventListener("click", () => {
@@ -545,48 +609,7 @@ $("#btnEditCategories").addEventListener("click", () => {
   $containerCategories.classList.add("hidden");
 });
 
-//*************************** EVENTO PARA FILTRAR CATEGORIA *********************************//
 
-const removeCategories = (id) => {
-  const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  return categories.filter((category) => category.id !== id);
-};
-
-//*************************** EVENTO PARA ELIMINAR CATEGORIA *********************************//
-
-const categoryDelet = (id) => {
-  const categories = removeCategories(id);
-  setDataToLocalStorage(LS_KEYS.categories, categories);
-  CategoriesGenerateTable();
-};
-
-//*************************** FUNCION PARA EDITAR CATEGORIA *********************************//
-
-const categoryEdit = (id) => {
-  $categories.classList.add("hidden");
-  $containerCategories.classList.remove("hidden");
-  const chosenOperation = findCategory(id);
-  $("#categoryNameInput").value = chosenOperation.name;
-  $btnEditCategories.setAttribute("data-id", id);
-};
-
-//*************************** FUNCION QUE VALIDA LOS CAMPOS DE EDITAR CATEGORIA *********************************//
-
-const validationCategory = () => {
-  if (categoriesInput.value === "") {
-    return false;
-  } else {
-    return true;
-  }
-};
-//*************************** FUNCION QUE VALIDA LOS CAMPOS DE CATEGORIAS *********************************//
-const validationEditCategory = () => {
-  if (categoriesInput.value === "") {
-    return false;
-  } else {
-    return true;
-  }
-};
 
 //*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
 
