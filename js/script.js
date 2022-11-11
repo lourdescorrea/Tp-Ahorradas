@@ -73,7 +73,6 @@ const removeLocalStorage = (ops) => {
   setDataToLocalStorage("operations", ops);
 };
 
-
 //////////////////////////////////////////BLOQUE OPERACIONES/////////////////////////////////////////////////
 
 //****************************** FUNCION QUE GENERA EL ID ****************************/
@@ -114,7 +113,6 @@ const getNewOperation = (id) => {
     calendar,
   };
 };
-
 
 //***************************  FUNCION QUE CREA LA TABLA ****************************/
 
@@ -372,17 +370,15 @@ const onLoadOperations = () => {
   }
 };
 
-
 //  * ========================================================================================================================
 //  *
 //  * ========================================================================================================================
 //  *
 //  * ========================================================================================================================
 
-           //////////////////////////////// BLOQUE BALANCE Y FILTROS ////////////////////////////////////
+//////////////////////////////// BLOQUE BALANCE Y FILTROS ////////////////////////////////////
 
-
-            // ************************************* BALANCE ********************************/
+// ************************************* BALANCE ********************************/
 
 //********************************** FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
 
@@ -426,8 +422,7 @@ const totalBalance = () => {
   return total;
 };
 
-
-     // ******************************************** FILTROS ********************************/
+// ******************************************** FILTROS ********************************/
 
 //  * ========================================================================================================================
 //  *
@@ -513,18 +508,18 @@ const getNewCategory = (id) => {
 //*************************** FUNCION QUE EDITA UNA CATEGORIA *********************************//
 
 const editCategory = (id) => {
-     const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
 
-    return categories.map((category) => {
-      if (category.id === id) {
-        return {
-          id: id,
-          name: $("#categoryNameInput").value,
-        };
-      }
-      return category;
-    });
-  }
+  return categories.map((category) => {
+    if (category.id === id) {
+      return {
+        id: id,
+        name: $("#categoryNameInput").value,
+      };
+    }
+    return category;
+  });
+};
 
 //*************************** FUNCION PARA FILTRAR CATEGORIA *********************************//
 
@@ -596,28 +591,26 @@ $("#btnCancelCategories").addEventListener("click", () => {
 //*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
 
 $("#btnEditCategories").addEventListener("click", () => {
- if(categoryNameInput.value === "") {
-    alert("Debe completar los campos")
-  }else{
-  const id = $btnEditCategories.getAttribute("data-id");
-  const categories = editCategory(id);
+  if (categoryNameInput.value === "") {
+    alert("Debe completar los campos");
+  } else {
+    const id = $btnEditCategories.getAttribute("data-id");
+    const categories = editCategory(id);
 
-  setDataToLocalStorage(LS_KEYS.categories, categories);
+    setDataToLocalStorage(LS_KEYS.categories, categories);
 
-  CategoriesGenerateTable();
-  $categories.classList.remove("hidden");
-  $containerCategories.classList.add("hidden");
-}
+    CategoriesGenerateTable();
+    $categories.classList.remove("hidden");
+    $containerCategories.classList.add("hidden");
+  }
 });
-
-
 
 //*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
 
 const onLoadCategories = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
   if (!categories) {
-    console.log(categories)
+    console.log(categories);
     setDataToLocalStorage(LS_KEYS.categories, CATEGORIES_BASE);
   }
 };
@@ -656,18 +649,68 @@ $("#btnShowFilters").addEventListener("click", () => {
   btnShowFilters.classList.add("hidden");
 });
 
-
-
 //***************************** FUNCION QUE FILTRA POR TIPO ********************/
 
 const filterTypeSpentOperations = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter((operation) => operation.type === "gasto");
-  console.log(newOperations)
-}
+  const newOperations = operations.filter(
+    (operation) => operation.type === "gasto"
+  );
+  console.log(newOperations);
+};
 
 const filterTypeEarningsOperations = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter((operation) => operation.type === "ganancia");
-  console.log(newOperations)
-}
+  const newOperations = operations.filter(
+    (operation) => operation.type === "ganancia"
+  );
+  console.log(newOperations);
+};
+
+const filtersTypeCategory = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.category === "comida"
+  );
+  console.log(newOperations);
+};
+
+const filtersOuts = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.category === "salidas"
+  );
+  console.log(newOperations);
+};
+
+const filtersService = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.category === "servicios"
+  );
+  console.log(newOperations);
+};
+
+const filtersEducation = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.category === "educación"
+  );
+  console.log(newOperations);
+};
+
+const filtersTransport = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.category === "transporte"
+  );
+  console.log(newOperations);
+};
+
+const filtersWork = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.category === "trabajo"
+  );
+  console.log(newOperations);
+};
