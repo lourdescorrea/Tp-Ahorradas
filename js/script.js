@@ -596,10 +596,9 @@ $("#btnCancelCategories").addEventListener("click", () => {
 //*************************** EVENTO PARA EDITAR CATEGORIA *********************************//
 
 $("#btnEditCategories").addEventListener("click", () => {
-  const isValidEdit = validationEditCategory();
-  if (!isValidEdit) {
-    return alert("Debe completar los campos");
-  } else{
+ if(categoryNameInput.value === "") {
+    alert("Debe completar los campos")
+  }else{
   const id = $btnEditCategories.getAttribute("data-id");
   const categories = editCategory(id);
 
@@ -644,6 +643,7 @@ const btnHideFilters = $("#btnHideFilters");
 const btnShowFilters = $("#btnShowFilters");
 const filters = $("#filters");
 
+//********************* FUNCIONES PARA OCULTAR Y MOSTRAR FILTROS ***************************/
 $("#btnHideFilters").addEventListener("click", () => {
   filters.classList.add("hidden");
   btnHideFilters.classList.add("hidden");
@@ -655,3 +655,19 @@ $("#btnShowFilters").addEventListener("click", () => {
   btnHideFilters.classList.remove("hidden");
   btnShowFilters.classList.add("hidden");
 });
+
+
+
+//***************************** FUNCION QUE FILTRA POR TIPO ********************/
+
+const filterTypeSpentOperations = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter((operation) => operation.type === "gasto");
+  console.log(newOperations)
+}
+
+const filterTypeEarningsOperations = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter((operation) => operation.type === "ganancia");
+  console.log(newOperations)
+}
