@@ -102,7 +102,7 @@ const getNewOperation = (id) => {
   const category = $("#category").value;
   const amount = $("#amount").value;
   const type = $("#type").value;
-  const calendar = $("#calendar").value;
+  const calendar = newDate();
 
   return {
     id,
@@ -339,7 +339,9 @@ $btnPlusOperation.addEventListener("click", () => {
   containerImage.classList.add("hidden");
   addNewOperation.classList.remove("hidden");
   $formEDit.classList.add("hidden");
+  newDate()
   cleanNewOperation();
+
 });
 
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
@@ -625,6 +627,9 @@ window.addEventListener("load", () => {
   spendingBalance();
   totalBalance();
   generadorID();
+  newDate()
+  PasarValor()
+
 });
 
 //*************************** FUNCIONES PARA FILTRAR *********************************//
@@ -649,9 +654,8 @@ $("#btnShowFilters").addEventListener("click", () => {
   btnShowFilters.classList.add("hidden");
 });
 
-//***************************** FUNCION QUE FILTRA POR TIPO ********************/
-
-const filterTypeSpentOperations = () => {
+//***************************** FUNCIONES QUE FILTRAN POR TIPO ********************/
+const filterSpentOperations = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const newOperations = operations.filter(
     (operation) => operation.type === "gasto"
@@ -659,7 +663,7 @@ const filterTypeSpentOperations = () => {
   console.log(newOperations);
 };
 
-const filterTypeEarningsOperations = () => {
+const filterEarningsOperations = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const newOperations = operations.filter(
     (operation) => operation.type === "ganancia"
@@ -667,7 +671,8 @@ const filterTypeEarningsOperations = () => {
   console.log(newOperations);
 };
 
-const filtersTypeCategory = () => {
+//***************************** FUNCIONES QUE FILTRAN POR CATEGORIA ********************/
+const filtersFood = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const newOperations = operations.filter(
     (operation) => operation.category === "comida"
@@ -714,3 +719,49 @@ const filtersWork = () => {
   );
   console.log(newOperations);
 };
+
+
+
+// ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
+
+
+const newDate = () =>{
+    let newDate = new Date ()  
+    let month =  newDate.getMonth() + 1
+    let day = newDate.getDate(); //obteniendo dia
+    let year = newDate.getFullYear(); 
+
+    if(day<10){
+    day ='0'+ day; }//agrega cero si el menor de 10
+    if(month<10) {
+    month='0'+month} 
+    return calendar.value= year + "-" + month + "-" + day
+}
+
+
+//Dar vuelta la fecha
+
+const correctDate = (date) =>{
+        let formatDate = date.split("-").reverse().join("-")   
+        return formatDate
+}
+
+// const date = correctDate(newDate())
+// console.log(date)
+
+// const filterFirstCalendar = document.getElementById('date');
+// filterFirstCalendar.value = date;
+
+// console.log("filterFirstCalendar value:", filterFirstCalendar.value)
+ 
+
+// const setCalendar = () => {
+//   let newdate = newDate()
+//   console.log(newdate)
+//   $filterFirstCalendar.valueAsDate = newdate
+// }
+
+function PasarValor()
+{
+document.getElementById("calendario").value = document.getElementById(newDate()).value;
+}
