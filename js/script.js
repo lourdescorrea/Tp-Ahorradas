@@ -339,9 +339,8 @@ $btnPlusOperation.addEventListener("click", () => {
   containerImage.classList.add("hidden");
   addNewOperation.classList.remove("hidden");
   $formEDit.classList.add("hidden");
-  newDate()
+  newDate();
   cleanNewOperation();
-
 });
 
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
@@ -627,14 +626,12 @@ window.addEventListener("load", () => {
   spendingBalance();
   totalBalance();
   generadorID();
-  newDate()
-  PasarValor()
-
+  newDate();
 });
 
 //*************************** FUNCIONES PARA FILTRAR *********************************//
 const filterType = $("#filterType");
-const filterCalendar = $("#filterCalendar");
+const filterFirstCalendar = $("#filterFirstCalendar");
 const filtersCategory = $("#filtersCategory");
 const filtersSortBy = $("#filtersSortBy");
 const btnHideFilters = $("#btnHideFilters");
@@ -720,31 +717,29 @@ const filtersWork = () => {
   console.log(newOperations);
 };
 
-
-
 // ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
 
+const newDate = () => {
+  let newDate = new Date();
+  let month = newDate.getMonth() + 1;
+  let day = newDate.getDate(); //obteniendo dia
+  let year = newDate.getFullYear();
 
-const newDate = () =>{
-    let newDate = new Date ()  
-    let month =  newDate.getMonth() + 1
-    let day = newDate.getDate(); //obteniendo dia
-    let year = newDate.getFullYear(); 
-
-    if(day<10){
-    day ='0'+ day; }//agrega cero si el menor de 10
-    if(month<10) {
-    month='0'+month} 
-    return calendar.value= year + "-" + month + "-" + day
-}
-
+  if (day < 10) {
+    day = "0" + day;
+  } //agrega cero si el menor de 10
+  if (month < 10) {
+    month = "0" + month;
+  }
+  return (calendar.value = year + "-" + month + "-" + day);
+};
 
 //Dar vuelta la fecha
 
-const correctDate = (date) =>{
-        let formatDate = date.split("-").reverse().join("-")   
-        return formatDate
-}
+// const correctDate = (date) => {
+//   let formatDate = date.split("-").reverse().join("-");
+//   return formatDate;
+// };
 
 // const date = correctDate(newDate())
 // console.log(date)
@@ -753,7 +748,6 @@ const correctDate = (date) =>{
 // filterFirstCalendar.value = date;
 
 // console.log("filterFirstCalendar value:", filterFirstCalendar.value)
- 
 
 // const setCalendar = () => {
 //   let newdate = newDate()
@@ -761,7 +755,10 @@ const correctDate = (date) =>{
 //   $filterFirstCalendar.valueAsDate = newdate
 // }
 
-function PasarValor()
-{
-document.getElementById("calendario").value = document.getElementById(newDate()).value;
-}
+// function PasarValor() {
+//   document.getElementById("date").defauldValue ===
+//     document.getElementById(newDate()).defauldValue;
+// }
+
+document.getElementById("filterFirstCalendar").value = newDate();
+const setCalendar = document.getElementById("filterFirstCalendar").value;
