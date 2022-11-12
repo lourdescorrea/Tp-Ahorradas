@@ -99,9 +99,9 @@ const generadorID = () => {
 
 const getNewOperation = (id) => {
   const description = $("#description").value;
-  const category = $("#category").value;
   const amount = $("#amount").value;
   const type = $("#type").value;
+  const category = $("#newOperationCategories").value;
   const calendar = newDate();
 
   return {
@@ -116,12 +116,11 @@ const getNewOperation = (id) => {
 
 //***************************  FUNCION QUE CREA LA TABLA ****************************/
 
-const generateTable = (operations) => {
+const generateTable = (filteredOperations) => {
+const operations =filteredOperations || getDataFromLocalStorage(LS_KEYS.operations);
 
-  if (!operations || operations.length === 0) {
-    return operations = getDataFromLocalStorage(LS_KEYS.operations);
-  }
- 
+
+
   const elements = operations.map((operation) => {
     const { id, description, category, type, amount, calendar } = operation;
     const isEarning = type === "ganancia";
@@ -129,7 +128,7 @@ const generateTable = (operations) => {
     const symbol = isEarning ? "+" : "-";
 
     return `
-            <tr id="tr" class=""> 
+            <tr class=""> 
                 <td>${description}</td>
                 <td>${category}</td>
                 <td>${calendar}</td>
@@ -256,7 +255,7 @@ const editOperation = (id) => {
 
 const cleanNewOperation = () => {
   $("#description").value = "";
-  $("#category").value = "";
+  
   $("#amount").value = "";
   $("#type").value = "";
   const calendar = $("#calendar").value;
@@ -268,8 +267,7 @@ const validation = () => {
   if (
     amount.value === "" ||
     description.value === "" ||
-    type.value === "" ||
-    category.value === ""
+    type.value === "" 
   ) {
     return false;
   } else {
@@ -475,26 +473,16 @@ const editCategory = (id) => {
 
 const removeCategories = (id) => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  const category = categories.find((category) => category.id === id);
+  removeAllOperations(category.name)
   return categories.filter((category) => category.id !== id);
 };
 
 //********************* FUNCION QUE ELIMINA TODAS LAS OPERACIONES DE UNA CATEGORIA ***************************/
-const removeAllOperations = (id) => {
-  const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  if (operations.length !== 0) {
-    console.log(">>>>> entre al if", operations)
-    for (const { category } of operations){
-      console.log(">>>>> muestro categories!!", categories[0].name)
-      console.log(">>>>> muestro muestro category de operations!!", category)
-      if (category === categories[0].name ) {
-        console.log(">>>>> entre al SEGUNDO IF!!")
-        filtereddddoperations = operations.filter(operation => operation.category !== category)
-        console.log(">>>>> muestro operations filtrado", filtereddddoperations)
-      }
-    }
-  } 
-  
+const removeAllOperations = (categoryNameInput) => {
+const operations = getDataFromLocalStorage(LS_KEYS.operations);
+const operationsfiltered =  operations.filter((operation) => operation.category !== categoryNameInput);
+setDataToLocalStorage(LS_KEYS.operations, operationsfiltered)
 }
 
 //*************************** FUNCION PARA ELIMINAR CATEGORIA *********************************//
@@ -504,10 +492,7 @@ const categoryDelet = (id) => {
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
   CategoriesGenerateFilter();
-  // const filterRemoveAllOperations = removeAllOperations(id)
-  // if (filterRemoveAllOperations.length !== 0){
-  //   generateTable(filterRemoveAllOperations)
-  // }
+  generateTable();
 };
 
 //*************************** FUNCION PARA EDITAR CATEGORIA *********************************//
@@ -660,23 +645,6 @@ $("#btnShowFilters").addEventListener("click", () => {
 });
 
 //***************************** FUNCIONES QUE FILTRAN POR TIPO ********************/
-const filterSpentOperations = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.type === "gasto"
-  );
-  console.log(newOperations);
-};
-
-const filterEarningsOperations = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.type === "ganancia"
-  );
-  console.log(newOperations);
-};
-
-           // ****************************EVENTOS QUE FILTRAN POR TIPO  *************************** //
 
 const selectFilter = () => {
 let filtersType = document.getElementById('filtersType')
@@ -685,16 +653,17 @@ return filtersType.value
 
 const showfiltersss = () => {
   const type = selectFilter()
-  if (type === "gasto"){
-   const operations = filterSpentOperations()
-console.log(operations)
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  if (type === "todos"){
+  return generateTable(operations)
 
 }
-if (type === "ganancia"){
-  const operationsss = filterEarningsOperations()
-  console.log(operationsss)
-}
 
+const newOperations = operations.filter(
+  (operation) => operation.type === type
+);
+return generateTable(newOperations)
 }
 
 
@@ -706,97 +675,39 @@ const CategoriesGenerateFilter = () => {
     const { id, name } = category;
     return ` 
               
-                 <option id=('${id}') class="flex flex col">${name}</option>
+                 <option  id='${id}'   class="flex flex col">${name}</option>
             `;
   });
-
+  
   $("#filtersCategory").innerHTML = elements.join("");
+  $("#newOperationCategories").innerHTML = elements.join("");
 };
 
 
 //***************************** FUNCIONES QUE FILTRAN POR CATEGORIA ********************/
-// const filtersFood = () => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   const newOperations = operations.filter(
-//     (operation) => operation.category === "comida"
-//   );
-//   console.log(newOperations);
-// };
 
-// const filtersOuts = () => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   const newOperations = operations.filter(
-//     (operation) => operation.category === "salidas"
-//   );
-//   console.log(newOperations);
-// };
-
-// const filtersService = () => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   const newOperations = operations.filter(
-//     (operation) => operation.category === "servicios"
-//   );
-//   console.log(newOperations);
-// };
-
-// const filtersEducation = () => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   const newOperations = operations.filter(
-//     (operation) => operation.category === "educación"
-//   );
-//   console.log(newOperations);
-// };
-
-// const filtersTransport = () => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   const newOperations = operations.filter(
-//     (operation) => operation.category === "transporte"
-//   );
-//   console.log(newOperations);
-// };
-
-// const filtersWork = () => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   const newOperations = operations.filter(
-//     (operation) => operation.category === "trabajo"
-//   );
-//   console.log(newOperations);
-// };
  
-//               // ****************************EVENTOS QUE FILTRAN  *************************** //
-// const selectCategories = () => {
-//   let filtersCategory = document.getElementById('filtersCategory')
-//   return filtersCategory.value
-//   }
 
-//   const showfiltersCategories = () => {
-//     const type = selectCategories()
-//     if (type === "comida"){
-//      const operationsfood = filtersFood()
-//   console.log(operationsfood)
-//   }
-//   if (type === "salidas"){
-//     const operationsouts = filtersOuts()
-//     console.log(operationsouts)
-//   }
-//   if (type === "servicios"){
-//     const operationsservs = filtersService()
-//     console.log(operationsservs)
-//   }
-//   if (type === "educación"){
-//     const operationseduc = filtersEducation()
-//     console.log(operationseduc)
-//   }
-//   if (type === "transporte"){
-//     const operationstrans = filtersTransport()
-//     console.log(operationstrans)
-//   }
-//   if (type === "trabajo"){
-//     const operationswork = filtersWork()
-//     console.log(operationswork)
-//   }
-  
-//   }
+const filteroftwo = () => { 
+  const categoryName = $filtersCategory.value
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const operationsfiltered =  operations.filter((operation) => operation.category === categoryName);
+  console.log(operationsfiltered)
+  generateTable(operationsfiltered)   
+};
+
+const filterofthree = (name) => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const operationsfiltered =  operations.filter((operation) => operation.category === filteroftwo());
+  setDataToLocalStorage(LS_KEYS.operations, operationsfiltered)
+  console.log(operationsfiltered)
+  }
+
+
+//********************* FUNCION QUE ELIMINA TODAS LAS OPERACIONES DE UNA CATEGORIA ***************************/
+
+
+
 
 ///////////////////////////////////////// BLOQUE FECHA ///////////////////////////////////////////////
 
@@ -847,6 +758,7 @@ window.addEventListener("load", () => {
   generadorID();
   newDate();
   CategoriesGenerateFilter()
+   
 });
 
 /*///////////////////////////

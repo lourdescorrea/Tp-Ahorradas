@@ -102,6 +102,7 @@
                       class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
                       name="filtersCategory"
                       id="filtersCategory"
+                      onchange= "filteroftwo()"
                       
                     >
                       <option id="optionFiltersCategory"></option>
@@ -189,10 +190,7 @@
                 </div>
               </div>
             </section>
-            <div
-              class="flex flex-col items-center font-medium py-8 text-gray-800"
-              id="textOperations"
-            >
+            <div  class="flex flex-col items-center font-medium py-8 text-gray-800" id="textOperations" >
               <h4 class="text-2xl">Sin resultados</h4>
               <p class="text-base">Cambia los filtros o agrega operaciones</p>
             </div>
@@ -231,15 +229,9 @@
             <select
               class="text-gray-800 my-3.5 border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
               name="category"
-              id="category"
+              id="newOperationCategories"
             >
-              <option value="comida">Comida</option>
-              <option value="servicios">Servicios</option>
-              <option value="salidas">Salidas</option>
-              <option value="educación">Educación</option>
-              <option value="transporte">Transporte</option>
-              <option value="trabajo">Trabajo</option>
-              <option value="supermercado">Supermercado</option>
+            <option></option>
             </select>
           </div>
           <div>
