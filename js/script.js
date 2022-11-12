@@ -21,6 +21,7 @@ const navReports = $("#navReports");
 const balance = $("#balance");
 const categories = $("#categories");
 const reports = $("#reports");
+const tableReports = $("#tableReports ");
 const addNewOperation = $("#addNewOperation");
 const containerImage = $("#containerImage");
 const textOperations = $("#textOperations");
@@ -126,14 +127,19 @@ const generateTable = () => {
     const symbol = isEarning ? "+" : "-";
 
     return `
-            <tr class=""> 
+            <tr class=" text-center text-base "> 
                 <td>${description}</td>
                 <td>${category}</td>
                 <td>${calendar}</td>
                 <td class="text-lg text-${textClass} font-bold">${symbol}${amount}</td>
-                <td><button class="rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button></td>
-                <td ><button  class="pr-18 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button></td>
-             
+
+                <td class="">
+                <span class="flex justify-center p-8">
+                <button class="pr-8 rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button>
+              
+                <button  class=" rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button>
+                </span> 
+                <td>
              </tr>
             `;
   });
@@ -155,7 +161,7 @@ const cleanPage = () => img.classList.add("hidden");
 const showTable = () => {
   $tableOperations.classList.remove("hidden");
   img.classList.add("hidden");
-  textOperations.classList.add("hidden");
+
   containerImage.classList.remove("hidden");
   balance.classList.remove("hidden");
 };
@@ -471,10 +477,15 @@ const CategoriesGenerateTable = () => {
   const elements = categories.map((category) => {
     const { id, name } = category;
     return ` 
-                 <tr class="pl-60">
-                    <td class="pr-60">${name}</td>
-                    <td class="px-4 pl-60" ><button class="pl-90 rounded hover:bg-indigo-400" id="editCategories" onclick="categoryEdit('${id}')">Editar</button></td>
-                    <td> <button class="pl-90 rounded hover:bg-indigo-400 " id="btnCancelCategories" onclick="categoryDelet('${id}')">Eliminar</button></td>
+                   <tr class="text-center">
+                     <td class="text-white lg:pl-16 text-start ">
+                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${name}</span>
+                     </td>
+                     <td class="flex justify-center p-2"> 
+                        <button class=" m-2 rounded hover:bg-[#ba68c8] hover:text-white " id="editCategories" onclick="categoryEdit('${id}')">Editar</button>
+                     
+                        <button class="  m-2  rounded hover:bg-[#ba68c8] hover:text-white " id="btnCancelCategories" onclick="categoryDelet('${id}')">Eliminar</button>
+                     </td>
                   </tr>     
                   
             `;
@@ -761,4 +772,40 @@ const newDate = () => {
 // }
 
 document.getElementById("filterFirstCalendar").value = newDate();
-const setCalendar = document.getElementById("filterFirstCalendar").value;
+const set = document.getElementById("filterFirstCalendar").value;
+
+//*************************** FUNCION PARA ELIMINAR CATEGORIA *********************************//
+
+const $navBurguer = $("#navBurguer");
+const $navMobil = $("#navMobil");
+
+const $mobileBalance = $("#mobileBalance");
+const $mobileCategory = $("#mobileCategory");
+const $mobileReports = $("#mobileReports");
+
+const $categoryContent = $("#categoryContent");
+
+$("#navMobile").addEventListener("click", () => {
+  $navBurguer.classList.remove("hidden");
+});
+
+$mobileBalance.addEventListener("click", () => {
+  balance.classList.remove("hidden");
+  containerImage.classList.remove("hidden");
+  $categoryContent.classList.add("hidden");
+  addNewOperation.classList.add("hidden");
+  $formEDit.classList.add("hidden");
+  categories.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+  reports.classList.add("hidden");
+});
+
+$mobileCategory.addEventListener("click", () => {
+  categories.classList.remove("hidden");
+  balance.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+  containerImage.classList.add("hidden");
+  addNewOperation.classList.add("hidden");
+  $formEDit.classList.add("hidden");
+  reports.classList.add("hidden");
+});
