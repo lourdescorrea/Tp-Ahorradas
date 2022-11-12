@@ -86,6 +86,7 @@
                       class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
                       name="filtersType"
                       id="filtersType"
+                      onchange= "showfiltersss()"
                     >
                       <option value="todos">Todos</option>
                       <option value="gasto">Gastos</option>
@@ -101,14 +102,10 @@
                       class="border-2 border-solid-transparent rounded w-full max-w-full h-9 cursor-pointe focus:border-blue-600 focus:outline-none"
                       name="filtersCategory"
                       id="filtersCategory"
+                      
                     >
-                      <option value="todas">Todas</option>
-                      <option value="comida">Comida</option>
-                      <option value="salidas">Salidas</option>
-                      <option value="servicios">Servicios</option>
-                      <option value="educación">Educación</option>
-                      <option value="transporte">Transporte</option>
-                      <option value="trabajo">Trabajo</option>
+                      <option id="optionFiltersCategory"></option>
+                      
                     </select>
                   </div>
 
@@ -395,38 +392,6 @@
             <table class="">
               <tbody class="text-gray-800" id="categories-table"></tbody>
             </table>
-          </div>
-        </div>
-      </section>
-
-      <section class="hidden flex justify-center" id="containerCategories">
-        <div
-          class="w-3/5 h-[35rem] m-20 p-10 text-gray-800 bg-white shadow-lg shadow-indigo-500/50 h-auto"
-        >
-          <h2 class="font-bold ml-8 text-4xl">Editar Categorías</h2>
-
-          <div class="flex flex-col items-end m-8">
-            <input
-              class="h-12 w-full items-center rounded text-gray-800 border-2 border-indigo-500 focus:border-blue-600 focus:outline-none"
-              type="text"
-              name="Nombre"
-              id="categoryNameInput"
-              placeholder="Nombre"
-            />
-
-            <div class="flex flex-row-reverse">
-              <div
-                class="flex justify-center m-2 h-12 w-40 bg-indigo-500 text-xl text-white rounded-md hover:bg-indigo-800"
-              >
-                <button id="btnEditCategories">Editar</button>
-              </div>
-              <div
-                class="flex justify-center m-2 h-12 w-402 text-xl text-indigo-500 rounded-md hover:bg-slate-300"
-              >
-                <button id="btnCancelCategories">Cancelar</button>
-                <a href="#categories" id=""></a>
-              </div>
-            </div>
           </div>
         </div>
       </section>

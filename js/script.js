@@ -116,9 +116,12 @@ const getNewOperation = (id) => {
 
 //***************************  FUNCION QUE CREA LA TABLA ****************************/
 
-const generateTable = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+const generateTable = (operations) => {
 
+  if (!operations || operations.length === 0) {
+    return operations = getDataFromLocalStorage(LS_KEYS.operations);
+  }
+ 
   const elements = operations.map((operation) => {
     const { id, description, category, type, amount, calendar } = operation;
     const isEarning = type === "ganancia";
@@ -126,7 +129,7 @@ const generateTable = () => {
     const symbol = isEarning ? "+" : "-";
 
     return `
-            <tr class=""> 
+            <tr id="tr" class=""> 
                 <td>${description}</td>
                 <td>${category}</td>
                 <td>${calendar}</td>
@@ -377,60 +380,6 @@ const onLoadOperations = () => {
 //  *
 //  * ========================================================================================================================
 
-//////////////////////////////// BLOQUE BALANCE Y FILTROS ////////////////////////////////////
-
-// ************************************* BALANCE ********************************/
-
-//********************************** FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
-
-const earningsBalance = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  let acumulatedEarnings = 0;
-  $("#Ganancias").innerText = acumulatedEarnings;
-  for (const { amount, type } of operations) {
-    if (type === "ganancia") {
-      acumulatedEarnings += parseInt(amount);
-    }
-    $("#Ganancias").innerText = acumulatedEarnings;
-  }
-  return acumulatedEarnings;
-};
-
-// //******************************** FUNCION QUE FILTRA Y ACUMULA GASTOS *************************/
-
-const spendingBalance = () => {
-  let acumulatedSpent = 0;
-  $("#Gastos").innerText = acumulatedSpent;
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-
-  for (const { amount, type } of operations) {
-    if (type !== "ganancia") {
-      acumulatedSpent -= parseInt(amount);
-    }
-
-    $("#Gastos").innerText = acumulatedSpent;
-  }
-  return acumulatedSpent;
-};
-
-// //********************************* FUNCION QUE CALCULA EL TOTAL ********************************/
-
-const totalBalance = () => {
-  const acumulatedEarnings = earningsBalance();
-  const acumulatedSpent = spendingBalance();
-  let total = acumulatedEarnings + acumulatedSpent;
-  $("#Total").innerText = total;
-  return total;
-};
-
-// ******************************************** FILTROS ********************************/
-
-//  * ========================================================================================================================
-//  *
-//  * ========================================================================================================================
-//  *
-//  * ========================================================================================================================
-
 ////////////////////////////////////////BLOQUE FUNCIONES BASE//////////////////////////////////////////////
 
 const $containerCategories = $("#containerCategories");
@@ -439,27 +388,27 @@ const $btnEditCategories = $("#btnEditCategories");
 const CATEGORIES_BASE = [
   {
     id: generadorID(),
-    name: "Comida",
+    name: "comida",
   },
   {
     id: generadorID(),
-    name: "Servicios",
+    name: "servicios",
   },
   {
     id: generadorID(),
-    name: "Salidas",
+    name: "salidas",
   },
   {
     id: generadorID(),
-    name: "Educacion",
+    name: "educación",
   },
   {
     id: generadorID(),
-    name: "Transporte",
+    name: "transporte",
   },
   {
     id: generadorID(),
-    name: "Trabajo",
+    name: "trabajo",
   },
 ];
 
@@ -529,12 +478,36 @@ const removeCategories = (id) => {
   return categories.filter((category) => category.id !== id);
 };
 
+//********************* FUNCION QUE ELIMINA TODAS LAS OPERACIONES DE UNA CATEGORIA ***************************/
+const removeAllOperations = (id) => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  if (operations.length !== 0) {
+    console.log(">>>>> entre al if", operations)
+    for (const { category } of operations){
+      console.log(">>>>> muestro categories!!", categories[0].name)
+      console.log(">>>>> muestro muestro category de operations!!", category)
+      if (category === categories[0].name ) {
+        console.log(">>>>> entre al SEGUNDO IF!!")
+        filtereddddoperations = operations.filter(operation => operation.category !== category)
+        console.log(">>>>> muestro operations filtrado", filtereddddoperations)
+      }
+    }
+  } 
+  
+}
+
 //*************************** FUNCION PARA ELIMINAR CATEGORIA *********************************//
 
 const categoryDelet = (id) => {
   const categories = removeCategories(id);
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
+  CategoriesGenerateFilter();
+  // const filterRemoveAllOperations = removeAllOperations(id)
+  // if (filterRemoveAllOperations.length !== 0){
+  //   generateTable(filterRemoveAllOperations)
+  // }
 };
 
 //*************************** FUNCION PARA EDITAR CATEGORIA *********************************//
@@ -578,6 +551,7 @@ $("#btnCategoryAdd").addEventListener("click", () => {
 
     setDataToLocalStorage(LS_KEYS.categories, categories);
     CategoriesGenerateTable();
+    CategoriesGenerateFilter();
     cleanNewCategory();
   }
 });
@@ -601,10 +575,255 @@ $("#btnEditCategories").addEventListener("click", () => {
     setDataToLocalStorage(LS_KEYS.categories, categories);
 
     CategoriesGenerateTable();
+    CategoriesGenerateFilter()
     $categories.classList.remove("hidden");
     $containerCategories.classList.add("hidden");
   }
 });
+
+//  * ========================================================================================================================
+//  *
+//  * ========================================================================================================================
+//  *
+//  * ========================================================================================================================
+
+
+
+//////////////////////////////// BLOQUE BALANCE, FILTROS Y FECHA ////////////////////////////////////
+
+
+               // //////////////////////////////// BALANCE ///////////////////////////////////
+
+//********************************** FUNCION QUE FILTRA Y ACUMULA GANANCIAS ********************************/
+
+const earningsBalance = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  let acumulatedEarnings = 0;
+  $("#Ganancias").innerText = acumulatedEarnings;
+  for (const { amount, type } of operations) {
+    if (type === "ganancia") {
+      acumulatedEarnings += parseInt(amount);
+    }
+    $("#Ganancias").innerText = acumulatedEarnings;
+  }
+  return acumulatedEarnings;
+};
+
+// //******************************** FUNCION QUE FILTRA Y ACUMULA GASTOS *************************/
+
+const spendingBalance = () => {
+  let acumulatedSpent = 0;
+  $("#Gastos").innerText = acumulatedSpent;
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  for (const { amount, type } of operations) {
+    if (type !== "ganancia") {
+      acumulatedSpent -= parseInt(amount);
+    }
+
+    $("#Gastos").innerText = acumulatedSpent;
+  }
+  return acumulatedSpent;
+};
+
+// //********************************* FUNCION QUE CALCULA EL TOTAL ********************************/
+
+const totalBalance = () => {
+  const acumulatedEarnings = earningsBalance();
+  const acumulatedSpent = spendingBalance();
+  let total = acumulatedEarnings + acumulatedSpent;
+  $("#Total").innerText = total;
+  return total;
+};
+
+////////////////////////////////////  FILTROS //////////////////////////////////////
+
+
+const $filterFirstCalendar = $("#filterFirstCalendar");
+const $filtersCategory = $("#filtersCategory");
+const $filtersSortBy = $("#filtersSortBy");
+const $btnHideFilters = $("#btnHideFilters");
+const $btnShowFilters = $("#btnShowFilters");
+const $filters = $("#filters");
+
+//********************* FUNCIONES PARA OCULTAR Y MOSTRAR FILTROS ***************************/
+$("#btnHideFilters").addEventListener("click", () => {
+  $filters.classList.add("hidden");
+  $btnHideFilters.classList.add("hidden");
+  $btnShowFilters.classList.remove("hidden");
+});
+
+$("#btnShowFilters").addEventListener("click", () => {
+  $filters.classList.remove("hidden");
+  $btnHideFilters.classList.remove("hidden");
+  $btnShowFilters.classList.add("hidden");
+});
+
+//***************************** FUNCIONES QUE FILTRAN POR TIPO ********************/
+const filterSpentOperations = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.type === "gasto"
+  );
+  console.log(newOperations);
+};
+
+const filterEarningsOperations = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const newOperations = operations.filter(
+    (operation) => operation.type === "ganancia"
+  );
+  console.log(newOperations);
+};
+
+           // ****************************EVENTOS QUE FILTRAN POR TIPO  *************************** //
+
+const selectFilter = () => {
+let filtersType = document.getElementById('filtersType')
+return filtersType.value
+}
+
+const showfiltersss = () => {
+  const type = selectFilter()
+  if (type === "gasto"){
+   const operations = filterSpentOperations()
+console.log(operations)
+
+}
+if (type === "ganancia"){
+  const operationsss = filterEarningsOperations()
+  console.log(operationsss)
+}
+
+}
+
+
+// ******************************* FUNCION QUE CREA FILTRO DE CATEGORIAS ********************//
+const CategoriesGenerateFilter = () => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+
+  const elements = categories.map((category) => {
+    const { id, name } = category;
+    return ` 
+              
+                 <option id=('${id}') class="flex flex col">${name}</option>
+            `;
+  });
+
+  $("#filtersCategory").innerHTML = elements.join("");
+};
+
+
+//***************************** FUNCIONES QUE FILTRAN POR CATEGORIA ********************/
+// const filtersFood = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const newOperations = operations.filter(
+//     (operation) => operation.category === "comida"
+//   );
+//   console.log(newOperations);
+// };
+
+// const filtersOuts = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const newOperations = operations.filter(
+//     (operation) => operation.category === "salidas"
+//   );
+//   console.log(newOperations);
+// };
+
+// const filtersService = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const newOperations = operations.filter(
+//     (operation) => operation.category === "servicios"
+//   );
+//   console.log(newOperations);
+// };
+
+// const filtersEducation = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const newOperations = operations.filter(
+//     (operation) => operation.category === "educación"
+//   );
+//   console.log(newOperations);
+// };
+
+// const filtersTransport = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const newOperations = operations.filter(
+//     (operation) => operation.category === "transporte"
+//   );
+//   console.log(newOperations);
+// };
+
+// const filtersWork = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const newOperations = operations.filter(
+//     (operation) => operation.category === "trabajo"
+//   );
+//   console.log(newOperations);
+// };
+ 
+//               // ****************************EVENTOS QUE FILTRAN  *************************** //
+// const selectCategories = () => {
+//   let filtersCategory = document.getElementById('filtersCategory')
+//   return filtersCategory.value
+//   }
+
+//   const showfiltersCategories = () => {
+//     const type = selectCategories()
+//     if (type === "comida"){
+//      const operationsfood = filtersFood()
+//   console.log(operationsfood)
+//   }
+//   if (type === "salidas"){
+//     const operationsouts = filtersOuts()
+//     console.log(operationsouts)
+//   }
+//   if (type === "servicios"){
+//     const operationsservs = filtersService()
+//     console.log(operationsservs)
+//   }
+//   if (type === "educación"){
+//     const operationseduc = filtersEducation()
+//     console.log(operationseduc)
+//   }
+//   if (type === "transporte"){
+//     const operationstrans = filtersTransport()
+//     console.log(operationstrans)
+//   }
+//   if (type === "trabajo"){
+//     const operationswork = filtersWork()
+//     console.log(operationswork)
+//   }
+  
+//   }
+
+///////////////////////////////////////// BLOQUE FECHA ///////////////////////////////////////////////
+
+
+// ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
+
+const newDate = () => {
+  let newDate = new Date();
+  let month = newDate.getMonth() + 1;
+  let day = newDate.getDate(); //obteniendo dia
+  let year = newDate.getFullYear();
+
+  if (day < 10) {
+    day = "0" + day;
+  } //agrega cero si el menor de 10
+  if (month < 10) {
+    month = "0" + month;
+  }
+  return (calendar.value = year + "-" + month + "-" + day);
+};
+
+
+document.getElementById("filterFirstCalendar").value = newDate();
+const setCalendar = document.getElementById("filterFirstCalendar").value;
+
+
+
 
 //*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
 
@@ -627,138 +846,19 @@ window.addEventListener("load", () => {
   totalBalance();
   generadorID();
   newDate();
+  CategoriesGenerateFilter()
 });
 
-//*************************** FUNCIONES PARA FILTRAR *********************************//
-const filterType = $("#filterType");
-const filterFirstCalendar = $("#filterFirstCalendar");
-const filtersCategory = $("#filtersCategory");
-const filtersSortBy = $("#filtersSortBy");
-const btnHideFilters = $("#btnHideFilters");
-const btnShowFilters = $("#btnShowFilters");
-const filters = $("#filters");
+/*///////////////////////////
+*
+*////////////////////////////
+/*
+*//////////////////
 
-//********************* FUNCIONES PARA OCULTAR Y MOSTRAR FILTROS ***************************/
-$("#btnHideFilters").addEventListener("click", () => {
-  filters.classList.add("hidden");
-  btnHideFilters.classList.add("hidden");
-  btnShowFilters.classList.remove("hidden");
-});
 
-$("#btnShowFilters").addEventListener("click", () => {
-  filters.classList.remove("hidden");
-  btnHideFilters.classList.remove("hidden");
-  btnShowFilters.classList.add("hidden");
-});
 
-//***************************** FUNCIONES QUE FILTRAN POR TIPO ********************/
-const filterSpentOperations = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.type === "gasto"
-  );
-  console.log(newOperations);
-};
 
-const filterEarningsOperations = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.type === "ganancia"
-  );
-  console.log(newOperations);
-};
 
-//***************************** FUNCIONES QUE FILTRAN POR CATEGORIA ********************/
-const filtersFood = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.category === "comida"
-  );
-  console.log(newOperations);
-};
 
-const filtersOuts = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.category === "salidas"
-  );
-  console.log(newOperations);
-};
 
-const filtersService = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.category === "servicios"
-  );
-  console.log(newOperations);
-};
 
-const filtersEducation = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.category === "educación"
-  );
-  console.log(newOperations);
-};
-
-const filtersTransport = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.category === "transporte"
-  );
-  console.log(newOperations);
-};
-
-const filtersWork = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperations = operations.filter(
-    (operation) => operation.category === "trabajo"
-  );
-  console.log(newOperations);
-};
-
-// ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
-
-const newDate = () => {
-  let newDate = new Date();
-  let month = newDate.getMonth() + 1;
-  let day = newDate.getDate(); //obteniendo dia
-  let year = newDate.getFullYear();
-
-  if (day < 10) {
-    day = "0" + day;
-  } //agrega cero si el menor de 10
-  if (month < 10) {
-    month = "0" + month;
-  }
-  return (calendar.value = year + "-" + month + "-" + day);
-};
-
-//Dar vuelta la fecha
-
-// const correctDate = (date) => {
-//   let formatDate = date.split("-").reverse().join("-");
-//   return formatDate;
-// };
-
-// const date = correctDate(newDate())
-// console.log(date)
-
-// const filterFirstCalendar = document.getElementById('date');
-// filterFirstCalendar.value = date;
-
-// console.log("filterFirstCalendar value:", filterFirstCalendar.value)
-
-// const setCalendar = () => {
-//   let newdate = newDate()
-//   console.log(newdate)
-//   $filterFirstCalendar.valueAsDate = newdate
-// }
-
-// function PasarValor() {
-//   document.getElementById("date").defauldValue ===
-//     document.getElementById(newDate()).defauldValue;
-// }
-
-document.getElementById("filterFirstCalendar").value = newDate();
-const setCalendar = document.getElementById("filterFirstCalendar").value;
