@@ -24,11 +24,15 @@ const reports = $("#reports");
 const addNewOperation = $("#addNewOperation");
 const containerImage = $("#containerImage");
 const textOperations = $("#textOperations");
+const lsarrayfilter = []
 
 const LS_KEYS = {
   operations: "operations",
   categories: "categories",
+  lsArray : "lsArray",
 };
+
+ARRAY_BASE = []
 
 ////////////////////////////////////////BLOQUE FUNCIONES BASE//////////////////////////////////////////////
 
@@ -117,7 +121,7 @@ const getNewOperation = (id) => {
 //***************************  FUNCION QUE CREA LA TABLA ****************************/
 
 const generateTable = (filteredOperations) => {
-const operations =filteredOperations || getDataFromLocalStorage(LS_KEYS.operations);
+const operations = filteredOperations || getDataFromLocalStorage(LS_KEYS.operations);
 
 
 
@@ -289,6 +293,15 @@ const validationOperations = () => {
   }
 };
 
+// ******************************* FUNCION QUE CREA CATEGORIAS EN FORM DE NUEVA OP ********************//
+
+const CategoriesGenerateNewOperation = () => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+   for (const { id, name } of  categories ) {
+    $("#newOperationCategories").innerHTML += `<option  id='${id}'   class="flex flex col">${name}</option>`;
+    };
+  };
+  
 //************************************* EVENTO PARA EDITAR OPERACION **********************************/
 
 $btnEditAdd.addEventListener("click", () => {
@@ -331,6 +344,7 @@ $btnNewAdd.addEventListener("click", () => {
   earningsBalance();
   spendingBalance();
   generadorID();
+  
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -378,7 +392,7 @@ const onLoadOperations = () => {
 //  *
 //  * ========================================================================================================================
 
-////////////////////////////////////////BLOQUE FUNCIONES BASE//////////////////////////////////////////////
+////////////////////////////////////// BLOQUE FUNCIONES BASE CATEGORIAS //////////////////////////////////////////
 
 const $containerCategories = $("#containerCategories");
 const $categories = $("#categories");
@@ -410,7 +424,7 @@ const CATEGORIES_BASE = [
   },
 ];
 
-//************************ FUNCION QUE CREA  LA TABLA *****************************************//
+//********************************* FUNCION QUE CREA LA TABLA *****************************************//
 
 const CategoriesGenerateTable = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
@@ -479,6 +493,7 @@ const removeCategories = (id) => {
 };
 
 //********************* FUNCION QUE ELIMINA TODAS LAS OPERACIONES DE UNA CATEGORIA ***************************/
+
 const removeAllOperations = (categoryNameInput) => {
 const operations = getDataFromLocalStorage(LS_KEYS.operations);
 const operationsfiltered =  operations.filter((operation) => operation.category !== categoryNameInput);
@@ -491,7 +506,7 @@ const categoryDelet = (id) => {
   const categories = removeCategories(id);
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
-  CategoriesGenerateFilter();
+  CategoriesGenerateNewOperation();
   generateTable();
 };
 
@@ -536,7 +551,7 @@ $("#btnCategoryAdd").addEventListener("click", () => {
 
     setDataToLocalStorage(LS_KEYS.categories, categories);
     CategoriesGenerateTable();
-    CategoriesGenerateFilter();
+    CategoriesGenerateNewOperation()
     cleanNewCategory();
   }
 });
@@ -560,7 +575,7 @@ $("#btnEditCategories").addEventListener("click", () => {
     setDataToLocalStorage(LS_KEYS.categories, categories);
 
     CategoriesGenerateTable();
-    CategoriesGenerateFilter()
+    CategoriesGenerateNewOperation()
     $categories.classList.remove("hidden");
     $containerCategories.classList.add("hidden");
   }
@@ -632,6 +647,7 @@ const $btnShowFilters = $("#btnShowFilters");
 const $filters = $("#filters");
 
 //********************* FUNCIONES PARA OCULTAR Y MOSTRAR FILTROS ***************************/
+
 $("#btnHideFilters").addEventListener("click", () => {
   $filters.classList.add("hidden");
   $btnHideFilters.classList.add("hidden");
@@ -644,6 +660,19 @@ $("#btnShowFilters").addEventListener("click", () => {
   $btnShowFilters.classList.add("hidden");
 });
 
+// ******************************* FUNCION QUE CREA FILTROS DE CATEGORIAS ********************//
+const CategoriesGenerateFilter = () => {
+  const categories = getDataFromLocalStorage(LS_KEYS.categories);
+
+
+  $("#filtersCategory").innerHTML = `<option value="todas">todas</option>`;
+   
+ for (const { id, name } of  categories ) {
+  $("#filtersCategory").innerHTML += `<option  id='${id}'   class="flex flex col">${name}</option>`;
+  };
+};
+
+
 //***************************** FUNCIONES QUE FILTRAN POR TIPO ********************/
 
 const selectFilter = () => {
@@ -651,7 +680,7 @@ let filtersType = document.getElementById('filtersType')
 return filtersType.value
 }
 
-const showfiltersss = () => {
+const filterByType = () => {
   const type = selectFilter()
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
@@ -660,56 +689,67 @@ const showfiltersss = () => {
 
 }
 
-const newOperations = operations.filter(
-  (operation) => operation.type === type
+const newOperations = operations.filter((operation) => operation.type === type
 );
 return generateTable(newOperations)
 }
-
-
-// ******************************* FUNCION QUE CREA FILTRO DE CATEGORIAS ********************//
-const CategoriesGenerateFilter = () => {
-  const categories = getDataFromLocalStorage(LS_KEYS.categories);
-
-  const elements = categories.map((category) => {
-    const { id, name } = category;
-    return ` 
-              
-                 <option  id='${id}'   class="flex flex col">${name}</option>
-            `;
-  });
-  
-  $("#filtersCategory").innerHTML = elements.join("");
-  $("#newOperationCategories").innerHTML = elements.join("");
-};
 
 
 //***************************** FUNCIONES QUE FILTRAN POR CATEGORIA ********************/
 
  
 
-const filteroftwo = () => { 
+const filterByCategory = () => { 
   const categoryName = $filtersCategory.value
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const operationsfiltered =  operations.filter((operation) => operation.category === categoryName);
-  console.log(operationsfiltered)
-  generateTable(operationsfiltered)   
+  generateTable(operationsfiltered)
+  console.log(">>>>>> operationsfiltered", operationsfiltered)
 };
 
-const filterofthree = (name) => {
+// const filterByOperations = (name) => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const operationsfiltered =  operations.filter((operation) => operation.category === filterbycategory());
+//   setDataToLocalStorage(LS_KEYS.operations, operationsfiltered)
+//   console.log(">>>>>> filterByOperations", operationsfiltered)
+//   }
+
+
+////////////////////////////////////  FUNCION QUE COMBINA FILTROS  //////////////////////////////////////
+
+const combinationFilters = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const operationsfiltered =  operations.filter((operation) => operation.category === filteroftwo());
-  setDataToLocalStorage(LS_KEYS.operations, operationsfiltered)
-  console.log(operationsfiltered)
-  }
+  const lsArray = operations
+  setDataToLocalStorage(LS_KEYS.operations, lsArray)
+}
 
+  const combinationtypefilter = () => {
+    let filtersType = document.getElementById('filtersType')
+    const type = filtersType.value
+    const operations = getDataFromLocalStorage(LS_KEYS.operations);
+    const newOperations = operations.filter((operation) => operation.type === type)
+    return newOperations
+};
 
-//********************* FUNCION QUE ELIMINA TODAS LAS OPERACIONES DE UNA CATEGORIA ***************************/
+ const combinationoperations = () => {
+  const categoryName = $filtersCategory.value
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  const operationsfiltered =  operations.filter((operation) => operation.category === categoryName);
+  return operationsfiltered
+ }
 
+ const filterofilterss = () => {
+const newfilter = combinationoperations()
+ const filtereddefinitiveoperations = newfilter.filter((operation) => operation.type === filtersType.value);
+  return generateTable(filtereddefinitiveoperations)
+ }
 
 
 
 ///////////////////////////////////////// BLOQUE FECHA ///////////////////////////////////////////////
+
+ 
+
 
 
 // ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
@@ -729,8 +769,12 @@ const newDate = () => {
   return (calendar.value = year + "-" + month + "-" + day);
 };
 
+const reverseDate = (date) =>{
+  let showDate = date.split("-").reverse().join("/")   
+  return showDate
+}
 
-document.getElementById("filterFirstCalendar").value = newDate();
+reverseDate(document.getElementById("filterFirstCalendar").value = newDate());
 const setCalendar = document.getElementById("filterFirstCalendar").value;
 
 
@@ -740,9 +784,11 @@ const setCalendar = document.getElementById("filterFirstCalendar").value;
 
 const onLoadCategories = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  if (!categories) {
+  const lsArray = getDataFromLocalStorage(LS_KEYS.lsArray)
+  if (!categories || !lsArray) {
     console.log(categories);
     setDataToLocalStorage(LS_KEYS.categories, CATEGORIES_BASE);
+    setDataToLocalStorage(LS_KEYS.lsArray, ARRAY_BASE);
   }
 };
 
@@ -758,6 +804,7 @@ window.addEventListener("load", () => {
   generadorID();
   newDate();
   CategoriesGenerateFilter()
+  CategoriesGenerateNewOperation()
    
 });
 
