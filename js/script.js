@@ -105,7 +105,7 @@ const getNewOperation = (id) => {
   const amount = $("#amount").value;
   const type = $("#type").value;
   const category = $("#newOperationCategories").value;
-  const calendar = newDate();
+  const calendar = formatfinaldate();
 
   return {
     id,
@@ -131,13 +131,18 @@ const operations = filteredOperations || getDataFromLocalStorage(LS_KEYS.operati
     const symbol = isEarning ? "+" : "-";
 
     return `
-            <tr class=""> 
-                <td>${description}</td>
+            <tr class="text-center text-base"> 
+                <td class="collapse md:visible">${description}</td>
                 <td>${category}</td>
-                <td>${calendar}</td>
-                <td class="text-lg text-${textClass} font-bold">${symbol}${amount}</td>
-                <td><button class="rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button></td>
-                <td ><button  class="pr-18 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button></td>
+                <td class="collapse md:visible">${calendar}</td>
+                <td class="text-lg text-right text-${textClass} font-bold">${symbol}${amount}</td>
+                
+                <td>
+                <span class="flex justify-center p-2">
+                 <button class="m-2  rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button>
+                 <button  class=" m-2 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button>
+                </span> 
+                <td>
              
              </tr>
             `;
@@ -160,7 +165,6 @@ const cleanPage = () => img.classList.add("hidden");
 const showTable = () => {
   $tableOperations.classList.remove("hidden");
   img.classList.add("hidden");
-  textOperations.classList.add("hidden");
   containerImage.classList.remove("hidden");
   balance.classList.remove("hidden");
 };
@@ -258,7 +262,7 @@ const editOperation = (id) => {
 
 const cleanNewOperation = () => {
   $("#description").value = "";
-  
+
   $("#amount").value = "";
   $("#type").value = "";
   const calendar = $("#calendar").value;
@@ -431,11 +435,16 @@ const CategoriesGenerateTable = () => {
   const elements = categories.map((category) => {
     const { id, name } = category;
     return ` 
-                 <tr class="pl-60">
-                    <td class="pr-60">${name}</td>
-                    <td class="px-4 pl-60" ><button class="pl-90 rounded hover:bg-indigo-400" id="editCategories" onclick="categoryEdit('${id}')">Editar</button></td>
-                    <td> <button class="pl-90 rounded hover:bg-indigo-400 " id="btnCancelCategories" onclick="categoryDelet('${id}')">Eliminar</button></td>
-                  </tr>     
+                <tr class="text-center">
+                     <td class="text-white lg:pl-16 text-start ">
+                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${name}</span>
+                     </td>
+                     <td class="flex justify-center p-2"> 
+                        <button class=" m-2 rounded hover:bg-[#ba68c8] hover:text-white " id="editCategories" onclick="categoryEdit('${id}')">Editar</button>
+                     
+                        <button class="  m-2  rounded hover:bg-[#ba68c8] hover:text-white " id="btnCancelCategories" onclick="categoryDelet('${id}')">Eliminar</button>
+                     </td>
+                  </tr> 
                   
             `;
   });
@@ -637,13 +646,14 @@ const totalBalance = () => {
 
 ////////////////////////////////////  FILTROS //////////////////////////////////////
 
-
+const filterType = $("#filterType")
 const $filterFirstCalendar = $("#filterFirstCalendar");
 const $filtersCategory = $("#filtersCategory");
 const $filtersSortBy = $("#filtersSortBy");
 const $btnHideFilters = $("#btnHideFilters");
 const $btnShowFilters = $("#btnShowFilters");
 const $filters = $("#filters");
+const calendar = $("#calendar")
 
 //********************* FUNCIONES PARA OCULTAR Y MOSTRAR FILTROS ***************************/
 
@@ -732,36 +742,15 @@ const filterByCategory = () => {
 };
 
 
-////////////////////////////////////  FUNCION QUE COMBINA FILTROS  //////////////////////////////////////
-  
-// const combinationtypefilter = () => {
-//     let filtersType = document.getElementById('filtersType')
-//     const type = filtersType.value
-//     const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//     const newOperations = operations.filter((operation) => operation.type === type)
-//     return newOperations
-// };
-
-// const filterofilterss = () => {
-// const newfilter = filterByCategory()
-//  const filtereddefinitiveoperations = newfilter.filter((operation) => operation.type === filtersType.value);
-//   return generateTable(filtereddefinitiveoperations)
-//  }
-
-
-
-
-
-
 ///////////////////////////////////////// BLOQUE FECHA ///////////////////////////////////////////////
 
 // ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
 
 const newDate = () => {
-  let newDate = new Date();
-  let month = newDate.getMonth() + 1;
-  let day = newDate.getDate(); //obteniendo dia
-  let year = newDate.getFullYear();
+  let date = new Date();
+  let month = date.getMonth() + 1;
+  let day = date.getDate(); //obteniendo dia
+  let year = date.getFullYear();
 
   if (day < 10) {
     day = "0" + day;
@@ -769,16 +758,59 @@ const newDate = () => {
   if (month < 10) {
     month = "0" + month;
   }
-  return (calendar.value = year + "-" + month + "-" + day);
+  let formatDate = (calendar.value = year + "-" + month + "-" + day);
+
+  return formatDate;
 };
 
-const reverseDate = (date) =>{
-  let showDate = date.split("-").reverse().join("/")   
-  return showDate
-}
+const date = (document.getElementById("filterFirstCalendar").value = newDate());
 
-reverseDate(document.getElementById("filterFirstCalendar").value = newDate());
-const setCalendar = document.getElementById("filterFirstCalendar").value;
+// ************** FUNCION QUE DA VUELTA LA FECHA EN TABLA *********//
+const formartfinaldate = () => {
+  const datee = newDate();
+  let finalDate = datee.split("-").reverse().join("-");
+  return finalDate;
+};
+
+
+/////////////////////////////////////// BLOQUE RESPONSIVE //////////////////////////////////
+
+const $navBurguer = $("#navBurguer");
+const $navMobil = $("#navMobil");
+
+const $mobileBalance = $("#mobileBalance");
+const $mobileCategory = $("#mobileCategory");
+const $mobileReports = $("#mobileReports");
+
+const $categoryContent = $("#categoryContent");
+
+//***************************** EVENTO PARA NAV MOBILE ********************************//
+
+$("#navMobile").addEventListener("click", () => {
+  $navBurguer.classList.remove("hidden");
+});
+
+$mobileBalance.addEventListener("click", () => {
+  balance.classList.remove("hidden");
+  containerImage.classList.remove("hidden");
+  $categoryContent.classList.add("hidden");
+  addNewOperation.classList.add("hidden");
+  $formEDit.classList.add("hidden");
+  categories.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+  reports.classList.add("hidden");
+});
+
+$mobileCategory.addEventListener("click", () => {
+  categories.classList.remove("hidden");
+  balance.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+  containerImage.classList.add("hidden");
+  addNewOperation.classList.add("hidden");
+  $formEDit.classList.add("hidden");
+  reports.classList.add("hidden");
+});
+
 
 
 
