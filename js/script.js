@@ -103,7 +103,7 @@ const getNewOperation = (id) => {
   const category = $("#category").value;
   const amount = $("#amount").value;
   const type = $("#type").value;
-  const calendar = newDate();
+  const calendar = formartfinaldate();
 
   return {
     id,
@@ -127,17 +127,16 @@ const generateTable = () => {
     const symbol = isEarning ? "+" : "-";
 
     return `
-            <tr class=" text-center text-base "> 
-                <td>${description}</td>
-                <td>${category}</td>
-                <td>${calendar}</td>
-                <td class="text-lg text-${textClass} font-bold">${symbol}${amount}</td>
+            <tr class="  text-center text-base "> 
+                <td class=" collapse md:visible">${description}</td>
+                <td class=" ">${category}</td>
+                <td class="collapse md:visible">${calendar}</td>
+                <td class="text-lg text-right text-${textClass} font-bold">${symbol}${amount}</td>
 
-                <td class="">
-                <span class="flex justify-center p-8">
-                <button class="pr-8 rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button>
-              
-                <button  class=" rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button>
+                <td>
+                <span class="flex justify-center p-2">
+                 <button class="m-2  rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button>
+                 <button  class=" m-2 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button>
                 </span> 
                 <td>
              </tr>
@@ -725,7 +724,6 @@ const filtersWork = () => {
   const newOperations = operations.filter(
     (operation) => operation.category === "trabajo"
   );
-  console.log(newOperations);
 };
 
 // ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
@@ -742,37 +740,18 @@ const newDate = () => {
   if (month < 10) {
     month = "0" + month;
   }
-  return (calendar.value = year + "-" + month + "-" + day);
+  let formatDate = (calendar.value = year + "-" + month + "-" + day);
+
+  return formatDate;
 };
 
-//Dar vuelta la fecha
+const formartfinaldate = () => {
+  const datee = newDate();
+  let finalDate = datee.split("-").reverse().join("-");
+  return finalDate;
+};
 
-// const correctDate = (date) => {
-//   let formatDate = date.split("-").reverse().join("-");
-//   return formatDate;
-// };
-
-// const date = correctDate(newDate())
-// console.log(date)
-
-// const filterFirstCalendar = document.getElementById('date');
-// filterFirstCalendar.value = date;
-
-// console.log("filterFirstCalendar value:", filterFirstCalendar.value)
-
-// const setCalendar = () => {
-//   let newdate = newDate()
-//   console.log(newdate)
-//   $filterFirstCalendar.valueAsDate = newdate
-// }
-
-// function PasarValor() {
-//   document.getElementById("date").defauldValue ===
-//     document.getElementById(newDate()).defauldValue;
-// }
-
-document.getElementById("filterFirstCalendar").value = newDate();
-const set = document.getElementById("filterFirstCalendar").value;
+const date = (document.getElementById("filterFirstCalendar").value = newDate());
 
 //*************************** FUNCION PARA ELIMINAR CATEGORIA *********************************//
 
