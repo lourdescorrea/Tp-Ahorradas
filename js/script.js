@@ -24,15 +24,14 @@ const reports = $("#reports");
 const addNewOperation = $("#addNewOperation");
 const containerImage = $("#containerImage");
 const textOperations = $("#textOperations");
-const lsarrayfilter = []
+
 
 const LS_KEYS = {
   operations: "operations",
   categories: "categories",
-  lsArray : "lsArray",
 };
 
-ARRAY_BASE = []
+
 
 ////////////////////////////////////////BLOQUE FUNCIONES BASE//////////////////////////////////////////////
 
@@ -691,6 +690,7 @@ const filterByType = () => {
 
 const newOperations = operations.filter((operation) => operation.type === type
 );
+console.log(">>>>>>>>>>>>>>>> filterbytype newOperations", newOperations)
 return generateTable(newOperations)
 }
 
@@ -700,57 +700,60 @@ return generateTable(newOperations)
  
 
 const filterByCategory = () => { 
+
+  if (filtersType.value === "todos"){  
   const categoryName = $filtersCategory.value
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   const operationsfiltered =  operations.filter((operation) => operation.category === categoryName);
-  generateTable(operationsfiltered)
   console.log(">>>>>> operationsfiltered", operationsfiltered)
-};
+  return generateTable(operationsfiltered)
+  }
+ 
 
-// const filterByOperations = (name) => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   const operationsfiltered =  operations.filter((operation) => operation.category === filterbycategory());
-//   setDataToLocalStorage(LS_KEYS.operations, operationsfiltered)
-//   console.log(">>>>>> filterByOperations", operationsfiltered)
-//   }
+  if (filtersType.value === "gasto"){
+    const categoryName = $filtersCategory.value
+    const operations = getDataFromLocalStorage(LS_KEYS.operations);
+    const operationsCategoryFiltered =  operations.filter((operation) => operation.category === categoryName);
+    const operationsTypeFilteres = operationsCategoryFiltered.filter((operation) => operation.type === filtersType.value);
+    console.log(">>>> filtro gasto", operationsTypeFilteres)
+    return generateTable(operationsTypeFilteres)
+  }
+  
+  if (filtersType.value === "ganancia"){
+    const categoryName = $filtersCategory.value
+    const operations = getDataFromLocalStorage(LS_KEYS.operations);
+    const operationsCategoryEarning =  operations.filter((operation) => operation.category === categoryName);
+    const operationsFilteredEarnings = operationsCategoryEarning.filter((operation) => operation.type === filtersType.value);
+    console.log(">>>> filtro ganancia", operationsFilteredEarnings)
+    return  generateTable(operationsFilteredEarnings)
+  
+  } 
+  
+};
 
 
 ////////////////////////////////////  FUNCION QUE COMBINA FILTROS  //////////////////////////////////////
+  
+// const combinationtypefilter = () => {
+//     let filtersType = document.getElementById('filtersType')
+//     const type = filtersType.value
+//     const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//     const newOperations = operations.filter((operation) => operation.type === type)
+//     return newOperations
+// };
 
-const combinationFilters = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const lsArray = operations
-  setDataToLocalStorage(LS_KEYS.operations, lsArray)
-}
+// const filterofilterss = () => {
+// const newfilter = filterByCategory()
+//  const filtereddefinitiveoperations = newfilter.filter((operation) => operation.type === filtersType.value);
+//   return generateTable(filtereddefinitiveoperations)
+//  }
 
-  const combinationtypefilter = () => {
-    let filtersType = document.getElementById('filtersType')
-    const type = filtersType.value
-    const operations = getDataFromLocalStorage(LS_KEYS.operations);
-    const newOperations = operations.filter((operation) => operation.type === type)
-    return newOperations
-};
 
- const combinationoperations = () => {
-  const categoryName = $filtersCategory.value
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const operationsfiltered =  operations.filter((operation) => operation.category === categoryName);
-  return operationsfiltered
- }
 
- const filterofilterss = () => {
-const newfilter = combinationoperations()
- const filtereddefinitiveoperations = newfilter.filter((operation) => operation.type === filtersType.value);
-  return generateTable(filtereddefinitiveoperations)
- }
 
 
 
 ///////////////////////////////////////// BLOQUE FECHA ///////////////////////////////////////////////
-
- 
-
-
 
 // ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
 
@@ -784,11 +787,8 @@ const setCalendar = document.getElementById("filterFirstCalendar").value;
 
 const onLoadCategories = () => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
-  const lsArray = getDataFromLocalStorage(LS_KEYS.lsArray)
-  if (!categories || !lsArray) {
-    console.log(categories);
+  if (!categories) {
     setDataToLocalStorage(LS_KEYS.categories, CATEGORIES_BASE);
-    setDataToLocalStorage(LS_KEYS.lsArray, ARRAY_BASE);
   }
 };
 
@@ -803,9 +803,7 @@ window.addEventListener("load", () => {
   totalBalance();
   generadorID();
   newDate();
-  CategoriesGenerateFilter()
-  CategoriesGenerateNewOperation()
-   
+  CategoriesGenerateFilter()  
 });
 
 /*///////////////////////////
