@@ -647,6 +647,7 @@ const filtersSortBy = $("#filtersSortBy");
 const btnHideFilters = $("#btnHideFilters");
 const btnShowFilters = $("#btnShowFilters");
 const filters = $("#filters");
+const calendar = $("#calentar");
 
 //********************* FUNCIONES PARA OCULTAR Y MOSTRAR FILTROS ***************************/
 $("#btnHideFilters").addEventListener("click", () => {
@@ -729,10 +730,10 @@ const filtersWork = () => {
 // ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
 
 const newDate = () => {
-  let newDate = new Date();
-  let month = newDate.getMonth() + 1;
-  let day = newDate.getDate(); //obteniendo dia
-  let year = newDate.getFullYear();
+  let date = new Date();
+  let month = date.getMonth() + 1;
+  let day = date.getDate(); //obteniendo dia
+  let year = date.getFullYear();
 
   if (day < 10) {
     day = "0" + day;
@@ -740,18 +741,51 @@ const newDate = () => {
   if (month < 10) {
     month = "0" + month;
   }
+  console.log("calendar", calendar)
   let formatDate = (calendar.value = year + "-" + month + "-" + day);
 
   return formatDate;
 };
 
+const date = (document.getElementById("filterFirstCalendar").value = newDate());
+
+// ****************************************** FUNCION QUE DA VUELTA LA FECHA EN TABLA ***********************//
 const formartfinaldate = () => {
   const datee = newDate();
   let finalDate = datee.split("-").reverse().join("-");
   return finalDate;
 };
 
-const date = (document.getElementById("filterFirstCalendar").value = newDate());
+const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+const filterFirstCalendarValue = filterFirstCalendar.value;
+console.log(">>>>filterFirstCalendar", filterFirstCalendar);
+
+for (const {calendar} of operations) {
+  if
+
+}
+
+
+const operaciones = [{date: "16-11-2010"}]
+const fechaFiltro = '2022-11-13'
+
+const getD = (str) => {
+  const formated = str.split('-').reverse().join('-')
+  return new Date(formated).setHours(0,0,0,0) 
+}
+
+const getFilterByDate = () => {
+   const filterTimeStamp = new Date(fechaFiltro).setHours(0,0,0,0) 
+  
+   const result = operaciones.filter((op) => getD(op.date) >= filterTimeStamp)
+   
+   console.log(result)
+}
+
+
+getFilterByDate();  
+
 
 //*************************** FUNCION PARA ELIMINAR CATEGORIA *********************************//
 
