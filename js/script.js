@@ -202,8 +202,10 @@ const operationEdit = (id) => {
   $("#editCalendar").value = chosenOperation.calendar;
 
   $btnEditAdd.setAttribute("data-id", id);
-
+  
+  CategoriesGenerateNewOperation("#editCategory")
   showEditOperationForm();
+ 
 };
 
 /***************************  FUNCION QUE REMUEVE OBJETO  ****************************/
@@ -298,13 +300,16 @@ const validationOperations = () => {
 
 // ******************************* FUNCION QUE CREA CATEGORIAS EN FORM DE NUEVA OP ********************//
 
-const CategoriesGenerateNewOperation = () => {
+
+const CategoriesGenerateNewOperation = (id) => {
   const categories = getDataFromLocalStorage(LS_KEYS.categories);
+  const options = []
    for (const { id, name } of  categories ) {
-    $("#newOperationCategories").innerHTML += `<option  id='${id}'   class="flex flex col">${name}</option>`;
+  options.push(`<option  id='${id}'   class="flex flex col">${name}</option>`);
     };
+    $(id).innerHTML =  options.join("")
   };
-  
+
 //************************************* EVENTO PARA EDITAR OPERACION **********************************/
 
 $btnEditAdd.addEventListener("click", () => {
@@ -347,6 +352,7 @@ $btnNewAdd.addEventListener("click", () => {
   earningsBalance();
   spendingBalance();
   generadorID();
+ 
   
 });
 
@@ -359,6 +365,7 @@ $btnPlusOperation.addEventListener("click", () => {
   $formEDit.classList.add("hidden");
   newDate();
   cleanNewOperation();
+  CategoriesGenerateNewOperation("#newOperationCategories")
 });
 
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
@@ -514,7 +521,7 @@ const categoryDelet = (id) => {
   const categories = removeCategories(id);
   setDataToLocalStorage(LS_KEYS.categories, categories);
   CategoriesGenerateTable();
-  CategoriesGenerateNewOperation();
+  CategoriesGenerateFilter()
   generateTable();
 };
 
@@ -557,9 +564,10 @@ $("#btnCategoryAdd").addEventListener("click", () => {
 
     categories.push(newCategory);
 
+   
     setDataToLocalStorage(LS_KEYS.categories, categories);
     CategoriesGenerateTable();
-    CategoriesGenerateNewOperation()
+    CategoriesGenerateFilter()
     cleanNewCategory();
   }
 });
@@ -583,7 +591,7 @@ $("#btnEditCategories").addEventListener("click", () => {
     setDataToLocalStorage(LS_KEYS.categories, categories);
 
     CategoriesGenerateTable();
-    CategoriesGenerateNewOperation()
+    CategoriesGenerateFilter()
     $categories.classList.remove("hidden");
     $containerCategories.classList.add("hidden");
   }
@@ -614,8 +622,8 @@ const earningsBalance = () => {
     }
     $("#Ganancias").innerText = acumulatedEarnings;
   }
-  return acumulatedEarnings;
-};
+  return acumulatedEarnings;oad
+}
 
 // //******************************** FUNCION QUE FILTRA Y ACUMULA GASTOS *************************/
 
@@ -677,8 +685,10 @@ const CategoriesGenerateFilter = () => {
   $("#filtersCategory").innerHTML = `<option value="todas">todas</option>`;
    
  for (const { id, name } of  categories ) {
-  $("#filtersCategory").innerHTML += `<option  id='${id}'   class="flex flex col">${name}</option>`;
+  $("#filtersCategory").innerHTML += `<option  id='${id}' class="flex flex col">${name}</option>`;
   };
+
+
 };
 
 
@@ -766,7 +776,7 @@ const newDate = () => {
 const date = (document.getElementById("filterFirstCalendar").value = newDate());
 
 // ************** FUNCION QUE DA VUELTA LA FECHA EN TABLA *********//
-const formartfinaldate = () => {
+const formatfinaldate = () => {
   const datee = newDate();
   let finalDate = datee.split("-").reverse().join("-");
   return finalDate;
