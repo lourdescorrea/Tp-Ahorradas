@@ -159,6 +159,7 @@
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersType"
               id="filtersType"
+              onchange="filterByType()"
             >
               <option value="todos">Todos</option>
               <option value="gasto">Gastos</option>
@@ -168,17 +169,12 @@
               >Categorías</label
             >
             <select
+              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersCategory"
               id="filtersCategory"
-              class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
+              onchange="filterByCategory()"
             >
-              <option value="todas">Todas</option>
-              <option value="comida">Comida</option>
-              <option value="salidas">Salidas</option>
-              <option value="servicios">Servicios</option>
-              <option value="educación">Educación</option>
-              <option value="transporte">Transporte</option>
-              <option value="trabajo">Trabajo</option>
+              <option id="optionsFiltersCategory"></option>
             </select>
             <label for="filtersCalendars" class="mb-1 font-semibold"
               >Desde</label
@@ -243,10 +239,9 @@
         <!-- section edit operations register -->
         <div class="hidden w-full p-4" id="tableOperations">
           <table class="w-full border-separate pt-10">
-            <thead class="">
+            <thead>
               <tr>
                 <th>Descripción</th>
-
                 <th>Categoría</th>
                 <th>Fecha</th>
                 <th>Monto</th>
@@ -298,15 +293,7 @@
             name="category"
             id="category"
             class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-          >
-            <option value="comida">Comida</option>
-            <option value="servicios">Servicios</option>
-            <option value="salidas">Salidas</option>
-            <option value="educación">Educación</option>
-            <option value="transporte">Transporte</option>
-            <option value="trabajo">Trabajo</option>
-            <option value="supermercado">Supermercado</option>
-          </select>
+          ></select>
           <label for="date" class="mb-1 font-bold">Fecha</label>
           <input
             class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
@@ -373,23 +360,13 @@
             name="category"
             id="editCategory"
             class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
-          >
-            <option value="comida">Comida</option>
-            <option value="servicios">Servicios</option>
-            <option value="salidas">Salidas</option>
-            <option value="educación">Educación</option>
-            <option value="transporte">Transporte</option>
-            <option value="trabajo">Trabajo</option>
-            <option value="supermercado">Supermercado</option>
-          </select>
+          ></select>
           <label for="date" class="mb-1 font-bold">Fecha</label>
           <input
             type="date"
             name="date"
             id="editCalendar"
             value=""
-            min=""
-            max=""
             class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
           />
           <div class="flex justify-end mt-4">
@@ -500,7 +477,7 @@
         </h2>
 
         <!-- section reports img -->
-        <div class="hidden imageReportes" id="imageReportes">
+        <div class="imageReportes" id="imageReportes">
           <div class="p-2 sm:p-10 flex flex-col items-center w-full">
             <img
               src="assets/91161a4f184344cb24c9d0dda2eac426-PhotoRoom.png"
