@@ -25,10 +25,13 @@ const addNewOperation = $("#addNewOperation");
 const containerImage = $("#containerImage");
 const textOperations = $("#textOperations");
 
+
 const LS_KEYS = {
   operations: "operations",
   categories: "categories",
 };
+
+
 
 ////////////////////////////////////////BLOQUE FUNCIONES BASE//////////////////////////////////////////////
 
@@ -119,6 +122,8 @@ const getNewOperation = (id) => {
 const generateTable = (filteredOperations) => {
   const operations =
     filteredOperations || getDataFromLocalStorage(LS_KEYS.operations);
+
+
 
   const elements = operations.map((operation) => {
     const { id, description, category, type, amount, calendar } = operation;
@@ -341,6 +346,7 @@ $btnNewAdd.addEventListener("click", () => {
   earningsBalance();
   spendingBalance();
   generadorID();
+  
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -609,7 +615,7 @@ const earningsBalance = () => {
   return acumulatedEarnings;
 };
 
-// //******************************** FUNCION QUE FILTRA Y ACUMULA GASTOS *************************/
+//*************************** EVENTO PARA CARGA INICIAL *********************************//
 
 const spendingBalance = () => {
   let acumulatedSpent = 0;
@@ -646,6 +652,12 @@ const $btnHideFilters = $("#btnHideFilters");
 const $btnShowFilters = $("#btnShowFilters");
 const $filters = $("#filters");
 const calendar = $("#calendar");
+
+// //********************************* FUNCION QUE CALCULA EL TOTAL ********************************/
+
+
+////////////////////////////////////  FILTROS //////////////////////////////////////
+
 
 //********************* FUNCIONES PARA OCULTAR Y MOSTRAR FILTROS ***************************/
 
@@ -696,6 +708,7 @@ const filterByType = () => {
   return generateTable(newOperations);
 };
 
+
 //***************************** FUNCIONES QUE FILTRAN POR CATEGORIA ********************/
 
 const filterByCategory = () => {
@@ -741,10 +754,10 @@ const filterByCategory = () => {
 // ******************************************  FUNCION QUE SETEA LA FECHA ***********************//
 
 const newDate = () => {
-  let date = new Date();
-  let month = date.getMonth() + 1;
-  let day = date.getDate(); //obteniendo dia
-  let year = date.getFullYear();
+  let newDate = new Date();
+  let month = newDate.getMonth() + 1;
+  let day = newDate.getDate(); //obteniendo dia
+  let year = newDate.getFullYear();
 
   if (day < 10) {
     day = "0" + day;
@@ -752,32 +765,34 @@ const newDate = () => {
   if (month < 10) {
     month = "0" + month;
   }
-  let formatDate = (calendar.value = year + "-" + month + "-" + day);
-
-  return formatDate;
+  return (calendar.value = year + "-" + month + "-" + day);
 };
 
-const date = (document.getElementById("filterFirstCalendar").value = newDate());
+//Dar vuelta la fecha
 
-// ************** FUNCION QUE DA VUELTA LA FECHA EN TABLA *********//
-const formartfinaldate = () => {
-  const datee = newDate();
-  let finalDate = datee.split("-").reverse().join("-");
-  return finalDate;
-};
+// const correctDate = (date) => {
+//   let formatDate = date.split("-").reverse().join("-");
+//   return formatDate;
+// };
 
-/////////////////////////////////////// BLOQUE RESPONSIVE //////////////////////////////////
+// const date = correctDate(newDate())
+// console.log(date)
 
-const $navBurguer = $("#navBurguer");
-const $navMobil = $("#navMobil");
+// const filterFirstCalendar = document.getElementById('date');
+// filterFirstCalendar.value = date;
 
-const $mobileBalance = $("#mobileBalance");
-const $mobileCategory = $("#mobileCategory");
-const $mobileReports = $("#mobileReports");
+// console.log("filterFirstCalendar value:", filterFirstCalendar.value)
 
-const $categoryContent = $("#categoryContent");
+// const setCalendar = () => {
+//   let newdate = newDate()
+//   console.log(newdate)
+//   $filterFirstCalendar.valueAsDate = newdate
+// }
 
-//***************************** EVENTO PARA NAV MOBILE ********************************//
+// function PasarValor() {
+//   document.getElementById("date").defauldValue ===
+//     document.getElementById(newDate()).defauldValue;
+// }
 
 $("#navMobile").addEventListener("click", () => {
   $navBurguer.classList.remove("hidden");
