@@ -766,7 +766,21 @@ const getToday = () => {
   return formatDate(today);
 };
 
-// ************** FUNCION QUE DA VUELTA LA FECHA EN TABLA *********//
+// ************** FUNCION QUE SETEA LA FECHA EN EL PRIMER DÍA DEL MES Y LA DA VUELTA*********//
+
+const getCurrentMonth = () => {
+  let today = getToday().split("");
+
+  today[today.length - 1] = 1;
+  today[today.length - 2] = 0;
+
+  return today.join("");
+};
+
+const reverseDate = (date) => {
+  let finalDate = date.split("-").reverse().join("-");
+  return finalDate;
+};
 
 /////////////////////////////////////// BLOQUE RESPONSIVE //////////////////////////////////
 
@@ -834,19 +848,3 @@ window.addEventListener("load", () => {
  */ ///////////////////////////
 /*
  */ /////////////////
-const getTimeStamp = (date) => {
-  return new Date(date).setHours(0, 0, 0, 0);
-};
-
-const onFilterByDate = () => {
-  const value = $filterFirstCalendar.value;
-  const operaciones = getDataFromLocalStorage(LS_KEYS.operations);
-
-  const filterTimeStamp = getTimeStamp(value);
-
-  const result = operaciones.filter(
-    (op) => getTimeStamp(op.calendar) >= filterTimeStamp
-  );
-
-  generateTable(result);
-};
