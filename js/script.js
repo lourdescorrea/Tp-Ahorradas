@@ -782,6 +782,25 @@ const reverseDate = (date) => {
   return finalDate;
 };
 
+// ************** FUNCION FILTROS DE FECHA *********//
+
+const getTimeStamp = (date) => {
+  return new Date(date).setHours(0, 0, 0, 0);
+};
+
+const onFilterByDate = () => {
+  const value = $filterFirstCalendar.value;
+  const operaciones = getDataFromLocalStorage(LS_KEYS.operations);
+
+  const filterTimeStamp = getTimeStamp(value);
+
+  const result = operaciones.filter(
+    (op) => getTimeStamp(op.calendar) >= filterTimeStamp
+  );
+
+  generateTable(result);
+};
+
 /////////////////////////////////////// BLOQUE RESPONSIVE //////////////////////////////////
 
 const $navBurguer = $("#navBurguer");
