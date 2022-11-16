@@ -887,3 +887,15 @@ const mostRecent = () => {
     }
   });
 };
+
+const lessRecent = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  return operations.sort((a, b) => {
+    if (a.calendar < b.calendar) {
+      return -1;
+    } else if (a.calendar > b.calendar) {
+    } else {
+      return 0;
+    }
+  });
+};
