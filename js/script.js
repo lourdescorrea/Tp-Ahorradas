@@ -610,7 +610,6 @@ const earningsBalance = () => {
     $("#Ganancias").innerText = acumulatedEarnings;
   }
   return acumulatedEarnings;
-  oad;
 };
 
 // //******************************** FUNCION QUE FILTRA Y ACUMULA GASTOS *************************/
@@ -862,8 +861,29 @@ window.addEventListener("load", () => {
   CategoriesGenerateFilter();
 });
 
-/*///////////////////////////
- *
- */ ///////////////////////////
-/*
- */ /////////////////
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+// ************** FUNCION ORDENAR POR ********//
+// const sortBy = () => {
+//   let filtersSort = document.getElementById("filtersSortBy");
+//   return filtersSortBy.value;
+// };
+
+// const filterSortBy = () => {
+//   const valueSort = $filtersSortBy;
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+// };
+
+// const filterMostRecent = () => {};
+
+const mostRecent = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  return operations.sort((a, b) => {
+    if (a.calendar > b.calendar) {
+      return -1;
+    } else if (a.calendar < b.calendar) {
+    } else {
+      return 0;
+    }
+  });
+};
