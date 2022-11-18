@@ -802,6 +802,207 @@ const onFilterByDate = () => {
   generateTable(result);
 };
 
+//////////////////////////////////// BLOQUE REPORTES ////////////////////////////
+
+
+const emptyOperations = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+if (operations.length === 0){
+  showEmptyReports()
+}
+}
+
+         //****************************** RESUMEN *******************/
+
+//******************************************* FUNCION QUE ACUMULA OPERACIONES  ************************/
+
+const operations = getDataFromLocalStorage("operations")
+
+const operationsGain = []
+const operationSpending = []
+
+const typeOperations = () => {
+for (const operation of operations) {
+  if (operation.type === "gasto") {
+    operationSpending.push(operation)
+
+  } else {
+    operationsGain.push(operation)
+
+  }
+}
+}
+typeOperations()
+
+console.log(">>>>>>>>>>> operationSpending", operationSpending)
+console.log(">>>>>>>>>>> operationsGain", operationsGain)
+
+//******************************************* FUNCION MAYOR GANANCIA  ************************/
+
+const biggerEarnings = () => {
+
+const arrayOpGain = Math.max(...operationsGain.map(operation => operation.amount));
+console.log(">>>>>>>>>>>> arrayOpGain", arrayOpGain)
+
+const arrayOpGain2 = operationsGain.filter(operation => parseInt(operation.amount) === arrayOpGain)
+console.log(">>>>>>>>>>>> arrayOpGain2", arrayOpGain2)
+
+const operationObtainedGain = arrayOpGain2.map(operation =>operation.category);
+console.log(">>>>>>>>>>>> operationObtainedGain", operationObtainedGain)
+
+return operationObtainedGain
+}
+
+
+
+// // //******************************************* FUNCION MAYOR GASTO  ************************/
+
+// const biggerSpent = () => {
+// const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
+// console.log(">>>>>>>>>>>> arrayOpSpending", arrayOpSpending)
+
+// const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
+// console.log(">>>>>>>>>>>> arrayOpSpending2", arrayOpSpending2)
+
+// const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.category);
+// console.log(">>>>>>>>>>>> operationObtainedSpending", operationObtainedSpending)
+ 
+// }
+
+// biggerSpent()
+
+//******************************************* MES CON MAYOR GANACIA  ************************/
+
+// const biggeDateEarning = () => {
+//   const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
+  
+  
+//   const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
+//   // CAMBIAR AMOUNT POR DATE PARA FILTRAR LA FECHA DE LA MAYOR OPERACION DE GANANCIA
+  
+//   const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.category);
+//   console.log(">>>>>>>>>>>> operationObtainedSpending", operationObtainedSpending)
+   
+//   }
+
+
+
+
+// //******************************************* MES CON MAYOR GASTO  ************************/
+// const biggeDateSpending = () => {
+//   const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
+  
+  
+//   const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
+//   // CAMBIAR AMOUNT POR DATE PARA FILTRAR LA FECHA DE LA MAYOR OPERACION DE GANANCIA
+  
+//   const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.category);
+//   console.log(">>>>>>>>>>>> operationObtainedSpending", operationObtainedSpending)
+   
+//   }
+
+///*********************************** tablaaa ****************************************
+const pepe = biggerEarnings() 
+const reportsGenerateTable = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  
+  const elements = operations.map((operation) => {
+    const {category} = operation;
+
+    return ` 
+                <tr class="text-center">
+                     <td class="text-white lg:pl-16 text-start ">
+                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${category}</span>
+                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${pepe}</span>
+                     </td>
+                  </tr> 
+                  
+            `;
+
+  });
+
+  
+
+  $("#tableSummaryReports").innerHTML = elements.join("");
+};
+
+
+
+
+
+
+//****************************** TOTALES POR CATEGORIA *******************/
+const operations2 = getDataFromLocalStorage(LS_KEYS.operations);
+
+const filterSpendingAndGain = Object.values(operations2.reduce((acc, operation) => {
+  acc[operation.category] = acc[operation.category] || { 
+    Category: operation.category,
+    Spending: 0,
+    Gain: 0,
+    Balance: 0
+
+  };
+    if (operation.type === "gasto"){
+      acc[operation.category].Spending += parseInt(operation.amount)
+      console.log(">>>>>>>>>>>>>>>> gasto acc", acc)
+    } else {
+      acc[operation.category].Gain += parseInt(operation.amount)
+      console.log(">>>>>>>>>>>>>>>> ganancia acc", acc)
+    }
+ acc[operation.category].Balance = acc[operation.category].Gain - acc[operation.category].Spending
+  return acc; 
+})
+);
+
+console.log(filterSpendingAndGain)
+
+
+
+          //********************  TABLA TOTALES POR CATEGORIA  ******************************
+
+// const reportsGenerateTable = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   const elements = operations.map((operation) => {
+//     const {category} = operation;
+
+//     return ` 
+//                 <tr class="text-center">
+//                      <td class="text-white lg:pl-16 text-start ">
+//                        <span class="tag bg-[#e1bee7] text-[#ba68c8]">${category}</span>
+//                        <span class="tag bg-[#e1bee7] text-[#ba68c8]">${earningdReports()}</span>
+//                        <span class="tag bg-[#e1bee7] text-[#ba68c8]">${spentReportsCategories()}</span>
+//                        <span class="tag bg-[#e1bee7] text-[#ba68c8]">${balanceReportsCategories()}</span>
+//                      </td>
+//                   </tr> 
+                  
+//             `;
+
+//   });
+
+  
+
+//   $("#categoryTableReports").innerHTML = elements.join("");
+// };
+
+
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////////////////// BLOQUE RESPONSIVE //////////////////////////////////
 
 const $navBurguer = $("#navBurguer");
