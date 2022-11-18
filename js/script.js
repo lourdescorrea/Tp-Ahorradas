@@ -641,7 +641,7 @@ const totalBalance = () => {
 
 ////////////////////////////////////  FILTROS //////////////////////////////////////
 
-const filterType = $("#filterType");
+const filtersType = $("#filtersType");
 const $filterFirstCalendar = $("#filterFirstCalendar");
 const $filtersCategory = $("#filtersCategory");
 const $filtersSortBy = $("#filtersSortBy");
@@ -737,6 +737,8 @@ const filterByCategory = () => {
     return generateTable(operationsFilteredEarnings);
   }
 };
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////// BLOQUE FECHA ///////////////////////////////////////////////
 
@@ -862,3 +864,59 @@ window.addEventListener("load", () => {
 });
 
 /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+// ************** FUNCION ORDENAR POR ********//
+
+const newDate = (sort) => {
+  const date = new Date(sort.calendar);
+  return date.getTime();
+};
+
+const FiltersResult = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  if ($filtersSortBy.value === "mostRecent") {
+    let operation = operations.sort((a, b) => newDate(b) - newDate(a));
+    console.log(">>>>operation", operation);
+    return generateTable(operation);
+  }
+
+  if ($filtersSortBy.value === "lessRecent") {
+    const operation = operations.sort((a, b) => newDate(a) - newDate(b));
+    return generateTable(operation);
+  }
+
+  if ($filtersSortBy.value === "largestAmount") {
+    const operation = operations.sort((a, b) => b.amount - a.amount);
+    return generateTable(operation);
+  }
+
+  if ($filtersSortBy.value === "lesserAmount") {
+    const operation = operations.sort((a, b) => a.amount - b.amount);
+    return generateTable(operation);
+  }
+
+  if ($filtersSortBy.value === "aToZ") {
+    const operation = operations.sort((a, b) => {
+      if (a.description < b.description) {
+        return -1;
+      } else if (a.description > b.description) {
+      } else {
+        return 0;
+      }
+    });
+    return generateTable(operation);
+  }
+
+  if ($filtersSortBy.value === "zToA") {
+    const operation = operations.sort((a, b) => {
+      if (a.description > b.description) {
+        return -1;
+      } else if (a.description < b.description) {
+      } else {
+        return 0;
+      }
+    });
+    return generateTable(operation);
+  }
+};

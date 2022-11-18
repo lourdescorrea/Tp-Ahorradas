@@ -20,9 +20,9 @@
       <nav
         class="lg:px-20 lg:h-20 h-20 bg-[#ba68c8] text-white flex justify-between items-center"
       >
-        <a href="" class="flex text-4xl hover:text-3xl font-semibold px-2">
+        <a href="" class="flex text-4xl hover:text-3xl font-semibold p-4">
           <i class="fas fa-wallet mr-2" aria-hidden="true"></i>
-          OingZ
+          AhorrADAs
         </a>
         <div
           class="lg:hidden flex items-center h-20 hover:bg-[#ab47bc] cursor-pointer px-4"
@@ -172,7 +172,7 @@
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersCategory"
               id="filtersCategory"
-              onchange="filterByCategory()"
+              onchange="categoryFilter()"
             >
               <option id="optionsFiltersCategory"></option>
             </select>
@@ -193,6 +193,7 @@
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersSortBy"
               id="filtersSortBy"
+              onchange="FiltersResult()"
             >
               <option value="mostRecent">más reciente</option>
               <option value="lessRecent">menos reciente</option>
