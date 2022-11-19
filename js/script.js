@@ -1088,8 +1088,14 @@ $mobileCategory.addEventListener("click", () => {
   reports.classList.add("hidden");
   imageReports.classList.add("hidden");
   categories.classList.remove("hidden");
-
   $categoriesTable.classList.remove("hidden");
+});
+
+$mobileReports.addEventListener("click", () => {
+  balance.classList.add("hidden");
+  containerImage.classList.add("hidden");
+  categories.classList.add("hidden");
+  reports.classList.remove("hidden");
 });
 
 //*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
