@@ -170,7 +170,7 @@ const showEmptyPage = () => {
 
 const showEmptyReports = () => {
   $("#tableReports").classList.add("hidden");
-  imageReportes.classList.remove("hidden");
+  imageReports.classList.remove("hidden");
 };
 
 const hideNewOperationsForm = () => {
@@ -447,7 +447,7 @@ const CategoriesGenerateTable = () => {
             `;
   });
 
-  $("#categories-table").innerHTML = elements.join("");
+  $("#categoriesTable").innerHTML = elements.join("");
 };
 
 // //************************  FUNCION QUE LIMPIA DATOS DEL INPUT EN CATEGORIAS   *****************************************//
@@ -1053,8 +1053,9 @@ const $crussMobile = $("#crussMobile");
 const $mobileBalance = $("#mobileBalance");
 const $mobileCategory = $("#mobileCategory");
 const $mobileReports = $("#mobileReports");
+const imageReports = $("#imageReports");
 
-const $categoryContent = $("#categoryContent");
+const $categoriesTable = $("#categoriesTable");
 
 //***************************** EVENTO PARA NAV MOBILE ********************************//
 
@@ -1073,7 +1074,7 @@ $("#crussMobile").addEventListener("click", () => {
 $mobileBalance.addEventListener("click", () => {
   balance.classList.remove("hidden");
   containerImage.classList.remove("hidden");
-  $categoryContent.classList.add("hidden");
+
   addNewOperation.classList.add("hidden");
   $formEDit.classList.add("hidden");
   categories.classList.add("hidden");
@@ -1082,13 +1083,13 @@ $mobileBalance.addEventListener("click", () => {
 });
 
 $mobileCategory.addEventListener("click", () => {
-  categories.classList.remove("hidden");
   balance.classList.add("hidden");
-  $containerCategories.classList.add("hidden");
   containerImage.classList.add("hidden");
-  addNewOperation.classList.add("hidden");
-  $formEDit.classList.add("hidden");
   reports.classList.add("hidden");
+  imageReports.classList.add("hidden");
+  categories.classList.remove("hidden");
+
+  $categoriesTable.classList.remove("hidden");
 });
 
 //*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
