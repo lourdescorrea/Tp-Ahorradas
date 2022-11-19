@@ -159,7 +159,7 @@
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersType"
               id="filtersType"
-              onchange="filterByType()"
+              onchange="filterByCategory()"
             >
               <option value="todos">Todos</option>
               <option value="gasto">Gastos</option>
@@ -172,7 +172,7 @@
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersCategory"
               id="filtersCategory"
-              onchange="categoryFilter()"
+              onchange="filterByCategory()"
             >
               <option id="optionsFiltersCategory"></option>
             </select>
@@ -497,7 +497,7 @@
         </div>
         <!-- section teble reports -->
         <div
-          class="mp:hidden hidden max-h-[50rem] overflow-auto"
+          class="mp: max-h-[50rem] overflow-auto"
           id="tableReports"
         >
           <section class="mb-7">
@@ -562,7 +562,7 @@
                     <th class="ml-10 sm:ml-0 font-medium">Balance</th>
                   </tr>
                 </thead>
-                <tbody class="tableMonthReports"></tbody>
+                <tbody class="tableMonthReports" id="tableMonthReports"></tbody>
               </table>
             </div>
           </section>
