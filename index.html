@@ -126,15 +126,15 @@
           <ul class="text-xl">
             <li class="mb-4 flex justify-between">
               <h3>Ganacias</h3>
-              <p class="text-green-500 font-semibold" id="Ganancias">+$0</p>
+              <p class="text-green-500 font-semibold" id="earnings">+$0</p>
             </li>
             <li class="mb-4 flex justify-between">
               <h3>Gastos</h3>
-              <p class="text-red-500 font-semibold" id="Gastos">-$0</p>
+              <p class="text-red-500 font-semibold" id="expenses">-$0</p>
             </li>
             <li class="flex justify-between">
               <h3>Total</h3>
-              <p class="font-semibold" id="Total">$0</p>
+              <p class="font-semibold" id="total">$0</p>
             </li>
           </ul>
         </section>
@@ -159,7 +159,7 @@
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersType"
               id="filtersType"
-              onchange="filterByType()"
+              onchange="filterByCategory()"
             >
               <option value="todos">Todos</option>
               <option value="gasto">Gastos</option>
@@ -172,7 +172,7 @@
               class="mb-2 p-2 rounded border-2 cursor-pointer focus:border-blue-600 focus:outline-none"
               name="filtersCategory"
               id="filtersCategory"
-              onchange="categoryFilter()"
+              onchange="filterByCategory()"
             >
               <option id="optionsFiltersCategory"></option>
             </select>
@@ -481,7 +481,7 @@
 
         <!-- section reports img -->
         <div class="imageReportes" id="imageReportes">
-          <div class="p-2 sm:p-10 flex flex-col items-center w-full">
+          <div class="hidden p-2 sm:p-10 flex flex-col items-center w-full">
             <img
               src="assets/91161a4f184344cb24c9d0dda2eac426-PhotoRoom.png"
               alt=""
@@ -497,7 +497,7 @@
         </div>
         <!-- section teble reports -->
         <div
-          class="mp:hidden hidden max-h-[50rem] overflow-auto"
+          class="mp: max-h-[50rem] overflow-auto"
           id="tableReports"
         >
           <section class="mb-7">
@@ -506,23 +506,20 @@
             >
               Resumen
             </h3>
-            <ul class="text-slate-900">
-              <li
-                class="categoryMaxProfit mb-5 flex justify-between flex-col sm:flex-row"
-              ></li>
-              <li
-                class="categoryMaxLoss mb-5 flex justify-between flex-col sm:flex-row"
-              ></li>
-              <li
-                class="categoryMaxBalance mb-5 flex justify-between flex-col sm:flex-row"
-              ></li>
-              <li
-                class="maxProfitMonth mb-5 flex justify-between flex-col sm:flex-row"
-              ></li>
-              <li
-                class="maxLossMonth mb-5 flex justify-between flex-col sm:flex-row"
-              ></li>
-            </ul>
+            <table class="sm:w-full text-slate-800">
+              <thead>
+                <tr class="flex justify-between">
+                  <th class="font-medium">Categoría con mayor ganancia</th>
+                  <th class="ml-10 sm:ml-0 font-medium">Categoría con mayor gasto</th>
+                  <th class="ml-10 sm:ml-0 font-medium">Categoría con mayor balance</th>
+                  <th class="ml-10 sm:ml-0 font-medium">Mes con mayor ganancia</th>
+                  <th class="ml-10 sm:ml-0 font-medium">Mes con mayor gasto</th>
+                </tr>
+              </thead>
+              <tbody
+                id="tableSummaryReports"
+              ></tbody>
+            </table>
           </section>
 
           <section class="mb-7">
@@ -565,7 +562,7 @@
                     <th class="ml-10 sm:ml-0 font-medium">Balance</th>
                   </tr>
                 </thead>
-                <tbody class="tableMonthReports"></tbody>
+                <tbody class="tableMonthReports" id="tableMonthReports"></tbody>
               </table>
             </div>
           </section>
