@@ -8,9 +8,9 @@ const $btnEditAdd = $("#btnEditAdd"); //boton editar formulario en pantalla edit
 const $btnEditCancel = $("#btnEditCancel"); //bonton cancelar desde pantalla editar
 const $formEDit = $("#formEDit"); //id del form
 const $tableOperations = $("#tableOperations"); //id de la tabla
-const $Ganancias = $("#Ganancias");
-const $Gastos = $("#Gastos");
-const $Total = $("#Total");
+const $earnings = $("#earnings");
+const $expenses = $("#expenses");
+const $total = $("#total");
 
 // seletores nav
 const navBalance = $("#navBalance");
@@ -77,19 +77,19 @@ const removeLocalStorage = (ops) => {
 
 //****************************** FUNCION QUE GENERA EL ID ****************************/
 
-const nums = "123456789";
-const mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const numbers = "123456789";
+const capital = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-const generadorID = () => {
+const generatorID = () => {
   let id = [];
 
   while (id.length < 10) {
-    const num = Math.floor(Math.random() * nums.length);
+    const num = Math.floor(Math.random() * numbers.length);
 
-    const num1 = Math.floor(Math.random() * mayus.length);
+    const num1 = Math.floor(Math.random() * capital.length);
 
-    id.push(nums[num]);
-    id.push(mayus[num1]);
+    id.push(numbers[num]);
+    id.push(capital[num1]);
   }
 
   return id.join("");
@@ -170,6 +170,11 @@ const showEmptyPage = () => {
   textOperations.classList.remove("hidden");
 };
 
+const showEmptyReports = () => {
+  $("#tableReports").classList.add("hidden");
+  imageReportes.classList.remove("hidden");
+};
+
 const hideNewOperationsForm = () => {
   addNewOperation.classList.add("hidden");
 };
@@ -202,7 +207,7 @@ const operationEdit = (id) => {
   showEditOperationForm();
 };
 
-/***************************  FUNCION QUE REMUEVE OBJETO  ****************************/
+/***************************  FUNCION QUE ELIMINA OPERACIONES  ***************************/
 
 const removeOperation = (id) => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
@@ -279,8 +284,7 @@ const validationOperations = () => {
   if (
     editDescription.value === "" ||
     editAmount.value === "" ||
-    editType.value === "" ||
-    editCategory.value === ""
+    editType.value === ""
   ) {
     return false;
   } else {
@@ -329,7 +333,7 @@ $btnNewAdd.addEventListener("click", () => {
     return alert("Debe completar los campos");
   }
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  const newOperation = getNewOperation(generadorID());
+  const newOperation = getNewOperation(generatorID());
   operations.push(newOperation);
 
   setDataToLocalStorage(LS_KEYS.operations, operations);
@@ -342,7 +346,7 @@ $btnNewAdd.addEventListener("click", () => {
   totalBalance();
   earningsBalance();
   spendingBalance();
-  generadorID();
+  generatorID();
 });
 
 //******************** EVENTO NUEVA OPERACION DESDE PANTALLA BALANCE **********************/
@@ -398,27 +402,27 @@ const $categories = $("#categories");
 const $btnEditCategories = $("#btnEditCategories");
 const CATEGORIES_BASE = [
   {
-    id: generadorID(),
+    id: generatorID(),
     name: "comida",
   },
   {
-    id: generadorID(),
+    id: generatorID(),
     name: "servicios",
   },
   {
-    id: generadorID(),
+    id: generatorID(),
     name: "salidas",
   },
   {
-    id: generadorID(),
+    id: generatorID(),
     name: "educación",
   },
   {
-    id: generadorID(),
+    id: generatorID(),
     name: "transporte",
   },
   {
-    id: generadorID(),
+    id: generatorID(),
     name: "trabajo",
   },
 ];
@@ -551,7 +555,7 @@ $("#btnCategoryAdd").addEventListener("click", () => {
     return alert("Debe completar los campos");
   } else {
     const categories = getDataFromLocalStorage(LS_KEYS.categories);
-    const newCategory = getNewCategory(generadorID());
+    const newCategory = getNewCategory(generatorID());
 
     categories.push(newCategory);
 
@@ -602,12 +606,12 @@ $("#btnEditCategories").addEventListener("click", () => {
 const earningsBalance = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   let acumulatedEarnings = 0;
-  $("#Ganancias").innerText = acumulatedEarnings;
+  $("#earnings").innerText = acumulatedEarnings;
   for (const { amount, type } of operations) {
     if (type === "ganancia") {
       acumulatedEarnings += parseInt(amount);
     }
-    $("#Ganancias").innerText = acumulatedEarnings;
+    $("#earnings").innerText = acumulatedEarnings;
   }
   return acumulatedEarnings;
 };
@@ -616,7 +620,7 @@ const earningsBalance = () => {
 
 const spendingBalance = () => {
   let acumulatedSpent = 0;
-  $("#Gastos").innerText = acumulatedSpent;
+  $("#expenses").innerText = acumulatedSpent;
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
   for (const { amount, type } of operations) {
@@ -624,7 +628,7 @@ const spendingBalance = () => {
       acumulatedSpent -= parseInt(amount);
     }
 
-    $("#Gastos").innerText = acumulatedSpent;
+    $("#expenses").innerText = acumulatedSpent;
   }
   return acumulatedSpent;
 };
@@ -634,9 +638,9 @@ const spendingBalance = () => {
 const totalBalance = () => {
   const acumulatedEarnings = earningsBalance();
   const acumulatedSpent = spendingBalance();
-  let total = acumulatedEarnings + acumulatedSpent;
-  $("#Total").innerText = total;
-  return total;
+  let acumulated = acumulatedEarnings + acumulatedSpent;
+  $("#total").innerText = acumulated;
+  return acumulated;
 };
 
 ////////////////////////////////////  FILTROS //////////////////////////////////////
@@ -707,7 +711,7 @@ const filterByCategory = () => {
     const operationsfiltered = operations.filter(
       (operation) => operation.category === categoryName
     );
-    console.log(">>>>>> operationsfiltered", operationsfiltered);
+
     return generateTable(operationsfiltered);
   }
 
@@ -720,7 +724,6 @@ const filterByCategory = () => {
     const operationsTypeFilteres = operationsCategoryFiltered.filter(
       (operation) => operation.type === filtersType.value
     );
-    console.log(">>>> filtro gasto", operationsTypeFilteres);
     return generateTable(operationsTypeFilteres);
   }
 
@@ -733,7 +736,6 @@ const filterByCategory = () => {
     const operationsFilteredEarnings = operationsCategoryEarning.filter(
       (operation) => operation.type === filtersType.value
     );
-    console.log(">>>> filtro ganancia", operationsFilteredEarnings);
     return generateTable(operationsFilteredEarnings);
   }
 };
@@ -807,7 +809,7 @@ const onFilterByDate = () => {
 
 const emptyOperations = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-if (operations.length === 0){
+if (operations.length  < 2){
   showEmptyReports()
 }
 }
@@ -834,86 +836,109 @@ for (const operation of operations) {
 }
 typeOperations()
 
-console.log(">>>>>>>>>>> operationSpending", operationSpending)
-console.log(">>>>>>>>>>> operationsGain", operationsGain)
 
-//******************************************* FUNCION MAYOR GANANCIA  ************************/
+//**************************** FUNCION CATEGORIA CON MAYOR GANANCIA  ************************/
+
+ //VER QUE DEBE DEVOLVER VALOR !!
 
 const biggerEarnings = () => {
 
 const arrayOpGain = Math.max(...operationsGain.map(operation => operation.amount));
-console.log(">>>>>>>>>>>> arrayOpGain", arrayOpGain)
+
 
 const arrayOpGain2 = operationsGain.filter(operation => parseInt(operation.amount) === arrayOpGain)
-console.log(">>>>>>>>>>>> arrayOpGain2", arrayOpGain2)
+
 
 const operationObtainedGain = arrayOpGain2.map(operation =>operation.category);
-console.log(">>>>>>>>>>>> operationObtainedGain", operationObtainedGain)
 
-return operationObtainedGain
+return reportsGenerateTable(operationObtainedGain)
 }
 
 
 
-// // //******************************************* FUNCION MAYOR GASTO  ************************/
+//************************* FUNCION CATEGORIA CON MAYOR GASTO  ************************/
 
-// const biggerSpent = () => {
-// const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
-// console.log(">>>>>>>>>>>> arrayOpSpending", arrayOpSpending)
+ //VER QUE DEBE DEVOLVER VALOR !!
 
-// const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
-// console.log(">>>>>>>>>>>> arrayOpSpending2", arrayOpSpending2)
+const biggerSpent = () => {
+const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
 
-// const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.category);
-// console.log(">>>>>>>>>>>> operationObtainedSpending", operationObtainedSpending)
+
+const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
+
+
  
-// }
+const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.category);
 
-// biggerSpent()
+ return operationObtainedSpending
+}
 
-//******************************************* MES CON MAYOR GANACIA  ************************/
+//*********************************** MES CON MAYOR BALANCE  ************************/
+  //VER QUE DEBE DEVOLVER VALOR !!
 
-// const biggeDateEarning = () => {
-//   const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
+const biggerBalance = () => {
+
+  const arrayOpGain = Math.max(...operationsGain.map(operation => operation.amount));
   
   
-//   const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
-//   // CAMBIAR AMOUNT POR DATE PARA FILTRAR LA FECHA DE LA MAYOR OPERACION DE GANANCIA
+  const arrayOpGain2 = operationsGain.filter(operation => parseInt(operation.amount) === arrayOpGain)
   
-//   const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.category);
-//   console.log(">>>>>>>>>>>> operationObtainedSpending", operationObtainedSpending)
+  
+  const operationObtainedGain = arrayOpGain2.map(operation =>operation.category);
+  
+  return reportsGenerateTable(operationObtainedGain)
+  }
+
+
+//******************************************* MES CON MAYOR GANANCIA  ************************/
+
+  //VER QUE DEBE DEVOLVER VALOR Y FECHA!!
+
+
+const biggeDateEarning = () => {
+  const arrayOpGain = Math.max(...operationsGain.map(operation => operation.amount));
+  
+  
+  const arrayOpGain2 = operationsGain.filter(operation => parseInt(operation.amount) === arrayOpGain)
+
+
+  const operationObtainedSpending = arrayOpGain2.map(operation =>operation.calendar);
+  
+ 
    
-//   }
+  }
 
 
 
 
 // //******************************************* MES CON MAYOR GASTO  ************************/
-// const biggeDateSpending = () => {
-//   const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
+
+  //VER QUE DEBE DEVOLVER VALOR Y FECHA!!
+
+const biggeDateSpending = () => {
+  const arrayOpSpending = Math.max(...operationSpending.map(operation => operation.amount));
   
   
-//   const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
-//   // CAMBIAR AMOUNT POR DATE PARA FILTRAR LA FECHA DE LA MAYOR OPERACION DE GANANCIA
+  const arrayOpSpending2 = operationSpending.filter(operation => parseInt(operation.amount) === arrayOpSpending)
+
   
-//   const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.category);
-//   console.log(">>>>>>>>>>>> operationObtainedSpending", operationObtainedSpending)
+  const operationObtainedSpending = arrayOpSpending2.map(operation =>operation.calendar);
+ 
    
-//   }
+  }
 
 ///*********************************** tablaaa ****************************************
-const pepe = biggerEarnings() 
 const reportsGenerateTable = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
   
   const elements = operations.map((operation) => {
-    const {category} = operation;
+    const {category, amount} = operation;
 
     return ` 
                 <tr class="text-center">
                      <td class="text-white lg:pl-16 text-start ">
                        <span class="tag bg-[#e1bee7] text-[#ba68c8]">${category}</span>
-                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${pepe}</span>
+                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${amount}</span>
                      </td>
                   </tr> 
                   
@@ -925,9 +950,6 @@ const reportsGenerateTable = () => {
 
   $("#tableSummaryReports").innerHTML = elements.join("");
 };
-
-
-
 
 
 
@@ -944,10 +966,10 @@ const filterSpendingAndGain = Object.values(operations2.reduce((acc, operation) 
   };
     if (operation.type === "gasto"){
       acc[operation.category].Spending += parseInt(operation.amount)
-      console.log(">>>>>>>>>>>>>>>> gasto acc", acc)
+    
     } else {
       acc[operation.category].Gain += parseInt(operation.amount)
-      console.log(">>>>>>>>>>>>>>>> ganancia acc", acc)
+
     }
  acc[operation.category].Balance = acc[operation.category].Gain - acc[operation.category].Spending
   return acc; 
@@ -1060,7 +1082,7 @@ window.addEventListener("load", () => {
   earningsBalance();
   spendingBalance();
   totalBalance();
-  generadorID();
+  generatorID();
   CategoriesGenerateFilter();
 });
 
@@ -1078,7 +1100,7 @@ const FiltersResult = () => {
 
   if ($filtersSortBy.value === "mostRecent") {
     let operation = operations.sort((a, b) => newDate(b) - newDate(a));
-    console.log(">>>>operation", operation);
+  
     return generateTable(operation);
   }
 
