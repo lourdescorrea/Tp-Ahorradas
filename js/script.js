@@ -60,7 +60,7 @@ navReports.addEventListener("click", () => {
   $containerCategories.classList.add("hidden");
   reportsDateGenerateTable();
   reportsGenerateTable();
-  generateReportsTable()
+  
 });
 
 //****************************** FUNCIONES PARA LOCAL STORAGE **********************************/
@@ -749,7 +749,6 @@ const filterByCategory = () => {
   }
 };
 
-
 // ************** FUNCION ORDENAR POR ********//
 
 const newDate = (sort) => {
@@ -805,6 +804,8 @@ const FiltersResult = () => {
     return generateTable(operation);
   }
 };
+
+
 
 ///////////////////////////////////////// BLOQUE FECHA ///////////////////////////////////////////////
 
@@ -875,43 +876,59 @@ const onFilterByDate = () => {
 //  * ========================================================================================================================
 
 
-//////////////////////////////////// BLOQUE REPORTES ////////////////////////////
+// //////////////////////////////////// BLOQUE REPORTES ////////////////////////////
 
-const emptyOperations = () => {
-  const operations = getDataFromLocalStorage(LS_KEYS.operations);
-  if (operations.length < 2) {
-    showEmptyReports();
-  }
-};
+// const emptyOperations = () => {
+//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
+//   if (operations.length < 2) {
+//     showEmptyReports();
+//   } else {
 
-//****************************** RESUMEN *******************/
+//   }
+// };
 
-// //************************** FUNCION QUE ACUMULA OPERACIONES  ******************/
+// //****************************** RESUMEN *******************/
 
-const operations = getDataFromLocalStorage("operations")
+// // //************************** FUNCION QUE ACUMULA OPERACIONES  ******************/
 
-const earningsOperations = []
-const spendingOperations = []
 
-const typeOperations = () => {
-for (const operation of operations) {
+
+const typeSpeOperations = () => {
+  const spendingOperations = []
+  const operations = getDataFromLocalStorage("operations")
+
+  for (const operation of operations) {
   if (operation.type === "gasto") {
-    spendingOperations.push(operation)
+     spendingOperations.push(operation)
+  }  
+}
+return spendingOperations
+}
 
-  } else {
+const typeEarOperations = () => {
+  const earningsOperations = []
+  const operations = getDataFromLocalStorage("operations")
+
+  for (const operation of operations) {
+  if (operation.type === "ganancia") {
     earningsOperations.push(operation)
-
-  }
+  }  
 }
+return earningsOperations
 }
-typeOperations()
 
 
-//**************************** FUNCION CATEGORIA CON MAYOR GANANCIA  ************************/
+
+
+
+// //**************************** FUNCION CATEGORIA CON MAYOR GANANCIA  ************************/
 
 const biggerEarnings = () => {
 
+ const earningsOperations = typeEarOperations()
+
 const arrayEarnings = Math.max(...earningsOperations.map(operation => operation.amount));
+
 
 const arrayEarningsFilter = earningsOperations.filter(operation => parseInt(operation.amount) === arrayEarnings)
 
@@ -920,9 +937,12 @@ const arrayEarningsReports = arrayEarningsFilter.map(operation =>operation.categ
 return arrayEarningsReports
 }
 
-const arrayEarningsReports = biggerEarnings()
 
+
+ 
 const biggerEarningsAmount = () => {
+
+  const earningsOperations = typeEarOperations()
 
   const arrayEarningsAmount = Math.max(...earningsOperations.map(operation => operation.amount));
   
@@ -933,13 +953,15 @@ const biggerEarningsAmount = () => {
 return arrayEarningsAmountReport
 }
 
-const arrayEarningsAmountReport = biggerEarningsAmount()
 
 
-//************************* FUNCION CATEGORIA CON MAYOR GASTO  ************************/
+// //************************* FUNCION CATEGORIA CON MAYOR GASTO  ************************/
 
 
 const biggerSpent = () => {
+
+  const spendingOperations = typeSpeOperations()
+
 const arraySpending = Math.max(...spendingOperations.map(operation => operation.amount));
 
 const arraySpendingFilter = spendingOperations.filter(operation => parseInt(operation.amount) === arraySpending)
@@ -948,9 +970,12 @@ const arraySpendingReports = arraySpendingFilter.map(operation =>operation.categ
 
 return arraySpendingReports
 }
-const arraySpendingReports = biggerSpent()
+
 
 const biggerSpentAmount = () => {
+
+  const spendingOperations = typeSpeOperations()
+
   const arraySpendingAmount = Math.max(...spendingOperations.map(operation => operation.amount));
   
   const arraySpendingAmountFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arraySpendingAmount)
@@ -960,10 +985,13 @@ const biggerSpentAmount = () => {
  return arraySpendingsAmountReport
 }
 
-const arraySpendingsAmountReport = biggerSpentAmount()
 
-//*********************************** MES CON MAYOR BALANCE  ************************/
+
+// //*********************************** MES CON MAYOR BALANCE  ************************/
 const biggerBalance = () => {
+
+  const earningsOperations = typeEarOperations()
+
 
     const arrayBalance = Math.max(...earningsOperations.map(operation => operation.amount));
 
@@ -974,10 +1002,12 @@ const biggerBalance = () => {
 return arrayBalanceReports
 }
 
-const arrayBalanceReports = biggerBalance()
+ 
 
 
 const biggerBalanceAmount = () => {
+
+  const earningsOperations = typeEarOperations()
 
   const arrayBalanceAmount = Math.max(...earningsOperations.map(operation => operation.amount));
   
@@ -988,12 +1018,14 @@ const biggerBalanceAmount = () => {
 return arrayBalanceFilteredAmount
 }
 
-const arrayBalanceFilteredAmount = biggerBalanceAmount()
+ 
 
-//******************************************* MES CON MAYOR GANANCIA  ************************/
+// //******************************************* MES CON MAYOR GANANCIA  ************************/
 
 
 const biggerDate = () => {
+
+  const earningsOperations = typeEarOperations()
 
   const arrayDate = Math.max(...earningsOperations.map(operation => operation.amount));
   
@@ -1004,9 +1036,10 @@ const biggerDate = () => {
   return arrayDateReports
 }
 
-const arrayDateReports = biggerDate()
 
 const biggerDateAmount = () => {
+
+  const earningsOperations = typeEarOperations()
 
 const arrayDateAmount = Math.max(...earningsOperations.map(operation => operation.amount));
   
@@ -1018,88 +1051,99 @@ const arrayDateFilteredAmount =   arrayDateAmountFiltered.map(operation =>operat
    
   }
 
-  const arrayDateFilteredAmount = biggerDateAmount()
 
 
 
 
-//******************************************* MES CON MAYOR GASTO  ************************/
-const biggerDateSpending = () => {
-  const arrayDateSpending = Math.max(...spendingOperations.map(operation => operation.amount));
-  
-  const arrayDateSpendingFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arrayDateSpending)
 
-  const arrayDateSpeReports = arrayDateSpendingFiltered.map(operation =>operation.calendar);
-;
+// //******************************************* MES CON MAYOR GASTO  ************************/
+  const biggerDateSpending = () => {
 
-  return arrayDateSpeReports
-}
+    const spendingOperations = typeSpeOperations()
 
-const arrayDateSpeReports = biggerDateSpending()
+    const arrayDateSpending = Math.max(...spendingOperations.map(operation => operation.amount));
+    
+    const arrayDateSpendingFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arrayDateSpending)
 
-const biggerDateSpendingAmount = () => {
+    const arrayDateSpeReports = arrayDateSpendingFiltered.map(operation =>operation.calendar);
+  ;
 
-  const arrayDateSpendingAmount = Math.max(...spendingOperations.map(operation => operation.amount));
-  
-  const arrayDateSpendingAmountFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arrayDateSpendingAmount)
-
-  const arrayDateSpendingFilteredAmount =   arrayDateSpendingAmountFiltered.map(operation =>operation.amount);
-
-  return arrayDateSpendingFilteredAmount
+    return arrayDateSpeReports
   }
 
- const arrayDateSpendingFilteredAmount = biggerDateSpendingAmount()
+
+
+  const biggerDateSpendingAmount = () => {
+
+    const spendingOperations = typeSpeOperations()
+
+    const arrayDateSpendingAmount = Math.max(...spendingOperations.map(operation => operation.amount));
+    
+    const arrayDateSpendingAmountFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arrayDateSpendingAmount)
+
+    const arrayDateSpendingFilteredAmount =   arrayDateSpendingAmountFiltered.map(operation =>operation.amount);
+
+    return arrayDateSpendingFilteredAmount
+    }
+
+
 
 
             //******************************* TABLA RESUMEN **************************************
 
 const generateReportsTable = () => {
 
-  $("#tableSummaryReports").innerHTML += `
+  arrayEarningsReports = biggerEarnings()
+  arrayEarningsAmountReport = biggerEarningsAmount()
+  arraySpendingReports = biggerSpent()
+  arraySpendingsAmountReport = biggerSpentAmount()
+  arrayBalanceReports = biggerBalance ()
+  arrayBalanceFilteredAmount = biggerBalanceAmount()
+  arrayDateReports = biggerDate()
+  arrayDateFilteredAmount = biggerDateAmount()
+  arrayDateSpeReports = biggerDateSpending()
+  arrayDateSpendingFilteredAmount = biggerDateSpendingAmount()
 
+  return $("#tableSummaryReports").innerHTML += `
 
-  
-    
-      
- 
-    
-              <tr class="text-center text-base">
-                  <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor ganancia</td>
+    <h3 class="mb-7 text-2xl font-semibold underline underline-offset-4 decoration-[#F2002c]">Resumen</h3>
+      <table class="sm:w-full text-slate-800">
+              <tr class= "flex justify-between">
+                  <td class="font-medium">Categoria con mayor ganancia</td>
                   <td>${arrayEarningsReports}</td>
-                  <td class="  text-lg text-green-600" >+$${arrayEarningsAmountReport}</td>
+                  <td class= " text-green-600" >+$${arrayEarningsAmountReport}</td>
+                 
               </tr>         
       
-              <tr class="text-center text-base">
-                  <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor gasto</td>
+              <tr class= "flex justify-between">
+                  <td class="font-medium">Categoria con mayor gasto</td>
                   <td>${arraySpendingReports}</td>
-                  <td class="  text-lg text-red-600">-$${arraySpendingsAmountReport}</td>
+                  <td class = "text-red-600">-$${arraySpendingsAmountReport}</td>
                  
               </tr>       
               
-              <tr class="text-center text-base">
-                <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor balance</td>
+              <tr class= "flex justify-between">
+                <td class="font-medium">Categoria con mayor balance</td>
                 <td>${arrayBalanceReports}</td>
-                <td class="  text-lg text-red-600">-$${arrayBalanceFilteredAmount}</td>
+                <td class = "text-red-600">-$${arrayBalanceFilteredAmount}</td>
                  
               </tr>  
               
-              <tr class="text-center text-base">
-                <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Mes con mayor ganancia</td>
+              <tr class= "flex justify-between">
+                <td class="font-medium">Mes con mayor ganancia</td>
                 <td>${arrayDateReports}</td>
-                <td class=" text-lg text-red-600">-$${arrayDateFilteredAmount}</td>
+                <td class = "text-red-600">-$${arrayDateFilteredAmount}</td>
             
               </tr>   
 
-              <tr class="text-center text-base">
-              <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Mes con mayor gasto</td>
+              <tr class= "flex justify-between">
+              <td class="font-medium">Mes con mayor gasto</td>
               <td>${arrayDateSpeReports}</td>
-              <td class=" text-lg text-red-600">-$${arrayDateSpendingFilteredAmount}</td>
+              <td class = "text-red-600">-$${arrayDateSpendingFilteredAmount}</td>
           
             </tr>  
       
        </table>
-
-
   `
 }
 
