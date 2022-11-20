@@ -23,7 +23,6 @@ const categories = $("#categories");
 const reports = $("#reports");
 const addNewOperation = $("#addNewOperation");
 const containerImage = $("#containerImage");
-const textOperations = $("#textOperations");
 
 const LS_KEYS = {
   operations: "operations",
@@ -40,6 +39,7 @@ navBalance.addEventListener("click", () => {
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
   reports.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
 });
 
 navCategories.addEventListener("click", () => {
@@ -48,7 +48,7 @@ navCategories.addEventListener("click", () => {
   reports.classList.add("hidden");
   addNewOperation.classList.add("hidden");
   containerImage.classList.add("hidden");
-  CategoriesGenerateTable();
+  $containerCategories.classList.add("hidden");
 });
 
 navReports.addEventListener("click", () => {
@@ -57,6 +57,9 @@ navReports.addEventListener("click", () => {
   balance.classList.add("hidden");
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+  reportsDateGenerateTable();
+  reportsGenerateTable();
 });
 
 //****************************** FUNCIONES PARA LOCAL STORAGE **********************************/
@@ -128,17 +131,17 @@ const generateTable = (filteredOperations) => {
     return `
             <tr class="text-center text-base"> 
                 <td class="collapse md:visible">${description}</td>
-                <td>${category}</td>
-                <td class="collapse md:visible">${reverseDate(calendar)}</td>
-                <td class="text-lg text-right text-${textClass} font-bold">${symbol}${amount}</td>
-                
+                <td class=" category">
+                 <span class="items-center mr-16 md:mr-0 bg-[#e1bee7] text-[#ba68c8] rounded">${category}</span>
+                </td>
+                <td class="calendar">${reverseDate(calendar)}</td>
+                <td class=" amount text-lg text-${textClass} font-bold">${symbol}${amount}</td>
                 <td>
-                <span class="flex justify-center p-2">
-                 <button class="m-2  rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button>
-                 <button  class=" m-2 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button>
-                </span> 
+                 <span class="flex justify-center p-2">
+                   <i class="fa-solid fa-pen m-3 mr-2 text-[#ba68c8] text-lg hover:text-green-600" id="btnEditTableElement" onclick="operationEdit('${id}')"></i>
+                   <i class=" fa-solid fa-trash-can m-3 mr-8 text-[#ba68c8] text-lg hover:text-red-600" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')"></i>
+                 </span> 
                 <td>
-             
              </tr>
             `;
   });
@@ -171,7 +174,7 @@ const showEmptyPage = () => {
 
 const showEmptyReports = () => {
   $("#tableReports").classList.add("hidden");
-  imageReportes.classList.remove("hidden");
+  imageReports.classList.remove("hidden");
 };
 
 const hideNewOperationsForm = () => {
@@ -355,6 +358,8 @@ $btnPlusOperation.addEventListener("click", () => {
   containerImage.classList.add("hidden");
   addNewOperation.classList.remove("hidden");
   $formEDit.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+
   calendar.value = getToday();
   cleanNewOperation();
   CategoriesGenerateNewOperation("#newOperationCategories");
@@ -397,6 +402,7 @@ const onLoadOperations = () => {
 ////////////////////////////////////// BLOQUE FUNCIONES BASE CATEGORIAS //////////////////////////////////////////
 
 const $containerCategories = $("#containerCategories");
+const $editCategories = $("#editCategories");
 const $categories = $("#categories");
 const $btnEditCategories = $("#btnEditCategories");
 const CATEGORIES_BASE = [
@@ -436,19 +442,18 @@ const CategoriesGenerateTable = () => {
     return ` 
                 <tr class="text-center">
                      <td class="text-white lg:pl-16 text-start ">
-                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${name}</span>
+                       <span class="bg-[#e1bee7] text-[#ba68c8] rounded">${name}</span>
                      </td>
                      <td class="flex justify-center p-2"> 
-                        <button class=" m-2 rounded hover:bg-[#ba68c8] hover:text-white " id="editCategories" onclick="categoryEdit('${id}')">Editar</button>
-                     
-                        <button class="  m-2  rounded hover:bg-[#ba68c8] hover:text-white " id="btnCancelCategories" onclick="categoryDelet('${id}')">Eliminar</button>
+                       <i class="fa-solid fa-pen m-3 text-[#ba68c8] text-lg hover:text-green-600" id="editCategories" onclick="categoryEdit('${id}')"></i>
+                       <i class="fa-solid fa-trash-can m-3 text-[#ba68c8] text-lg hover:text-red-600" id="btnCancelCategories" onclick="categoryDelet('${id}')"></i>
                      </td>
                   </tr> 
                   
             `;
   });
 
-  $("#categories-table").innerHTML = elements.join("");
+  $("#categoriesTable").innerHTML = elements.join("");
 };
 
 // //************************  FUNCION QUE LIMPIA DATOS DEL INPUT EN CATEGORIAS   *****************************************//
@@ -682,27 +687,24 @@ const CategoriesGenerateFilter = () => {
 
 //***************************** FUNCIONES QUE FILTRAN POR TIPO ********************/
 
-const selectFilter = () => {
-  let filtersType = document.getElementById("filtersType");
-  return filtersType.value;
-};
+// const selectFilter = () => {
+//   let filtersType = document.getElementById("filtersType");
+//   return filtersType.value;
+// };
 
 const filterByType = () => {
-  const type = filtersType.value
+  const type = filtersType.value;
   const categoryName = $filtersCategory.value;
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
-
-  const operationsfiltered = operations.filter(
-    (operation) =>{
-      const operationMatchCategory = operation.category === categoryName
-      if (type === "todos") {
-      return operationMatchCategory
+  const operationsfiltered = operations.filter((operation) => {
+    const operationMatchCategory = operation.category === categoryName;
+    if (type === "todos") {
+      return operationMatchCategory;
     } else {
-      return operationMatchCategory && operation.type === type
+      return operationMatchCategory && operation.type === type;
     }
-    } 
-  );
+  });
 
   return generateTable(operationsfiltered);
 };
@@ -710,43 +712,46 @@ const filterByType = () => {
 //***************************** FUNCIONES QUE FILTRAN POR CATEGORIA ********************/
 
 const filterByCategory = () => {
-  const type = filtersType.value
+  const type = filtersType.value;
   const categoryName = $filtersCategory.value;
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
-  const operationsfiltered = operations.filter((operation) =>{
-      
+  const operationsfiltered = operations.filter((operation) => {
+    const filterDate = new Date($filterFirstCalendar.value).setHours(
+      0,
+      0,
+      0,
+      0
+    );
+    const operationDate = new Date(operation.calendar).setHours(0, 0, 0, 0);
 
-      // if(datefilter.value && operation.date !== datefilter.value) {
-      //   return false
-      // }
+    if (operationDate < filterDate) return false;
 
+    const operationMatchCategory = operation.category === categoryName;
+    const operationMatchtype = operation.type === type;
+    const allTypes = type === "todos";
+    const allCategories = categoryName === "todas";
 
-      const operationMatchCategory = operation.category === categoryName
-      const operationMatchtype = operation.type === filtersType.value
+    // Solo filtra por categoria
+    if (allTypes && !allCategories) return operationMatchCategory;
 
-      const allTypes = type === 'todos'
-      const allCategories = categoryName === 'todas'
+    // Solo filtra por tipo
+    if (!allTypes && allCategories) return operationMatchtype;
 
-      // Solo filtra por categoria
-      if(allTypes && !allCategories) return operationMatchCategory
+    // Filtra por ambos
+    if (!allTypes && !allCategories)
+      return operationMatchtype && operationMatchCategory;
 
-      // Solo filtra por tipo
-      if(!allTypes && allCategories) return operationMatchtype
+    // No filtrar
+    return allTypes && allCategories;
+  });
 
-      // Filtra por ambos
-      if(!allTypes && !allCategories) return operationMatchtype && operationMatchCategory
-
-      // No filtrar
-       return allTypes && allCategories
-    } 
-  );
-
-  if(operationsfiltered.length === 0) {
-    return showEmptyPage()
+  if (operationsfiltered.length === 0) {
+    return showEmptyPage();
+  } else {
+    generateTable(operationsfiltered);
+    return showTable();
   }
-
-  return generateTable(operationsfiltered);
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -815,380 +820,322 @@ const onFilterByDate = () => {
 
 //////////////////////////////////// BLOQUE REPORTES ////////////////////////////
 
-
-const emptyReportsOperations = () => {
+const emptyOperations = () => {
   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-if (operations.length  < 2){
-  showEmptyReports()
-} else {
-  generateReportsTable()
-}
-}
+  if (operations.length < 2) {
+    showEmptyReports();
+  }
+};
 
-//          //****************************** RESUMEN *******************/
+//****************************** RESUMEN *******************/
 
 // //******************************************* FUNCION QUE ACUMULA OPERACIONES  ************************/
 
-const operations = getDataFromLocalStorage("operations")
+// const operations = getDataFromLocalStorage("operations");
 
-const earningsOperations = []
-const spendingOperations = []
+// const operationsGain = [];
+// const operationSpending = [];
 
-const typeOperations = () => {
-for (const operation of operations) {
-  if (operation.type === "gasto") {
-    spendingOperations.push(operation)
+// const typeOperations = () => {
+//   for (const operation of operations) {
+//     if (operation.type === "gasto") {
+//       operationSpending.push(operation);
+//     } else {
+//       operationsGain.push(operation);
+//     }
+//   }
+// };
+// typeOperations();
 
-  } else {
-    earningsOperations.push(operation)
+// console.log(">>>>>>>>>>>>>> operationSpending", operationSpending);
 
-  }
-}
-}
-typeOperations()
+// **************************** FUNCION CATEGORIA CON MAYOR GANANCIA  ************************/
 
+// VER QUE DEBE DEVOLVER VALOR !!
 
-//**************************** FUNCION CATEGORIA CON MAYOR GANANCIA  ************************/
+// const biggerEarnings = () => {
+//   const arrayOpGain = Math.max(
+//     ...operationsGain.map((operation) => operation.amount)
+//   );
 
-const biggerEarnings = () => {
+//   const arrayOpGain2 = operationsGain.filter(
+//     (operation) => parseInt(operation.amount) === arrayOpGain
+//   );
 
-const arrayEarnings = Math.max(...earningsOperations.map(operation => operation.amount));
+//   console.log(">>>>>>>>>>>>>>> arrayOpGain2", arrayOpGain2);
 
-const arrayEarningsFilter = earningsOperations.filter(operation => parseInt(operation.amount) === arrayEarnings)
+//   const operationObtainedGain = arrayOpGain2.map(
+//     (operation) => operation.category
+//   );
 
-const arrayEarningsReports = arrayEarningsFilter.map(operation =>operation.category);
+//   console.log(">>>>> operationObtainedGain", operationObtainedGain);
 
-return arrayEarningsReports
-}
+//   const nameOpEarning = arrayOpGain2.map((operation) => operation.amount);
 
-const arrayEarningsReports = biggerEarnings()
+//   console.log(">>>>>>>>>>>>>>>>>>>> nameOpEarning", nameOpEarning);
 
-const biggerEarningsAmount = () => {
+//   return reportsGenerateTable(nameOpEarning);
+// };
 
-  const arrayEarningsAmount = Math.max(...earningsOperations.map(operation => operation.amount));
-  
-  const arrayEarningsAmountFilter = earningsOperations.filter(operation => parseInt(operation.amount) === arrayEarningsAmount)
+// //************************* FUNCION CATEGORIA CON MAYOR GASTO  ************************/
 
-  const arrayEarningsAmountReport = arrayEarningsAmountFilter.map(operation =>operation.amount);
+// //VER QUE DEBE DEVOLVER VALOR !!
 
-return arrayEarningsAmountReport
-}
+// const biggerSpent = () => {
+//   const arrayOpSpending = Math.max(
+//     ...operationSpending.map((operation) => operation.amount)
+//   );
 
-const arrayEarningsAmountReport = biggerEarningsAmount()
+//   console.log(">>>>>>>>>>>>>> operationSpending", operationSpending);
 
-//************************* FUNCION CATEGORIA CON MAYOR GASTO  ************************/
+//   console.log(">>>>>>>>>>>>>>>>>>>>> arrayOpSpending", arrayOpSpending);
+//   const arrayOpSpending2 = operationSpending.filter(
+//     (operation) => parseInt(operation.amount) === arrayOpSpending
+//   );
 
+//   const operationObtainedSpending = arrayOpSpending2.map(
+//     (operation) => operation.category
+//   );
+//   console.log(
+//     ">>>>>>>>>>>>>>>>> operationObtainedSpending",
+//     operationObtainedSpending
+//   );
 
-const biggerSpent = () => {
-const arraySpending = Math.max(...spendingOperations.map(operation => operation.amount));
+//   return reportsGenerateTable(operationObtainedSpending);
+// };
 
-const arraySpendingFilter = spendingOperations.filter(operation => parseInt(operation.amount) === arraySpending)
+// //*********************************** MES CON MAYOR BALANCE  ************************/
+// //VER QUE DEBE DEVOLVER VALOR !!
 
-const arraySpendingReports = arraySpendingFilter.map(operation =>operation.category);
+// const biggerBalance = () => {
+//   const arrayOpGain = Math.max(
+//     ...operationsGain.map((operation) => operation.amount)
+//   );
 
-return arraySpendingReports
-}
-const arraySpendingReports = biggerSpent()
+//   const arrayOpGain2 = operationsGain.filter(
+//     (operation) => parseInt(operation.amount) === arrayOpGain
+//   );
 
-const biggerSpentAmount = () => {
-  const arraySpendingAmount = Math.max(...spendingOperations.map(operation => operation.amount));
-  
-  const arraySpendingAmountFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arraySpendingAmount)
-  
-  const arraySpendingsAmountReport = arraySpendingAmountFiltered.map(operation =>operation.amount);
+//   const operationObtainedGain = arrayOpGain2.map(
+//     (operation) => operation.category
+//   );
 
- return arraySpendingsAmountReport
-}
+//   return reportsGenerateTable(operationObtainedGain);
+// };
 
-const arraySpendingsAmountReport = biggerSpentAmount()
+// //******************************************* MES CON MAYOR GANANCIA  ************************/
 
-//*********************************** MES CON MAYOR BALANCE  ************************/
-const biggerBalance = () => {
+// //VER QUE DEBE DEVOLVER VALOR Y FECHA!!
 
-    const arrayBalance = Math.max(...earningsOperations.map(operation => operation.amount));
+// const biggeDateEarning = () => {
+//   const arrayOpGain = Math.max(
+//     ...operationsGain.map((operation) => operation.amount)
+//   );
 
-    const arrayBalanceFiltered = earningsOperations.filter(operation => parseInt(operation.amount) === arrayBalance)
-
-    const arrayBalanceReports = arrayBalanceFiltered.map(operation =>operation.category);
-
-return arrayBalanceReports
-}
-
-const arrayBalanceReports = biggerBalance()
-
-
-const biggerBalanceAmount = () => {
-
-  const arrayBalanceAmount = Math.max(...earningsOperations.map(operation => operation.amount));
-  
-  const arrayBalanceAmountFiltered = earningsOperations.filter(operation => parseInt(operation.amount) === arrayBalanceAmount)
-
-  const arrayBalanceFilteredAmount = arrayBalanceAmountFiltered.map(operation =>operation.amount);
-
-return arrayBalanceFilteredAmount
-}
-
-const arrayBalanceFilteredAmount = biggerEarningsAmount()
-
-//******************************************* MES CON MAYOR GANANCIA  ************************/
-
-
-const biggerDate = () => {
-
-  const arrayDate = Math.max(...earningsOperations.map(operation => operation.amount));
-  
-  const arrayDateFiltered = earningsOperations.filter(operation => parseInt(operation.amount) === arrayDate)
-
-  const arrayDateReports = arrayDateFiltered.map(operation =>operation.calendar);
-
-  return arrayDateReports
-}
-
-const arrayDateReports = biggerDate()
-
-const biggerDateAmount = () => {
-
-const arrayDateAmount = Math.max(...earningsOperations.map(operation => operation.amount));
-  
-const arrayDateAmountFiltered = earningsOperations.filter(operation => parseInt(operation.amount) === arrayDateAmount)
-
-const arrayDateFilteredAmount =   arrayDateAmountFiltered.map(operation =>operation.amount);
-
-  return arrayDateFilteredAmount
-   
-  }
-
-  const arrayDateFilteredAmount = biggerDateAmount()
-
-
-
-
-//******************************************* MES CON MAYOR GASTO  ************************/
-const biggerDateSpending = () => {
-  const arrayDateSpending = Math.max(...spendingOperations.map(operation => operation.amount));
-  
-  const arrayDateSpendingFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arrayDateSpending)
-
-  const arrayDateSpeReports = arrayDateSpendingFiltered.map(operation =>operation.calendar);
-;
-
-  return arrayDateSpeReports
-}
-
-const arrayDateSpeReports = biggerDateSpending()
-
-const biggerDateSpendingAmount = () => {
-
-  const arrayDateSpendingAmount = Math.max(...spendingOperations.map(operation => operation.amount));
-  
-  const arrayDateSpendingAmountFiltered = spendingOperations.filter(operation => parseInt(operation.amount) === arrayDateSpendingAmount)
-
-  const arrayDateSpendingFilteredAmount =   arrayDateSpendingAmountFiltered.map(operation =>operation.amount);
-
-  return arrayDateSpendingFilteredAmount
-  }
-
- const arrayDateSpendingFilteredAmount = biggerDateSpendingAmount()
-
-
-            //******************************* TABLA RESUMEN **************************************
-
-const generateReportsTable = () => {
-  $("#tableSummaryReports").innerHTML += `
-    <h3 class="mb-7 text-2xl font-semibold underline underline-offset-4 decoration-[#F2002c]">Resumen</h3>
-      <table class="sm:w-full text-slate-800">
-              <tr class= "flex justify-between">
-                  <td class="font-medium">Categoria con mayor ganancia</td>
-                  <td>${arrayEarningsReports}</td>
-                  <td class= " text-green-600" >+$${arrayEarningsAmountReport}</td>
-                 
-              </tr>         
-      
-              <tr class= "flex justify-between">
-                  <td class="font-medium">Categoria con mayor gasto</td>
-                  <td>${arraySpendingReports}</td>
-                  <td class = "text-red-600">-$${arraySpendingsAmountReport}</td>
-                 
-              </tr>       
-              
-              <tr class= "flex justify-between">
-                <td class="font-medium">Categoria con mayor balance</td>
-                <td>${arrayBalanceReports}</td>
-                <td class = "text-red-600">-$${arrayBalanceFilteredAmount}</td>
-                 
-              </tr>  
-              
-              <tr class= "flex justify-between">
-                <td class="font-medium">Mes con mayor ganancia</td>
-                <td>${arrayDateReports}</td>
-                <td class = "text-red-600">-$${arrayDateFilteredAmount}</td>
-            
-              </tr>   
-
-              <tr class= "flex justify-between">
-              <td class="font-medium">Mes con mayor gasto</td>
-              <td>${arrayDateSpeReports}</td>
-              <td class = "text-red-600">-$${arrayDateSpendingFilteredAmount}</td>
-          
-            </tr>  
-      
-       </table>
-
-
-  `
-}
-
-               //****************************** TOTALES POR CATEGORIA *******************/
-const operations2 = getDataFromLocalStorage(LS_KEYS.operations);
-
-const filteredCategoryReports = Object.values(operations2.reduce((acc, operation) => {
-  acc[operation.category] = acc[operation.category] || { 
-    Category: operation.category,
-    Spending: 0,
-    Earning: 0,
-    Balance: 0
-
-  };
-    if (operation.type === "gasto"){
-      acc[operation.category].Spending += parseInt(operation.amount)
-    
+//   const arrayOpGain2 = operationsGain.filter(
+//     (operation) => parseInt(operation.amount) === arrayOpGain
+//   );
+
+//   const operationObtainedSpending = arrayOpGain2.map(
+//     (operation) => operation.calendar
+//   );
+// };
+
+// // //******************************************* MES CON MAYOR GASTO  ************************/
+
+// //VER QUE DEBE DEVOLVER VALOR Y FECHA!!
+
+// const biggeDateSpending = () => {
+//   const arrayOpSpending = Math.max(
+//     ...operationSpending.map((operation) => operation.amount)
+//   );
+
+//   const arrayOpSpending2 = operationSpending.filter(
+//     (operation) => parseInt(operation.amount) === arrayOpSpending
+//   );
+
+//   const operationObtainedSpending = arrayOpSpending2.map(
+//     (operation) => operation.calendar
+//   );
+// };
+
+// ///******************************* TABLA RESUMEN **************************************
+// // const reportsGenerateTable = (reportsOperations) => {
+// //   const operations =
+// //     reportsOperations || getDataFromLocalStorage(LS_KEYS.operations);
+
+// //   const elements = operations.map((operation) => {
+// //     const { category, amount } = operation;
+
+// //     return `
+// //                 <tr class="text-center">
+// //                      <td class="text-white lg:pl-16 text-start ">
+// //                        <span class="tag bg-[#e1bee7] text-[#ba68c8]">${category}</span>
+// //                        <span class="tag bg-[#e1bee7] text-[#ba68c8]">${amount}</span>
+// //                      </td>
+// //                   </tr>
+
+// //             `;
+// //   });
+
+// //   $("#tableSummaryReports").innerHTML = elements.join("");
+// // };
+
+//****************************** TOTALES POR CATEGORIA *******************/
+
+const totalsByCategory = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+
+  const totales = operations.reduce((acc, operation) => {
+    const group = acc[operation.category] || {
+      category: operation.category,
+      spending: 0,
+      gain: 0,
+      balance: 0,
+    };
+
+    if (operation.type === "gasto") {
+      group.spending += parseInt(operation.amount);
     } else {
-      acc[operation.category].Earning += parseInt(operation.amount)
-
+      group.gain += parseInt(operation.amount);
     }
- acc[operation.category].Balance = acc[operation.category].Earning - acc[operation.category].Spending
-  return acc; 
-})
-);
 
-console.log(filteredCategoryReports)
+    group.balance = group.gain - group.spending;
 
+    acc[operation.category] = group;
+    return acc;
+  }, {});
 
-// ****************************** EXTRAIGO INFO DEL REDUCE **********************************
-// ganacias
-let reportsCategoryearnings = ""
-for (const operation of filteredCategoryReports) {
-  reportsCategoryearnings = operation.Earning
-}
+  return Object.values(totales);
+};
 
-console.log(">>>>>>>>>>>>>>>>> reportsCategoryearnings",reportsCategoryearnings)
+//********************  TABLA TOTALES POR CATEGORIA  ******************************
 
-// gastos
-let reportsCategoryeSpendings = ""
-   for (const operation of filteredCategoryReports) {
-    reportsCategoryeSpendings = operation.Spending
-  }
+const reportsGenerateTable = () => {
+  const reportesPorCategoria = totalsByCategory();
+  const elements = reportesPorCategoria.map((reporte) => {
+    const { category, spending, gain, balance } = reporte;
 
-  console.log(">>>>>>>>>>>>>>>>> reportsCategoryeSpendings",reportsCategoryeSpendings)
+    return `
+             <tr class="text-center text-base">
+                <td class="category">
+                  <span class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">
+                    ${category}
+                  </span>
+                </td>
+                <td class="ganancia text-green-600">+${gain}</td>
+                <td class="gasto text-lg text-red-600">-${spending}</td>
+                <td class="gasto text-lg ">${balance}</td>
+              </tr>
+            `;
+  });
 
-  // balance  
-  let reportsCategoryeBalance = ""
-   for (const operation of filteredCategoryReports) {
-    reportsCategoryeBalance = operation.Balance
-  }
+  $("#categoryTableReports").innerHTML = elements.join("");
+};
 
-  console.log(">>>>>>>>>>>>>>>>> reportsCategoryeBalance",reportsCategoryeBalance)
+//****************************** TOTALES POR MES *******************/
+const obtenerTotalesPorMes = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
 
-  //nombre
-let reportsCategoryName = ""
-   for (const operation of filteredCategoryReports) {
-    reportsCategoryName = operation.Category
-  }
+  const totales = operations.reduce((acc, operation) => {
+    const [year, month] = operation.calendar.split("-");
+    const date = `${month}/${year}`;
 
-  console.log(">>>>>>>>>>>>>>>>> reportsCategoryName",reportsCategoryName)
+    const group = acc[date] || {
+      date: date,
+      spending: 0,
+      gain: 0,
+      balance: 0,
+    };
 
+    if (operation.type === "gasto") {
+      group.spending += parseInt(operation.amount);
+    } else {
+      group.gain += parseInt(operation.amount);
+    }
 
+    group.balance = group.gain - group.spending;
 
-          // ********************  TABLA TOTALES POR CATEGORIA  ******************************
-          const generateSummaryTable = () => {
+    acc[date] = group;
+    return acc;
+  }, {});
 
-            for (const operation of filteredCategoryReports){
-              reportsCategoryearnings = operation.Earning
-              reportsCategoryeSpendings = operation.Spending
-              reportsCategoryeBalance = operation.Balance
+  return Object.values(totales);
+};
 
-          $("#categoryTableReports").innerHTML += `
-          <div class="overflow-auto">
-            <table class="sm:w-full text-slate-800">
-              <thead>
-                <tr class="flex justify-between">
-                  <th class="font-medium">Categoria</th>
-                  <td>${reportsCategoryName}</td>
-                  <th class="ml-10 sm:ml-0 font-medium">Ganancias</th>
-                  <td class= " text-green-600" >+$${reportsCategoryearnings}</td>
-                  <th class="ml-10 sm:ml-0 font-medium">Gastos</th>
-                  <td class= " text-green-600" >+$${reportsCategoryeSpendings}</td>
-                  <th class="ml-10 sm:ml-0 font-medium">Balance</th>
-                  <td>${reportsCategoryeBalance}</td>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          `
+//********************  TABLA TOTALES POR MES  ******************************
+const reportsDateGenerateTable = () => {
+  const reportesPorMes = obtenerTotalesPorMes();
+  const elements = reportesPorMes.map((reporte) => {
+    const { date, spending, gain, balance } = reporte;
 
-            } 
-          }
+    return `
+              <tr class="text-center">
+                  <tr class="text-center text-base">
+                  <td>${date}</td>
+                  <td class="ganancia text-green-600">+${gain}</td>
+                  <td class="gasto text-lg text-red-600">-${spending}</td>
+                  <td class="gasto text-lg ">${balance}</td>
+              </tr> 
+            `;
+  });
 
-
-
-
-
-//  ****************************** TOTALES POR MES *******************/
-
-
-//         ********************  TABLA TOTALES POR MES  ******************************
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  $("#tableMonthReports").innerHTML = elements.join("");
+};
 
 /////////////////////////////////////// BLOQUE RESPONSIVE //////////////////////////////////
 
 const $navBurguer = $("#navBurguer");
-const $navMobil = $("#navMobil");
+const $burguerMobile = $("#burguerMobile");
+const $crussMobile = $("#crussMobile");
 
 const $mobileBalance = $("#mobileBalance");
 const $mobileCategory = $("#mobileCategory");
 const $mobileReports = $("#mobileReports");
+const imageReports = $("#imageReports");
 
-const $categoryContent = $("#categoryContent");
+const $categoriesTable = $("#categoriesTable");
 
 //***************************** EVENTO PARA NAV MOBILE ********************************//
 
-$("#navMobile").addEventListener("click", () => {
+$("#burguerMobile").addEventListener("click", () => {
   $navBurguer.classList.remove("hidden");
+  $crussMobile.classList.remove("hidden");
+  $burguerMobile.classList.add("hidden");
+});
+
+$("#crussMobile").addEventListener("click", () => {
+  $navBurguer.classList.add("hidden");
+  $burguerMobile.classList.remove("hidden");
+  $crussMobile.classList.add("hidden");
 });
 
 $mobileBalance.addEventListener("click", () => {
   balance.classList.remove("hidden");
   containerImage.classList.remove("hidden");
-  $categoryContent.classList.add("hidden");
   addNewOperation.classList.add("hidden");
   $formEDit.classList.add("hidden");
   categories.classList.add("hidden");
   $containerCategories.classList.add("hidden");
   reports.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
 });
 
 $mobileCategory.addEventListener("click", () => {
-  categories.classList.remove("hidden");
   balance.classList.add("hidden");
-  $containerCategories.classList.add("hidden");
   containerImage.classList.add("hidden");
-  addNewOperation.classList.add("hidden");
-  $formEDit.classList.add("hidden");
   reports.classList.add("hidden");
+  imageReports.classList.add("hidden");
+  categories.classList.remove("hidden");
+  $containerCategories.classList.add("hidden");
+});
+
+$mobileReports.addEventListener("click", () => {
+  balance.classList.add("hidden");
+  containerImage.classList.add("hidden");
+  categories.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+  reports.classList.remove("hidden");
 });
 
 //*************************** EVENTO PARA SETEAR DATOS EN LOCAL STORAGE *********************************//
@@ -1211,6 +1158,7 @@ window.addEventListener("load", () => {
   spendingBalance();
   totalBalance();
   generatorID();
+  CategoriesGenerateTable();
   CategoriesGenerateFilter();
   emptyReportsOperations()
 });
@@ -1229,7 +1177,7 @@ const FiltersResult = () => {
 
   if ($filtersSortBy.value === "mostRecent") {
     let operation = operations.sort((a, b) => newDate(b) - newDate(a));
-  
+
     return generateTable(operation);
   }
 
