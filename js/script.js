@@ -58,8 +58,7 @@ navReports.addEventListener("click", () => {
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
   $containerCategories.classList.add("hidden");
-  reportsDateGenerateTable();
-  reportsGenerateTable();
+  emptyOperations()
   
 });
 
@@ -176,6 +175,11 @@ const showEmptyPage = () => {
 const showEmptyReports = () => {
   $("#tableReports").classList.add("hidden");
   imageReports.classList.remove("hidden");
+};
+
+const showFullReports = () => {
+  $("#tableReports").classList.remove("hidden");
+  imageReports.classList.add("hidden");
 };
 
 const hideNewOperationsForm = () => {
@@ -369,13 +373,21 @@ $btnPlusOperation.addEventListener("click", () => {
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA NUEVA OPERACION **********************/
 
 $btnNewCancel.addEventListener("click", () => {
-  img.classList.add("hidden");
-  containerImage.classList.remove("hidden");
-  balance.classList.remove("hidden");
-  addNewOperation.classList.add("hidden");
-  $formEDit.classList.add("hidden");
-  $tableOperations.classList.remove("hidden");
+    img.classList.add("hidden");
+    containerImage.classList.remove("hidden");
+    balance.classList.remove("hidden");
+    addNewOperation.classList.add("hidden");
+    $formEDit.classList.add("hidden");
+    $tableOperations.classList.remove("hidden");
+    validationEmptyPage()
 });
+
+const validationEmptyPage = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  if (operations.length === 0){
+      showEmptyPage()
+  }
+}
 
 //******************** EVENTO PARA CANCELAR DESDE PANTALLA EDITAR **********************/
 
@@ -878,14 +890,17 @@ const onFilterByDate = () => {
 
 // //////////////////////////////////// BLOQUE REPORTES ////////////////////////////
 
-// const emptyOperations = () => {
-//   const operations = getDataFromLocalStorage(LS_KEYS.operations);
-//   if (operations.length < 2) {
-//     showEmptyReports();
-//   } else {
-
-//   }
-// };
+const emptyOperations = () => {
+  const operations = getDataFromLocalStorage(LS_KEYS.operations);
+  if (operations.length <= 1) {
+    showEmptyReports();
+  } else {
+    showFullReports()
+    reportsDateGenerateTable()
+    generateReportsTable()
+    reportsGenerateTable()
+  }
+};
 
 // //****************************** RESUMEN *******************/
 
@@ -1104,42 +1119,42 @@ const generateReportsTable = () => {
   arrayDateSpeReports = biggerDateSpending()
   arrayDateSpendingFilteredAmount = biggerDateSpendingAmount()
 
-  return $("#tableSummaryReports").innerHTML += `
+  return $("#tableSummaryReports").innerHTML = `
 
-    <h3 class="mb-7 text-2xl font-semibold underline underline-offset-4 decoration-[#F2002c]">Resumen</h3>
-      <table class="sm:w-full text-slate-800">
-              <tr class= "flex justify-between">
-                  <td class="font-medium">Categoria con mayor ganancia</td>
+
+      
+             <tr class="text-center text-base">
+                  <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor ganancia</td>
                   <td>${arrayEarningsReports}</td>
-                  <td class= " text-green-600" >+$${arrayEarningsAmountReport}</td>
+                  <td class= "text-lg text-green-600" >+$${arrayEarningsAmountReport}</td>
                  
               </tr>         
       
-              <tr class= "flex justify-between">
-                  <td class="font-medium">Categoria con mayor gasto</td>
+              <tr class="text-center text-base">
+                  <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor gasto</td>
                   <td>${arraySpendingReports}</td>
-                  <td class = "text-red-600">-$${arraySpendingsAmountReport}</td>
+                  <td class = "text-lg text-red-600">-$${arraySpendingsAmountReport}</td>
                  
               </tr>       
               
-              <tr class= "flex justify-between">
-                <td class="font-medium">Categoria con mayor balance</td>
+              <tr class="text-center text-base">
+                <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor balance</td>
                 <td>${arrayBalanceReports}</td>
-                <td class = "text-red-600">-$${arrayBalanceFilteredAmount}</td>
+                <td class = "text-lg text-green-600">-$${arrayBalanceFilteredAmount}</td>
                  
               </tr>  
               
-              <tr class= "flex justify-between">
-                <td class="font-medium">Mes con mayor ganancia</td>
+              <tr class="text-center text-base">
+                <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Mes con mayor ganancia</td>
                 <td>${arrayDateReports}</td>
-                <td class = "text-red-600">-$${arrayDateFilteredAmount}</td>
+                <td class = "text-lg text-green-600">-$${arrayDateFilteredAmount}</td>
             
               </tr>   
 
-              <tr class= "flex justify-between">
-              <td class="font-medium">Mes con mayor gasto</td>
+              <tr class="text-center text-base">
+              <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Mes con mayor gasto</td>
               <td>${arrayDateSpeReports}</td>
-              <td class = "text-red-600">-$${arrayDateSpendingFilteredAmount}</td>
+              <td class = "text-lg text-red-600">-$${arrayDateSpendingFilteredAmount}</td>
           
             </tr>  
       
