@@ -39,6 +39,7 @@ navBalance.addEventListener("click", () => {
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
   reports.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
 });
 
 navCategories.addEventListener("click", () => {
@@ -47,7 +48,7 @@ navCategories.addEventListener("click", () => {
   reports.classList.add("hidden");
   addNewOperation.classList.add("hidden");
   containerImage.classList.add("hidden");
-  CategoriesGenerateTable();
+  $containerCategories.classList.add("hidden");
 });
 
 navReports.addEventListener("click", () => {
@@ -56,6 +57,7 @@ navReports.addEventListener("click", () => {
   balance.classList.add("hidden");
   categories.classList.add("hidden");
   addNewOperation.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
 });
 
 //****************************** FUNCIONES PARA LOCAL STORAGE **********************************/
@@ -127,14 +129,19 @@ const generateTable = (filteredOperations) => {
     return `
             <tr class="text-center text-base"> 
                 <td class="collapse md:visible">${description}</td>
-                <td>${category}</td>
-                <td class="collapse md:visible">${reverseDate(calendar)}</td>
-                <td class="text-lg text-right text-${textClass} font-bold">${symbol}${amount}</td>
+                <td class=" category">
+                <span class="items-center mr-16 md:mr-0 bg-[#e1bee7] text-[#ba68c8] rounded">${category}</span>
+                </td>
+                <td class="calendar">${reverseDate(calendar)}</td>
+                <td class=" amount text-lg text-${textClass} font-bold">${symbol}${amount}</td>
                 
                 <td>
                 <span class="flex justify-center p-2">
-                 <button class="m-2  rounded hover:bg-indigo-400" id="btnEditTableElement" onclick="operationEdit('${id}')">editar</button>
-                 <button  class=" m-2 rounded hover:bg-indigo-400" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')">eliminar</button>
+                
+                <i class="fa-solid fa-pen m-3 mr-2 text-[#ba68c8] text-lg hover:text-green-600" id="btnEditTableElement" onclick="operationEdit('${id}')"></i>
+                 
+                 
+                <i class=" fa-solid fa-trash-can m-3 mr-8 text-[#ba68c8] text-lg hover:text-red-600" id="btnDeleteTableElement" data-id='${id}' onclick="operationDelet('${id}')"></i>
                 </span> 
                 <td>
              
@@ -354,6 +361,8 @@ $btnPlusOperation.addEventListener("click", () => {
   containerImage.classList.add("hidden");
   addNewOperation.classList.remove("hidden");
   $formEDit.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
+
   calendar.value = getToday();
   cleanNewOperation();
   CategoriesGenerateNewOperation("#newOperationCategories");
@@ -396,6 +405,7 @@ const onLoadOperations = () => {
 ////////////////////////////////////// BLOQUE FUNCIONES BASE CATEGORIAS //////////////////////////////////////////
 
 const $containerCategories = $("#containerCategories");
+const $editCategories = $("#editCategories");
 const $categories = $("#categories");
 const $btnEditCategories = $("#btnEditCategories");
 const CATEGORIES_BASE = [
@@ -435,12 +445,11 @@ const CategoriesGenerateTable = () => {
     return ` 
                 <tr class="text-center">
                      <td class="text-white lg:pl-16 text-start ">
-                       <span class="tag bg-[#e1bee7] text-[#ba68c8]">${name}</span>
+                       <span class="bg-[#e1bee7] text-[#ba68c8] rounded">${name}</span>
                      </td>
                      <td class="flex justify-center p-2"> 
-                        <button class=" m-2 rounded hover:bg-[#ba68c8] hover:text-white " id="editCategories" onclick="categoryEdit('${id}')">Editar</button>
-                     
-                        <button class="  m-2  rounded hover:bg-[#ba68c8] hover:text-white " id="btnCancelCategories" onclick="categoryDelet('${id}')">Eliminar</button>
+                       <i class="fa-solid fa-pen m-3 text-[#ba68c8] text-lg hover:text-green-600" id="editCategories" onclick="categoryEdit('${id}')"></i>
+                       <i class="fa-solid fa-trash-can m-3 text-[#ba68c8] text-lg hover:text-red-600" id="btnCancelCategories" onclick="categoryDelet('${id}')"></i>
                      </td>
                   </tr> 
                   
@@ -1074,12 +1083,12 @@ $("#crussMobile").addEventListener("click", () => {
 $mobileBalance.addEventListener("click", () => {
   balance.classList.remove("hidden");
   containerImage.classList.remove("hidden");
-
   addNewOperation.classList.add("hidden");
   $formEDit.classList.add("hidden");
   categories.classList.add("hidden");
   $containerCategories.classList.add("hidden");
   reports.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
 });
 
 $mobileCategory.addEventListener("click", () => {
@@ -1088,13 +1097,14 @@ $mobileCategory.addEventListener("click", () => {
   reports.classList.add("hidden");
   imageReports.classList.add("hidden");
   categories.classList.remove("hidden");
-  $categoriesTable.classList.remove("hidden");
+  $containerCategories.classList.add("hidden");
 });
 
 $mobileReports.addEventListener("click", () => {
   balance.classList.add("hidden");
   containerImage.classList.add("hidden");
   categories.classList.add("hidden");
+  $containerCategories.classList.add("hidden");
   reports.classList.remove("hidden");
 });
 
@@ -1118,6 +1128,7 @@ window.addEventListener("load", () => {
   spendingBalance();
   totalBalance();
   generatorID();
+  CategoriesGenerateTable();
   CategoriesGenerateFilter();
 });
 
