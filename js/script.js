@@ -1066,35 +1066,34 @@ const generateReportsTable = () => {
               <tr class="text-center text-base">
                   <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor ganancia</td>
                   <td>${arrayEarningsReports}</td>
-                  <td class= " text-green-600" >+$${arrayEarningsAmountReport}</td>
-                 
+                  <td class="  text-lg text-green-600" >+$${arrayEarningsAmountReport}</td>
               </tr>         
       
               <tr class="text-center text-base">
                   <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor gasto</td>
                   <td>${arraySpendingReports}</td>
-                  <td class = "text-red-600">-$${arraySpendingsAmountReport}</td>
+                  <td class="  text-lg text-red-600">-$${arraySpendingsAmountReport}</td>
                  
               </tr>       
               
               <tr class="text-center text-base">
                 <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Categoria con mayor balance</td>
                 <td>${arrayBalanceReports}</td>
-                <td class = "text-red-600">-$${arrayBalanceFilteredAmount}</td>
+                <td class="  text-lg text-red-600">-$${arrayBalanceFilteredAmount}</td>
                  
               </tr>  
               
               <tr class="text-center text-base">
                 <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Mes con mayor ganancia</td>
                 <td>${arrayDateReports}</td>
-                <td class = "text-red-600">-$${arrayDateFilteredAmount}</td>
+                <td class=" text-lg text-red-600">-$${arrayDateFilteredAmount}</td>
             
               </tr>   
 
               <tr class="text-center text-base">
               <td class="items-center mr-16 md:mr-0 bg-[#f3e5f5] text-[#ba68c8] rounded">Mes con mayor gasto</td>
               <td>${arrayDateSpeReports}</td>
-              <td class = "text-red-600">-$${arrayDateSpendingFilteredAmount}</td>
+              <td class=" text-lg text-red-600">-$${arrayDateSpendingFilteredAmount}</td>
           
             </tr>  
       
