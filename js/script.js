@@ -991,7 +991,7 @@ const biggerDateSpendingAmount = () => {
  const arrayDateSpendingFilteredAmount = biggerDateSpendingAmount()
 
 
-//******************************* TABLA RESUMEN **************************************
+            //******************************* TABLA RESUMEN **************************************
 
 const generateReportsTable = () => {
   $("#tableSummaryReports").innerHTML += `
@@ -1038,14 +1038,14 @@ const generateReportsTable = () => {
   `
 }
 
-//****************************** TOTALES POR CATEGORIA *******************/
+               //****************************** TOTALES POR CATEGORIA *******************/
 const operations2 = getDataFromLocalStorage(LS_KEYS.operations);
 
-const filterSpendingAndGain = Object.values(operations2.reduce((acc, operation) => {
+const filteredCategoryReports = Object.values(operations2.reduce((acc, operation) => {
   acc[operation.category] = acc[operation.category] || { 
     Category: operation.category,
     Spending: 0,
-    Gain: 0,
+    Earning: 0,
     Balance: 0
 
   };
@@ -1053,31 +1053,86 @@ const filterSpendingAndGain = Object.values(operations2.reduce((acc, operation) 
       acc[operation.category].Spending += parseInt(operation.amount)
     
     } else {
-      acc[operation.category].Gain += parseInt(operation.amount)
+      acc[operation.category].Earning += parseInt(operation.amount)
 
     }
- acc[operation.category].Balance = acc[operation.category].Gain - acc[operation.category].Spending
+ acc[operation.category].Balance = acc[operation.category].Earning - acc[operation.category].Spending
   return acc; 
 })
 );
 
-console.log(filterSpendingAndGain)
+console.log(filteredCategoryReports)
+
+
+// ****************************** EXTRAIGO INFO DEL REDUCE **********************************
+// ganacias
+let reportsCategoryearnings = ""
+for (const operation of filteredCategoryReports) {
+  reportsCategoryearnings = operation.Earning
+}
+
+console.log(">>>>>>>>>>>>>>>>> reportsCategoryearnings",reportsCategoryearnings)
+
+// gastos
+let reportsCategoryeSpendings = ""
+   for (const operation of filteredCategoryReports) {
+    reportsCategoryeSpendings = operation.Spending
+  }
+
+  console.log(">>>>>>>>>>>>>>>>> reportsCategoryeSpendings",reportsCategoryeSpendings)
+
+  // balance  
+  let reportsCategoryeBalance = ""
+   for (const operation of filteredCategoryReports) {
+    reportsCategoryeBalance = operation.Balance
+  }
+
+  console.log(">>>>>>>>>>>>>>>>> reportsCategoryeBalance",reportsCategoryeBalance)
+
+  //nombre
+let reportsCategoryName = ""
+   for (const operation of filteredCategoryReports) {
+    reportsCategoryName = operation.Category
+  }
+
+  console.log(">>>>>>>>>>>>>>>>> reportsCategoryName",reportsCategoryName)
 
 
 
           // ********************  TABLA TOTALES POR CATEGORIA  ******************************
+          const generateSummaryTable = () => {
+
+            for (const operation of filteredCategoryReports){
+              reportsCategoryearnings = operation.Earning
+              reportsCategoryeSpendings = operation.Spending
+              reportsCategoryeBalance = operation.Balance
+
+          $("#categoryTableReports").innerHTML += `
+          <div class="overflow-auto">
+            <table class="sm:w-full text-slate-800">
+              <thead>
+                <tr class="flex justify-between">
+                  <th class="font-medium">Categoria</th>
+                  <td>${reportsCategoryName}</td>
+                  <th class="ml-10 sm:ml-0 font-medium">Ganancias</th>
+                  <td class= " text-green-600" >+$${reportsCategoryearnings}</td>
+                  <th class="ml-10 sm:ml-0 font-medium">Gastos</th>
+                  <td class= " text-green-600" >+$${reportsCategoryeSpendings}</td>
+                  <th class="ml-10 sm:ml-0 font-medium">Balance</th>
+                  <td>${reportsCategoryeBalance}</td>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          `
+
+            } 
+          }
 
 
 
-  
 
 
-
-
-
-
-
-          
 //  ****************************** TOTALES POR MES *******************/
 
 
