@@ -481,9 +481,9 @@
     <!-- section reports  -->
     <div class="hidden flex justify-center pt-16" id="reports">
       <section
-        class="bg-white p-12 rounded drop-shadow-2xl shadow-gray-400 2xl:w-2/4 xl:w-[700px] lg:w-[600px] w-4/5 lg:ml-6 ml-0 lg:mt-0 mt-6 p-5 h-fit"
+        class="bg-white p-12 rounded drop-shadow-2xl border-2 border-[#ba68c8] shadow-gray-400 2xl:w-2/4 xl:w-[700px] lg:w-[600px] w-4/5 lg:ml-6 ml-0 lg:mt-0 mt-6 p-5 h-fit"
       >
-        <h2 class="lg:text-4xl text-3xl font-semibold">Reportes</h2>
+        <h2 class="pb-8 lg:text-4xl text-3xl font-semibold">Reportes</h2>
 
         <!-- section reports img -->
         <div class="imageReportes" id="imageReports">
@@ -503,76 +503,68 @@
         </div>
         <!-- section teble reports -->
         <div class="mp:max-h-[50rem] mb:p-12 overflow-auto" id="tableReports">
-          <section class="mb-7">
+          <div class="w-full">
             <h3
-              class="mb-7 text-2xl font-semibold underline underline-offset-4 decoration-[#ba68c8]"
+              class="pt-8 text-2xl font-semibold underline underline-offset-4 decoration-[#ba68c8]"
             >
               Resumen
             </h3>
-            <table class="sm:w-full text-slate-800">
-              <thead>
-                <tr class="flex justify-between">
-                  <th class="font-medium">Categoría con mayor ganancia</th>
-                  <th class="ml-10 sm:ml-0 font-medium">
-                    Categoría con mayor gasto
-                  </th>
-                  <th class="ml-10 sm:ml-0 font-medium">
-                    Categoría con mayor balance
-                  </th>
-                  <th class="ml-10 sm:ml-0 font-medium">
-                    Mes con mayor ganancia
-                  </th>
-                  <th class="ml-10 sm:ml-0 font-medium">Mes con mayor gasto</th>
+            <table class="w-full border-separate pt-10">
+              <thead class="text-lg font-light">
+                <tr>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
-              <tbody id="tableSummaryReports"></tbody>
+              <tbody
+                id="tableSummaryReports flex flex-col justify-center items-center"
+              ></tbody>
             </table>
-          </section>
 
-          <section class="mb-7">
+            <div><p>Categoría con mayor ganancia</p></div>
+            <div><p>Categoría con mayor gasto</p></div>
+            <div><p>Categoria con mayor balance</p></div>
+            <div><p>Mes con mayor ganancia</p></div>
+            <div><p>Mes con mayor gasto</p></div>
+          </div>
+
+          <div class="w-full">
             <h3
-              class="mb-7 text-2xl font-semibold underline underline-offset-4 decoration-[#ba68c8]"
+              class="pt-8 text-2xl font-semibold underline underline-offset-4 decoration-[#ba68c8]"
             >
               Totales por categorías
             </h3>
-            <div class="overflow-auto">
-              <table class="sm:w-full text-slate-800">
-                <thead>
-                  <tr class="flex justify-between">
-                    <th class="font-medium">Categoria</th>
-                    <th class="ml-10 sm:ml-0 font-medium">Ganancias</th>
-                    <th class="ml-10 sm:ml-0 font-medium">Gastos</th>
-                    <th class="ml-10 sm:ml-0 font-medium">Balance</th>
-                  </tr>
-                </thead>
-                <tbody
-                  class="categoryTableReports"
-                  id="categoryTableReports"
-                ></tbody>
-              </table>
-            </div>
-          </section>
+            <table class="w-full border-separate pt-10">
+              <thead class="text-lg font-light">
+                <tr>
+                  <th>Categoria</th>
+                  <th>Ganancias</th>
+                  <th>Gastos</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-800" id="categoryTableReports"></tbody>
+            </table>
+          </div>
 
-          <section>
+          <div class="w-full">
             <h3
-              class="mb-7 text-2xl font-semibold underline underline-offset-4 decoration-[#ba68c8]"
+              class="pt-8 text-2xl font-semibold underline underline-offset-4 decoration-[#ba68c8]"
             >
               Totales por mes
             </h3>
-            <div class="overflow-auto">
-              <table class="sm:w-full text-slate-800">
-                <thead>
-                  <tr class="flex justify-between">
-                    <th class="font-medium">Mes</th>
-                    <th class="ml-20 sm:ml-10 font-medium">Ganancias</th>
-                    <th class="ml-10 sm:ml-0 font-medium">Gastos</th>
-                    <th class="ml-10 sm:ml-0 font-medium">Balance</th>
-                  </tr>
-                </thead>
-                <tbody class="tableMonthReports" id="tableMonthReports"></tbody>
-              </table>
-            </div>
-          </section>
+            <table class="w-full border-separate pt-10">
+              <thead class="text-lg font-light">
+                <tr>
+                  <th>Mes</th>
+                  <th>Ganancias</th>
+                  <th>Gastos</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-800" id="tableMonthReports"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </div>
