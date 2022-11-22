@@ -1,0 +1,39 @@
+/* Mobile media query  teble operations*/
+@media only screen and (min-width: 640px) and (max-width: 990px) {
+  .textOperations {
+    padding: 18px;
+  }
+  .descritionsTable {
+    display: none;
+  }
+  .tableOperations {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .category {
+    text-align: left;
+  }
+  .calendar {
+    display: none;
+  }
+  .amount {
+    margin: 28px;
+    padding-top: 20px;
+    position: absolute;
+    left: 20px;
+  }
+}
+
+/* Mobile media query  table operations*/
+@media only screen and (max-width: 640px) {
+  .tableReports {
+    display: flex;
+    flex-direction: column;
+  }
+  .textReports {
+    position: absolute;
+    top: 1px;
+  }
+}
