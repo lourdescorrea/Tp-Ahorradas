@@ -25,3 +25,64 @@
     left: 20px;
   }
 }
+
+@media only screen and (max-width: 640px) {
+  .textReports {
+    display: flex;
+  }
+  .container {
+    padding: 8px;
+  }
+  .tableReports {
+    display: flex;
+    flex-direction: column;
+  }
+  .summary {
+    margin-bottom: 12px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .containerGenerate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .textCategory {
+    display: none;
+  }
+  .tableCategory {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .gain {
+    padding: 8px;
+  }
+  .spending {
+    padding: 8px;
+  }
+  .balance {
+    padding: 8px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .textMounth {
+    display: none;
+  }
+  .containerDate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gainReports {
+    padding: 8px;
+  }
+  .spendingReports {
+    padding: 8px;
+  }
+  .balanceReports {
+    padding: 8px;
+  }
+}
